@@ -1,0 +1,124 @@
+{
+  "template": {
+    "prefix": "templ",
+    "body": ["template <typename ${1:T}>"],
+    "description": "Code snippet for template"
+  },
+  "for": {
+    "prefix": "for",
+    "body": [
+      "for (${1:size_t} ${2:i} = ${3:0}; $2 < ${4:length}; ++$2) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Code snippet for 'for' loop"
+  },
+  "forr": {
+    "prefix": "forr",
+    "body": [
+      "for (${1:size_t} ${2:i} = ${3:length} - 1; $2 >= ${4:0}; --$2) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Code snippet for reverse 'for' loop"
+  },
+  "do": {
+    "prefix": "do",
+    "body": ["do", "{", "\t$1", "} while($2);"],
+    "description": "Code snippet for do...while loop"
+  },
+  "while": {
+    "prefix": "while",
+    "body": ["while ($1)", "{", "\t$2", "}"],
+    "description": ""
+  },
+  "foreach": {
+    "prefix": "foreach",
+    "body": ["for(const ${1:auto}& ${2:var} : ${3:collection_to_loop})", "{", "\t$0", "}"],
+    "description": "Code snippet for range-based for loop (c++11) statement"
+  },
+  "if": {
+    "prefix": "if",
+    "body": ["if($1)", "{", "\t$0", "}"],
+    "description": "Code snippet for if statement"
+  },
+  "else": {
+    "prefix": "else",
+    "body": ["else", "{", "\t$0", "}"],
+    "description": "Code snippet for else statement"
+  },
+  "else if": {
+    "prefix": "else if",
+    "body": ["else if($1)", "{", "\t$0", "}"],
+    "description": "Code snippet for else-if statement"
+  },
+  "enum": {
+    "prefix": "enum",
+    "body": ["enum ${1:MyEnum} {", "\t$0", "};"],
+    "description": "Code snippet for enum"
+  },
+  "enum class": {
+    "prefix": "enum class",
+    "body": ["enum class ${1:MyClass} {$0};"],
+    "description": "Code snippet for enum class (c++11)"
+  },
+  "class": {
+    "prefix": "class",
+    "body": [
+      "class ${1:MyClass}",
+      "{",
+      "public:",
+      "\t$1() = default;",
+      "\t$1(const $1&) = default;",
+      "\t$1($1&&) = default;",
+      "\t$1 &operator=(const $1&) = default;",
+      "\t$1 &operator=($1&&) = default;",
+      "\t~$1() = default;",
+      "",
+      "private:",
+      "\t$2",
+      "};"
+    ],
+    "description": "Code snippet for class with inline constructor/destructor"
+  },
+  "namespace": {
+    "prefix": "namespace",
+    "body": ["namespace ${1:MyNamespace}", "{", "\t$0", "}"]
+  },
+  "struct": {
+    "prefix": "struct",
+    "body": ["struct ${1:MyStruct}", "{", "\t$0", "};"],
+    "description": "Code snippet for struct"
+  },
+  "switch": {
+    "prefix": "switch",
+    "body": ["switch (${1:switch_on}) {", "\tdefault:", "\t\t$0", "}"],
+    "description": "Code snippet for switch statement"
+  },
+  "cout": {
+    "prefix": "cout",
+    "body": ["std::cout << ${1:message} << std::endl;"],
+    "description": "Code snippet for printing to std::cout, provided the header is set"
+  },
+  "#inc": {
+    "prefix": "#inc",
+    "body": ["#include \"$0\""],
+    "description": "Code snippet for #include \" \""
+  },
+  "#inc<": {
+    "prefix": "#inc<",
+    "body": ["#include <$0>"],
+    "description": "Code snippet for #include < >"
+  },
+  "Main function template": {
+    "prefix": "main",
+    "body": [
+      "int main (int argc, char *argv[])",
+      "{",
+      "\t$1",
+      "\treturn 0;",
+      "}"
+    ],
+    "description": "A standard main function for a C++ program"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "lukes-snippets",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": "cpp",
+        "path": "./cpp.json"
+      },
+      {
+        "language": "tex",
+        "path": "./latex.json"
+      },
+      {
+        "language": "plaintex",
+        "path": "./latex.json"
+      }
+    ]
+  }
+}
