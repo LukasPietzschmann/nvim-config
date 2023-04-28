@@ -16,6 +16,10 @@
       {
         "language": "plaintex",
         "path": "./latex.json"
+      },
+      {
+        "language": "java",
+        "path": "./java.json"
       }
     ]
   }
