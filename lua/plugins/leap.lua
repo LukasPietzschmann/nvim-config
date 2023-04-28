@@ -8,7 +8,7 @@ return {
 			leap.opts.safe_labels = {}
 			leap.opts.case_sensitive = false
 			leap.opts.equivalence_classes = { ' \t\r\n' }
-			leap.opts.labels = { 'w', 'a', 's', 'e', 'd', 'j', 'k', 'l' }
+			-- leap.opts.labels = { 'w', 'a', 's', 'e', 'd', 'j', 'k', 'l' }
 		end,
 	},
 	{
