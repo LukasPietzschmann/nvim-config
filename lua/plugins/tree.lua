@@ -11,7 +11,7 @@ return {
 		enable_opened_markers = true,
 		enable_refresh_on_write = true,
 		use_default_mappings = false,
-		popup_border_style = 'NC',
+		popup_border_style = 'rounded',
 		sources = {
 			'filesystem',
 			'document_symbols',
@@ -79,6 +79,7 @@ return {
 				['d'] = 'delete',
 				['r'] = 'rename',
 				['m'] = 'move',
+				['n'] = 'add',
 				['R'] = 'refresh',
 				['?'] = 'show_help',
 				['<'] = 'prev_source',
