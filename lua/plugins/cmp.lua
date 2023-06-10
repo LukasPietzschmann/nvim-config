@@ -92,7 +92,7 @@ return {
 				},
 			},
 			experimental = {
-				ghost_text = true,
+				ghost_text = { enabled = true },
 			},
 		}
 	end,
