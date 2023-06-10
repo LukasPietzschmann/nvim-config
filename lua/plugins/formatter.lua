@@ -66,6 +66,9 @@ return {
 				python = {
 					require('formatter.filetypes.python').black,
 				},
+				tex = {
+					require('formatter.filetypes.latex').latexindent,
+				},
 				javascript = { prettier },
 				javascriptreact = { prettier },
 				typescript = { prettier },
