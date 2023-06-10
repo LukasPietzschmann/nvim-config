@@ -77,7 +77,7 @@ return {
 			}),
 			formatting = {
 				format = lspkind.cmp_format {
-					before = function(entry, vim_item)
+					before = function(_, vim_item)
 						vim_item.abbr = string.sub(vim_item.abbr, 1, 35)
 						return vim_item
 					end,

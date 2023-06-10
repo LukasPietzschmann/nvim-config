@@ -42,16 +42,6 @@ return {
 				},
 			}
 			-- Don't use Mason for hls
-			lspconfig.hls.setup {
-				capabilities = capabilities,
-				on_attach = on_attach,
-				settings = {
-					haskell = {
-						formattingProvider = 'fourmolu',
-						plugin = { rename = { config = { crossModule = true } } },
-					},
-				},
-			}
 			lspconfig.texlab.setup {
 				capabilities = capabilities,
 				on_attach = on_attach,
