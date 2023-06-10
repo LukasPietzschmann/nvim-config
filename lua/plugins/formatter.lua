@@ -39,6 +39,7 @@ end
 return {
 	'mhartington/formatter.nvim',
 	cmd = { 'Format', 'FormatWrite' },
+	keys = { { '<A-f>', '<cmd>Format<CR>' } },
 	opts = function()
 		local util = require 'formatter.util'
 		local any_ft = require 'formatter.filetypes.any'

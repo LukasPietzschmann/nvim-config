@@ -1,6 +1,7 @@
 return {
 	'nvim-neo-tree/neo-tree.nvim',
 	cmd = 'Neotree',
+	keys = { { '<C-S-o>', '<cmd>Neotree toggle<CR>' } },
 	opts = {
 		auto_clean_after_session_restore = true,
 		close_floats_on_escape_key = true,

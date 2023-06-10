@@ -2,6 +2,16 @@ return {
 	{
 		'nvim-telescope/telescope.nvim',
 		cmd = 'Telescope',
+		keys = {
+			{ '<C-p>', function() require('telescope.builtin').find_files() end },
+			{ '<C-f>', function() require('telescope.builtin').live_grep() end },
+			{ '<C-k>', function() require('telescope.builtin').lsp_document_symbols() end },
+			{ '<C-S-k>', function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end },
+			{ 'gr', function() require('telescope.builtin').lsp_references() end },
+			{ 'gd', function() require('telescope.builtin').lsp_definitions() end },
+			{ 'gi', function() require('telescope.builtin').lsp_implementations() end },
+			{ '<C-d>', function() require('telescope.builtin').diagnostics() end },
+		},
 		opts = function()
 			return {
 				defaults = {
@@ -54,6 +64,7 @@ return {
 	},
 	{
 		'LukasPietzschmann/telescope-sessions',
+		keys = { {'<A-o>', function() require('telescope-sessions').search_sessions() end} },
 		dev = true,
 		config = function()
 			require('telescope').load_extension 'telescope-sessions'
@@ -62,11 +73,15 @@ return {
 	},
 	{
 		'LukasPietzschmann/telescope-tabs',
+		keys = {
+			{ '<A-k>', function() require('telescope-tabs').list_tabs() end },
+			{ '<C-s>b', function() require('telescope-tabs').go_to_previous() end },
+		},
 		dev = true,
 		config = function()
 			require('telescope').load_extension 'telescope-tabs'
 			require('telescope-tabs').setup {
-				entry_formatter = function(tab_id, buffer_ids, file_names, file_paths, is_current)
+				entry_formatter = function(tab_id, _, _, file_paths, is_current)
 					local entry_string = table.concat(
 						vim.tbl_map(function(v)
 							return v:gsub(vim.fn.getcwd() .. '/', './')
