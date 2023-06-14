@@ -1,18 +1,18 @@
 {
   "frame": {
     "prefix": "frame",
-    "body": ["\\begin{frame}{${1:Title}}", "\\end{frame}"],
+    "body": ["\\begin{frame}", "\t\\frametitle{${1:Title}}", "\t$0", "\\end{frame}"],
     "description": "Code snippet for slides"
   },
   "columns": {
     "prefix": "columns",
     "body": [
-      "\\begin{columns}[t]",
-      "\t\\begin{column}{0.45\\textwidth}",
-      "\t\t$0",
-      "\t\\end{column}",
+      "\\begin{columns}[c]",
       "\t\\begin{column}{0.45\\textwidth}",
       "\t\t$1",
+      "\t\\end{column}",
+      "\t\\begin{column}{0.45\\textwidth}",
+      "\t\t$2",
       "\t\\end{column}",
       "\\end{columns}"
     ],
