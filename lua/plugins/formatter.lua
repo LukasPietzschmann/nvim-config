@@ -69,6 +69,9 @@ return {
 				tex = {
 					require('formatter.filetypes.latex').latexindent,
 				},
+				plaintex = {
+					require('formatter.filetypes.latex').latexindent,
+				},
 				javascript = { prettier },
 				javascriptreact = { prettier },
 				typescript = { prettier },
