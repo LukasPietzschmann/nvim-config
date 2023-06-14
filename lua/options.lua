@@ -48,6 +48,11 @@ vim.api.nvim_set_option_value(
 	{}
 )
 
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
+
 vim.api.nvim_set_hl(0, 'IlluminatedWordText', { bold = true })
 vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { bold = true })
 vim.api.nvim_set_hl(0, 'IlluminatedWordWrite', { bold = true })
