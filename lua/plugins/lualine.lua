@@ -28,7 +28,7 @@ local function attached_servers()
 	return '[' .. table.concat(names, ' ') .. ']'
 end
 
-local colors = {
+local colors_dark = {
 	black = '#282828',
 	white = '#ebdbb2',
 	red = '#bd5752',
@@ -41,38 +41,62 @@ local colors = {
 	inactivegray = '#7c6f64',
 }
 
-local my_theme = {
-	normal = {
-		a = { bg = colors.gray, fg = colors.black, gui = 'bold' },
-		b = { bg = colors.lightgray, fg = colors.white },
-		c = { bg = colors.darkgray, fg = colors.gray },
-	},
-	insert = {
-		a = { bg = colors.blue, fg = colors.black, gui = 'bold' },
-		b = { bg = colors.lightgray, fg = colors.white },
-		c = { bg = colors.darkgray, fg = colors.gray },
-	},
-	visual = {
-		a = { bg = colors.yellow, fg = colors.black, gui = 'bold' },
-		b = { bg = colors.lightgray, fg = colors.white },
-		c = { bg = colors.darkgray, fg = colors.gray },
-	},
-	replace = {
-		a = { bg = colors.red, fg = colors.black, gui = 'bold' },
-		b = { bg = colors.lightgray, fg = colors.white },
-		c = { bg = colors.darkgray, fg = colors.gray },
-	},
-	command = {
-		a = { bg = colors.green, fg = colors.black, gui = 'bold' },
-		b = { bg = colors.lightgray, fg = colors.white },
-		c = { bg = colors.darkgray, fg = colors.gray },
-	},
-	inactive = {
-		a = { bg = colors.darkgray, fg = colors.gray, gui = 'bold' },
-		b = { bg = colors.darkgray, fg = colors.gray },
-		c = { bg = colors.darkgray, fg = colors.gray },
-	},
+local colors_light = {
+	black = '#3c3836',
+	white = '#f9f5d7',
+	red = '#af3a03',
+	blue = '#076678',
+	green = '#427b58',
+	yellow = '#e5a50a',
+	gray = '#d5c4a1',
+	darkgray = '#7c6f64',
+	lightgray = '#ebdbb2',
+	inactivegray = '#a89984',
 }
+
+local background = vim.opt.background:get()
+local get_theme = function(colors)
+	return {
+		normal = {
+			a = { bg = colors.gray, fg = colors.black, gui = 'bold' },
+			b = { bg = colors.lightgray, fg = colors.white },
+			c = { bg = colors.darkgray, fg = colors.gray },
+		},
+		insert = {
+			a = { bg = colors.blue, fg = colors.black, gui = 'bold' },
+			b = { bg = colors.lightgray, fg = colors.white },
+			c = { bg = colors.darkgray, fg = colors.gray },
+		},
+		visual = {
+			a = { bg = colors.yellow, fg = colors.black, gui = 'bold' },
+			b = { bg = colors.lightgray, fg = colors.white },
+			c = { bg = colors.darkgray, fg = colors.gray },
+		},
+		replace = {
+			a = { bg = colors.red, fg = colors.black, gui = 'bold' },
+			b = { bg = colors.lightgray, fg = colors.white },
+			c = { bg = colors.darkgray, fg = colors.gray },
+		},
+		command = {
+			a = { bg = colors.green, fg = colors.black, gui = 'bold' },
+			b = { bg = colors.lightgray, fg = colors.white },
+			c = { bg = colors.darkgray, fg = colors.gray },
+		},
+		inactive = {
+			a = { bg = colors.darkgray, fg = colors.gray, gui = 'bold' },
+			b = { bg = colors.darkgray, fg = colors.gray },
+			c = { bg = colors.darkgray, fg = colors.gray },
+		},
+	}
+end
+
+local ternary = function(cond, T, F)
+	if cond then
+		return T
+	else
+		return F
+	end
+end
 
 return {
 	'nvim-lualine/lualine.nvim',
@@ -81,7 +105,7 @@ return {
 		local navic = require 'nvim-navic'
 		return {
 			options = {
-				theme = my_theme,
+				theme = get_theme(ternary(vim.api.nvim_get_option('background') == 'light', colors_light, colors_dark)),
 				component_separators = '|',
 				section_separators = { left = '', right = '' },
 			},
