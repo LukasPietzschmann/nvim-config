@@ -107,10 +107,10 @@ return {
 			options = {
 				theme = get_theme(ternary(vim.api.nvim_get_option('background') == 'light', colors_light, colors_dark)),
 				component_separators = '|',
-				section_separators = { left = '', right = '' },
+				section_separators = { left = '', right = '' },
 			},
 			sections = {
-				lualine_a = { { 'mode', lowercase = false } },
+				lualine_a = { { 'mode', lowercase = false, separator = { right = '' } } },
 				lualine_b = { 'branch', { 'diff', colored = false } },
 				lualine_c = {
 					{

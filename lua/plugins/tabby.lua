@@ -69,16 +69,16 @@ return {
 			return {
 				{
 					{ ' 😻 ', hl = theme.head },
-					line.sep('', theme.head, theme.fill),
+					line.sep(' ', theme.head, theme.fill),
 				},
 				line.tabs().foreach(function(tab)
 					local hl = tab.is_current() and theme.current_tab or theme.tab
 					return {
-						line.sep('', hl, theme.fill),
+						line.sep('', hl, theme.fill),
 						change_mark(tab),
 						tab_name(tab),
 						window_count(tab),
-						line.sep('', hl, theme.fill),
+						line.sep(' ', hl, theme.fill),
 						hl = hl,
 						margin = ' ',
 					}
