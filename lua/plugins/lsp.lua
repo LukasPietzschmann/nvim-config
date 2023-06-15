@@ -9,7 +9,6 @@ local on_attach = function(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
 		require('nvim-navic').attach(client, bufnr)
 	end
-	require('virtualtypes').on_attach(client, bufnr)
 	vim.keymap.set('n', '<C-r>', vim.lsp.buf.rename, bufopts)
 	vim.keymap.set('n', '<M-CR>', vim.lsp.buf.code_action, bufopts)
 end
@@ -115,7 +114,6 @@ return {
 		dependencies = {
 			'Maan2003/lsp_lines.nvim',
 			'SmiteshP/nvim-navic',
-			'jubnzv/virtual-types.nvim',
 			'hrsh7th/cmp-nvim-lsp',
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
