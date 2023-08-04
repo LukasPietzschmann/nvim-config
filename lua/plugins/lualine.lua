@@ -44,17 +44,16 @@ local colors_dark = {
 local colors_light = {
 	black = '#3c3836',
 	white = '#f9f5d7',
-	red = '#af3a03',
-	blue = '#076678',
+	red = '#bd5752',
+	blue = '#62a0ea',
 	green = '#427b58',
 	yellow = '#e5a50a',
-	gray = '#d5c4a1',
-	darkgray = '#7c6f64',
-	lightgray = '#ebdbb2',
+	gray = '#a89984',
+	lightgray = '#7c6f64',
+	darkgray = '#ebdbb2',
 	inactivegray = '#a89984',
 }
 
-local background = vim.opt.background:get()
 local get_theme = function(colors)
 	return {
 		normal = {
@@ -103,14 +102,15 @@ return {
 	event = 'VeryLazy',
 	opts = function()
 		local navic = require 'nvim-navic'
+		local theme = get_theme(ternary(vim.api.nvim_get_option 'background' == 'light', colors_light, colors_dark))
 		return {
 			options = {
-				theme = get_theme(ternary(vim.api.nvim_get_option('background') == 'light', colors_light, colors_dark)),
+				theme = theme,
 				component_separators = '|',
 				section_separators = { left = '', right = '' },
 			},
 			sections = {
-				lualine_a = { { 'mode', lowercase = false, separator = { right = '' } } },
+				lualine_a = { { 'mode', lowercase = false } },
 				lualine_b = { 'branch', { 'diff', colored = false } },
 				lualine_c = {
 					{
@@ -137,6 +137,6 @@ return {
 	end,
 	dependencies = {
 		'nvim-tree/nvim-web-devicons',
-		'SmiteshP/nvim-navic'
+		'SmiteshP/nvim-navic',
 	},
 }
