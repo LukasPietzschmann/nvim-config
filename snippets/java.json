@@ -14,6 +14,11 @@
     "body": ["System.out.println($0);"],
     "description": "Print to standard out"
   },
+  "sysouf": {
+    "prefix": "sysouf",
+    "body": ["System.out.printf($1, $2);"],
+    "description": "Print to standard out"
+  },
   "syserr": {
     "prefix": "syserr",
     "body": ["System.err.println($0);"],
