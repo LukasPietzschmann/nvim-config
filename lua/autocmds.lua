@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 local ignore_filetypes = { 'neo-tree' }
-local ignore_buftypes = { 'nofile', 'prompt', 'popup' }
+local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'help', 'quickfix' }
 
 local augroup = vim.api.nvim_create_augroup('FocusDisable', { clear = true })
 vim.api.nvim_create_autocmd('WinEnter', {

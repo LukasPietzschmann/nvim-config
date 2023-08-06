@@ -11,7 +11,6 @@
   "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
   "duck.nvim": { "branch": "main", "commit": "8f18dd79c701698fc150119ef642c1881ce6a538" },
   "flit.nvim": { "branch": "main", "commit": "498b3a4864e697f1ed1145e518c4c78c776c55d8" },
-  "focus.nvim": { "branch": "master", "commit": "a994282f957840ee3419ad62a36be9d4e155560c" },
   "formatter.nvim": { "branch": "master", "commit": "9bf2e7e294b00bac87c6123c889828ee08dc9b46" },
   "gitsigns.nvim": { "branch": "main", "commit": "5d73da785a3c05fd63ac31769079db05169a6ec7" },
   "gruvbox-material": { "branch": "master", "commit": "b17daceec6ed9a5fb46e0f293f2ac666c90e5459" },
