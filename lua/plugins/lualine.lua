@@ -111,7 +111,10 @@ return {
 			},
 			sections = {
 				lualine_a = { { 'mode', lowercase = false } },
-				lualine_b = { 'branch', { 'diff', colored = false } },
+				lualine_b = {
+					{ require('auto-session.lib').current_session_name },
+					{ 'branch', { 'diff', colored = false } },
+				},
 				lualine_c = {
 					{
 						function()

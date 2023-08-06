@@ -63,15 +63,6 @@ return {
 		dependencies = { 'nvim-lua/plenary.nvim' },
 	},
 	{
-		'LukasPietzschmann/telescope-sessions',
-		keys = { {'<A-o>', function() require('telescope-sessions').search_sessions() end} },
-		dev = true,
-		config = function()
-			require('telescope').load_extension 'telescope-sessions'
-		end,
-		dependencies = { 'sessions.nvim', 'nvim-telescope/telescope.nvim' },
-	},
-	{
 		'LukasPietzschmann/telescope-tabs',
 		keys = {
 			{ '<A-k>', function() require('telescope-tabs').list_tabs() end },

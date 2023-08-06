@@ -42,11 +42,6 @@ vim.api.nvim_set_option_value('undofile', true, {})
 vim.api.nvim_set_option_value('textwidth', 88, {})
 -- vim.api.nvim_set_option_value('showcmdloc', 'statusline', {})
 vim.api.nvim_set_option_value('splitkeep', 'screen', {})
-vim.api.nvim_set_option_value(
-	'sessionoptions',
-	'blank,buffers,curdir,folds,help,tabpages,winsize,terminal,resize,winpos',
-	{}
-)
 
 vim.cmd("set title titlestring=%t")
 
