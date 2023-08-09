@@ -100,7 +100,7 @@ return {
 							'--add-opens',
 							'java.base/java.lang=ALL-UNNAMED',
 							'-jar',
-							'/home/luke/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230622-2056.jar',
+							'/home/luke/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar',
 							'-configuration',
 							'/home/luke/.local/share/nvim/mason/packages/jdtls/config_linux',
 							'-data',
