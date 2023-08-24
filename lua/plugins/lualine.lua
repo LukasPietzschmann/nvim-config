@@ -34,27 +34,25 @@ local function attached_linters()
 	end
 
 	local linters = require('lint').linters_by_ft[vim.bo.filetype]
-	if linters ~= nil then
-		return '󰍉 [' .. table.concat(linters, ', ') .. ']'
-	else
+	if linters == nil then
 		return ''
 	end
+	return '󰍉 [' .. table.concat(linters, ', ') .. ']'
 end
 
 local function attached_parsers()
 	local names = {}
 	local parser = require('nvim-treesitter.parsers').get_parser()
-	if parser ~= nil then
-		parser:for_each_tree(function(_, tree)
-			local lang = tree:lang()
-			if not already_contained(names, lang) then
-				table.insert(names, lang)
-			end
-		end)
-		return '󰹩 [' .. table.concat(names, ', ') ..']'
-	else
+	if parser == nil then
 		return ''
 	end
+	parser:for_each_tree(function(_, tree)
+		local lang = tree:lang()
+		if not already_contained(names, lang) then
+			table.insert(names, lang)
+		end
+	end)
+	return '󰹩 [' .. table.concat(names, ', ') .. ']'
 end
 
 local colors_dark = {
@@ -137,6 +135,11 @@ return {
 				theme = theme,
 				component_separators = '|',
 				section_separators = { left = '', right = '' },
+				refresh = {
+					statusline = 5000,
+					tabline = 5000,
+					winbar = 5000,
+				},
 			},
 			sections = {
 				lualine_a = { { 'mode', lowercase = false } },
