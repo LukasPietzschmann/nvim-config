@@ -17,7 +17,7 @@ end
 
 local function attached_servers()
 	local names = {}
-	for i, server in pairs(vim.lsp.buf_get_clients(0)) do
+	for _, server in pairs(vim.lsp.buf_get_clients(0)) do
 		if not already_contained(names, server.name) then
 			table.insert(names, server.name)
 		end
@@ -25,7 +25,32 @@ local function attached_servers()
 	if #names == 0 then
 		return ''
 	end
-	return '[' .. table.concat(names, ' ') .. ']'
+	return ' [' .. table.concat(names, ', ') .. ']'
+end
+
+local function attached_linters()
+	local linters = require('lint').linters_by_ft[vim.bo.filetype]
+	if linters ~= nil then
+		return '󰍉 [' .. table.concat(linters, ', ') .. ']'
+	else
+		return ''
+	end
+end
+
+local function attached_parsers()
+	local names = {}
+	local parser = require('nvim-treesitter.parsers').get_parser()
+	if parser ~= nil then
+		parser:for_each_tree(function(_, tree)
+			local lang = tree:lang()
+			if not already_contained(names, lang) then
+				table.insert(names, lang)
+			end
+		end)
+		return '󰹩 [' .. table.concat(names, ', ') ..']'
+	else
+		return ''
+	end
 end
 
 local colors_dark = {
@@ -131,6 +156,8 @@ return {
 						colored = false,
 						symbols = { error = 'E: ', warn = 'W: ', info = 'I: ', hint = 'H: ' },
 					},
+					attached_parsers,
+					attached_linters,
 					attached_servers,
 				},
 				lualine_y = { get_search_count },
