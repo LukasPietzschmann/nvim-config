@@ -29,6 +29,10 @@ local function attached_servers()
 end
 
 local function attached_linters()
+	if not Is_plugin_loaded 'nvim-lint' then
+		return ''
+	end
+
 	local linters = require('lint').linters_by_ft[vim.bo.filetype]
 	if linters ~= nil then
 		return '󰍉 [' .. table.concat(linters, ', ') .. ']'

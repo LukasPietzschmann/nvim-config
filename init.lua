@@ -34,6 +34,10 @@ require('lazy').setup('plugins', {
 	},
 })
 
+function Is_plugin_loaded(name)
+	return require('lazy.core.config').plugins[name]._.loaded ~= nil
+end
+
 require 'options'
 require 'keymap'
 require 'tmux'
