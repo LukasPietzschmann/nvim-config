@@ -13,6 +13,8 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', '<M-CR>', vim.lsp.buf.code_action, bufopts)
 end
 
+local required_tools = require 'required-tools'
+
 return {
 	-- Order should be:
 	-- 	1: mason
@@ -29,7 +31,6 @@ return {
 				on_attach = on_attach,
 				cmd = {
 					'clangd',
-					'--clang-tidy',
 					'--background-index',
 					'--completion-style=detailed',
 					'--function-arg-placeholders',
@@ -112,7 +113,7 @@ return {
 			})
 		end,
 		dependencies = {
-			'Maan2003/lsp_lines.nvim',
+			'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
 			'SmiteshP/nvim-navic',
 			'hrsh7th/cmp-nvim-lsp',
 			'williamboman/mason.nvim',
@@ -126,6 +127,22 @@ return {
 		cmd = { 'Mason', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog' },
 		opts = {
 			ui = { border = 'rounded' },
+		},
+		build = function(_)
+			require('mason-tool-installer').check_install(true)
+		end,
+		dependencies = { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
+	},
+	{
+		'WhoIsSethDaniel/mason-tool-installer.nvim',
+		cmd = { 'MasonToolsInstall', 'MasonToolsUpdate' },
+		opts = {
+			ensure_installed = {
+				unpack(required_tools.lsps),
+				unpack(required_tools.formatter),
+				unpack(required_tools.linter),
+			},
+			run_on_start = false,
 		},
 	},
 	{
@@ -165,7 +182,7 @@ return {
 		},
 	},
 	{
-		'Maan2003/lsp_lines.nvim',
+		'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
 		config = function()
 			require('lsp_lines').setup()
 			vim.diagnostic.config {
