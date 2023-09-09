@@ -46,5 +46,5 @@ end
 
 require 'options'
 require 'keymap'
-require 'tmux'
+-- require 'tmux'
 require 'autocmds'
