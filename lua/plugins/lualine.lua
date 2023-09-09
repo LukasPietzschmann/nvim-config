@@ -55,73 +55,39 @@ local function attached_parsers()
 	return '󰹩 [' .. table.concat(names, ', ') .. ']'
 end
 
-local colors_dark = {
-	black = '#282828',
-	white = '#ebdbb2',
-	red = '#bd5752',
-	blue = '#62a0ea',
-	green = '#89b482',
-	yellow = '#e5a50a',
-	gray = '#a89984',
-	darkgray = '#3c3836',
-	lightgray = '#504945',
-	inactivegray = '#7c6f64',
-}
-
-local colors_light = {
-	black = '#3c3836',
-	white = '#f9f5d7',
-	red = '#bd5752',
-	blue = '#62a0ea',
-	green = '#427b58',
-	yellow = '#e5a50a',
-	gray = '#a89984',
-	lightgray = '#7c6f64',
-	darkgray = '#ebdbb2',
-	inactivegray = '#a89984',
-}
-
 local get_theme = function(colors)
 	return {
 		normal = {
-			a = { bg = colors.gray, fg = colors.black, gui = 'bold' },
-			b = { bg = colors.lightgray, fg = colors.white },
-			c = { bg = colors.darkgray, fg = colors.gray },
+			a = { bg = colors.fg4, fg = colors.bg0, gui = 'bold' },
+			b = { bg = colors.bg2, fg = colors.fg2 },
+			c = { bg = colors.bg1, fg = colors.fg4 },
 		},
 		insert = {
 			a = { bg = colors.blue, fg = colors.black, gui = 'bold' },
-			b = { bg = colors.lightgray, fg = colors.white },
-			c = { bg = colors.darkgray, fg = colors.gray },
+			b = { bg = colors.bg2, fg = colors.fg2 },
+			c = { bg = colors.bg1, fg = colors.fg4 },
 		},
 		visual = {
 			a = { bg = colors.yellow, fg = colors.black, gui = 'bold' },
-			b = { bg = colors.lightgray, fg = colors.white },
-			c = { bg = colors.darkgray, fg = colors.gray },
+			b = { bg = colors.bg2, fg = colors.fg2 },
+			c = { bg = colors.bg1, fg = colors.fg4 },
 		},
 		replace = {
 			a = { bg = colors.red, fg = colors.black, gui = 'bold' },
-			b = { bg = colors.lightgray, fg = colors.white },
-			c = { bg = colors.darkgray, fg = colors.gray },
+			b = { bg = colors.bg2, fg = colors.fg2 },
+			c = { bg = colors.bg1, fg = colors.fg4 },
 		},
 		command = {
 			a = { bg = colors.green, fg = colors.black, gui = 'bold' },
-			b = { bg = colors.lightgray, fg = colors.white },
-			c = { bg = colors.darkgray, fg = colors.gray },
+			b = { bg = colors.bg2, fg = colors.fg2 },
+			c = { bg = colors.bg1, fg = colors.fg4 },
 		},
 		inactive = {
 			a = { bg = colors.darkgray, fg = colors.gray, gui = 'bold' },
-			b = { bg = colors.darkgray, fg = colors.gray },
-			c = { bg = colors.darkgray, fg = colors.gray },
+			b = { bg = colors.bg2, fg = colors.fg2 },
+			c = { bg = colors.bg1, fg = colors.fg4 },
 		},
 	}
-end
-
-local ternary = function(cond, T, F)
-	if cond then
-		return T
-	else
-		return F
-	end
 end
 
 return {
@@ -129,7 +95,7 @@ return {
 	event = 'VeryLazy',
 	opts = function()
 		local navic = require 'nvim-navic'
-		local theme = get_theme(ternary(vim.api.nvim_get_option 'background' == 'light', colors_light, colors_dark))
+		local theme = get_theme(require('gruvluke.palette').get_base_colors(vim.o.background))
 		return {
 			options = {
 				theme = theme,

@@ -1,24 +1,11 @@
-local theme_dark = {
-	fill = { fg = '#a89984', bg = '#181818' },
-	head = { fg = '#a89984', bg = '#32302f' },
-	current_tab = { fg = '#181818', bg = '#a89984' },
-	tab = { fg = '#a89984', bg = '#32302f' },
+local theme = {
+	fill = 'TabLineFill',
+	head = 'TabLine',
+	current_tab = 'TabLineSel',
+	tab = 'TabLine',
+	win = 'TabLine',
+	tail = 'TabLine',
 }
-
-local theme_light = {
-	fill = { fg = '#d5c4a1', bg = '#f9f5d7' },
-	head = { fg = '#d5c4a1', bg = '#7c6f64' },
-	current_tab = { fg = '#f9f5d7', bg = '#d5c4a1' },
-	tab = { fg = '#d5c4a1', bg = '#7c6f64' },
-}
-
-local ternary = function(cond, T, F)
-	if cond then
-		return T
-	else
-		return F
-	end
-end
 
 local tab_name = function(tab)
 	local api = require 'tabby.module.api'
@@ -64,7 +51,6 @@ return {
 	'nanozuki/tabby.nvim',
 	event = 'VeryLazy',
 	config = function()
-		local theme = ternary(vim.api.nvim_get_option 'background' == 'light', theme_light, theme_dark)
 		require('tabby.tabline').set(function(line)
 			return {
 				{

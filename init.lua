@@ -1,3 +1,9 @@
+vim.api.nvim_cmd({
+	cmd = 'colorscheme',
+	args = { 'gruvluke' },
+	bang = false,
+}, {})
+
 -- For nvim-tree
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -24,7 +30,7 @@ require('lazy').setup('plugins', {
 		fallback = false,
 	},
 	install = {
-		colorscheme = { 'gruvbox-material' },
+		colorscheme = { 'gruvluke' },
 	},
 	change_detection = {
 		enabled = false,
