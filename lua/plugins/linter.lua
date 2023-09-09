@@ -8,7 +8,6 @@ return {
 		javascriptreact = { 'eslint_d' },
 		c = { 'clangtidy' },
 		cpp = { 'clangtidy' },
-		cmake = { 'cmakelint' },
 	},
 	config = function(_, opts)
 		require('lint').linters_by_ft = opts

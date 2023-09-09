@@ -4,7 +4,6 @@ return {
 	keys = { { '<C-S-o>', '<cmd>Neotree toggle<CR>' } },
 	opts = {
 		auto_clean_after_session_restore = true,
-		close_floats_on_escape_key = true,
 		close_if_last_window = true,
 		enable_git_status = true,
 		enable_diagnostics = true,
@@ -93,7 +92,9 @@ return {
 				hide_dotfiles = false,
 				hide_gitignored = true,
 			},
-			follow_current_file = true,
+			follow_current_file = {
+				enabled = true,
+			},
 			group_empty_dirs = true,
 			hijack_netrw_behavior = 'open_default',
 			use_libuv_file_watcher = true,

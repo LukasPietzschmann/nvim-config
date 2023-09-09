@@ -21,7 +21,6 @@ M.formatter = {
 }
 
 M.linter = {
-	'cmakelint',
 	'eslint_d',
 }
 
