@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 vim.api.nvim_cmd({
 	cmd = 'colorscheme',
 	args = { 'gruvluke' },
