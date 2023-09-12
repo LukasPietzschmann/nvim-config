@@ -55,6 +55,7 @@ local function attached_parsers()
 	return '󰹩 [' .. table.concat(names, ', ') .. ']'
 end
 
+-- TODO: reload theme on background change
 local get_theme = function(colors)
 	return {
 		normal = {

@@ -40,8 +40,6 @@ vim.api.nvim_create_autocmd('User', {
 	end,
 })
 
-vim.cmd(':autocmd OptionSet background Lazy reload lualine.nvim')
-
 local ignore_filetypes = { 'neo-tree' }
 local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'help', 'quickfix' }
 

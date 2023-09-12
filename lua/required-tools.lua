@@ -47,6 +47,7 @@ M.parsers = {
 	'gitcommit',
 	'gitignore',
 	'regex',
+	'r',
 }
 
 return M
