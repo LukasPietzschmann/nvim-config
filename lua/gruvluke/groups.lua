@@ -444,6 +444,9 @@ M.setup = function()
 		TelescopeMatching = { link = 'GruvlukeRedBold' },
 		TelescopePromptPrefix = { link = 'GruvlukeRed' },
 		TelescopePrompt = { link = 'TelescopeNormal' },
+		-- glace
+		GlancePreviewMatch = { link = 'Visual' },
+		GlanceListMatch = { link = 'GlancePreviewMatch' },
 		-- nvim-cmp
 		CmpItemAbbr = { link = 'GruvlukeFg0' },
 		CmpItemAbbrDeprecated = { link = 'GruvlukeFg1' },

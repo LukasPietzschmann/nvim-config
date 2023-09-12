@@ -191,4 +191,87 @@ return {
 			}
 		end,
 	},
+	{
+		'dnlhc/glance.nvim',
+		keys = {
+			{ 'gr', '<CMD>Glance references<CR>' },
+			{ 'gd', '<CMD>Glance definitions<CR>' },
+			{ 'gi', '<CMD>Glance implementations<CR>' },
+			{ 'gt', '<CMD>Glance type_definitions<CR>' },
+		},
+		config = function()
+			local glance = require 'glance'
+			local actions = glance.actions
+			glance.setup {
+				height = 22,
+				detached = function(winid)
+					return vim.api.nvim_win_get_width(winid) < 100
+				end,
+				preview_win_opts = {
+					cursorline = true,
+					number = true,
+					wrap = true,
+				},
+				list = {
+					position = 'right',
+					width = 0.33,
+				},
+				border = { enable = false },
+				theme = {
+					enable = true,
+					mode = 'auto',
+					multiplier = 2,
+				},
+				mappings = {
+					list = {
+						['<Down>'] = actions.next,
+						['<Up>'] = actions.previous,
+						['<Tab>'] = actions.next_location,
+						['<S-Tab>'] = actions.previous_location,
+						['v'] = actions.jump_vsplit,
+						['s'] = actions.jump_split,
+						['t'] = actions.jump_tab,
+						['<CR>'] = actions.jump,
+						['<space>'] = actions.enter_win 'preview',
+						['q'] = actions.close,
+						['Q'] = actions.close,
+						['<esc>'] = actions.close,
+					},
+					preview = {
+						['q'] = actions.close,
+						['Q'] = actions.close,
+						['<esc>'] = actions.close,
+						['<Tab>'] = actions.next_location,
+						['<S-Tab>'] = actions.previous_location,
+						['<space>'] = actions.enter_win 'list',
+					},
+				},
+				hooks = {
+					before_open = function(results, open, jump, _)
+						local uri = vim.uri_from_bufnr(0)
+						if #results == 1 then
+							local target_uri = results[1].uri or results[1].targetUri
+							if target_uri == uri then
+								jump(results[1])
+							else
+								open(results)
+							end
+						else
+							open(results)
+						end
+					end,
+				},
+				folds = {
+					fold_closed = '',
+					fold_open = '',
+					folded = true,
+				},
+				indent_lines = {
+					enable = true,
+					icon = ' ',
+				},
+				winbar = { enable = true },
+			}
+		end,
+	},
 }
