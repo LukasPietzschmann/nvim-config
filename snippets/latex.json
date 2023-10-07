@@ -82,48 +82,6 @@
     "body": ["\\[", "\t$TM_SELECTED_TEXT$1", "\\]"],
     "description": "Display Math"
   },
-  "Theorem": {
-    "prefix": "theorem",
-    "body": [
-      "\\begin{theorem}",
-      "\t$1",
-      "\t\\begin{displaymath}",
-      "\t\t$2",
-      "\t\\end{displaymath}",
-      "\t$3",
-      "\\end{theorem}",
-      "$0"
-    ],
-    "description": "Add a theorem"
-  },
-  "Definition": {
-    "prefix": "definition",
-    "body": [
-      "\\begin{definition}",
-      "\t$1",
-      "\t\\begin{displaymath}",
-      "\t\t$2",
-      "\t\\end{displaymath}",
-      "\t$3",
-      "\\end{definition}",
-      "$0"
-    ],
-    "description": "Add a definition"
-  },
-  "Proof": {
-    "prefix": "proof",
-    "body": [
-      "\\begin{proof}",
-      "\t$1",
-      "\t\\begin{displaymath}",
-      "\t\t$2",
-      "\t\\end{displaymath}",
-      "\t$3",
-      "\\end{proof}",
-      "$0"
-    ],
-    "description": "Add a proof"
-  },
   "Algorithm": {
     "prefix": "algo",
     "body": [
@@ -302,7 +260,7 @@
     "prefix": "begin",
     "body": [
       "\\\\begin{${1:env}}",
-      "\t${1/(enumerate|itemize|list)|(description)|(.*)/${1:+\\item }${2:+\\item[] }${3:+ }/}$0",
+      "\t$0",
       "\\\\end{${1:env}}"
     ],
     "description": "Begin - End"
