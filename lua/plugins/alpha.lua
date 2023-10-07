@@ -63,12 +63,13 @@ return {
 				{
 					type = 'group',
 					val = {
-						alpha_button('s', '  Show Sessions', ':Telescope session-lens search_session <CR>'),
-						alpha_button('e', '  New File', ':enew<CR>'),
-						alpha_button('f', '  Find File  ', ':Telescope find_files<CR>'),
-						alpha_button('r', '  Recent File  ', ':Telescope oldfiles<CR>'),
-						alpha_button('i', '  Settings', ':e $MYVIMRC | :cd %:p:h <CR>'),
-						alpha_button('q', 'x  Quit', ':q<CR>'),
+						alpha_button('s', '  Show Sessions', ':Telescope session-lens search_session <CR>'),
+						alpha_button('e', '  New File', ':enew<CR>'),
+						alpha_button('f', '  Find File  ', ':Telescope find_files<CR>'),
+						alpha_button('r', '  Recent File  ', ':Telescope oldfiles<CR>'),
+						alpha_button('l', '  Lazy', ':Lazy<CR>'),
+						alpha_button('m', '  Mason', ':Mason<CR>'),
+						alpha_button('q', '  Quit', ':q<CR>'),
 					},
 					opts = {
 						spacing = 1,
