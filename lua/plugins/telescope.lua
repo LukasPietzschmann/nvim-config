@@ -7,7 +7,6 @@ return {
 			{ '<C-f>', function() require('telescope.builtin').live_grep() end },
 			{ '<C-k>', function() require('telescope.builtin').lsp_document_symbols() end },
 			{ '<C-S-k>', function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end },
-			{ '<C-d>', function() require('telescope.builtin').diagnostics() end },
 		},
 		opts = function()
 			return {

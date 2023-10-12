@@ -1,7 +1,7 @@
 return {
 	'tamton-aquib/duck.nvim',
 	keys = {
-		{ '<C-d>h', function() require('duck').hatch() end },
-		{ '<C-d>c', function() require('duck').cook() end },
+		{ '<C-e>h', function() require('duck').hatch() end },
+		{ '<C-e>c', function() require('duck').cook() end },
 	},
 }
