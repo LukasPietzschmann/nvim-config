@@ -1,6 +1,7 @@
 vim.api.nvim_create_autocmd({ 'VimLeavePre' }, {
 	callback = function()
 		require('neo-tree.sources.manager').close_all()
+		require('trouble').close()
 	end,
 })
 
