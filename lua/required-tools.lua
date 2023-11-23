@@ -38,6 +38,7 @@ M.parsers = {
 	'query',
 	'kdl',
 	'javascript',
+	'typescript',
 	'java',
 	'haskell',
 	'latex',

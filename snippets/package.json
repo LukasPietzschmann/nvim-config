@@ -20,6 +20,10 @@
       {
         "language": "java",
         "path": "./java.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./typescript.json"
       }
     ]
   }
