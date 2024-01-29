@@ -126,6 +126,11 @@ return {
 				},
 				lualine_x = {
 					{
+						'copilot',
+						show_colors = false,
+						show_loading = true,
+					},
+					{
 						'diagnostics',
 						colored = false,
 						symbols = { error = 'E: ', warn = 'W: ', info = 'I: ', hint = 'H: ' },
@@ -142,5 +147,6 @@ return {
 	dependencies = {
 		'nvim-tree/nvim-web-devicons',
 		'SmiteshP/nvim-navic',
+		'AndreM222/copilot-lualine',
 	},
 }
