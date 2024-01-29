@@ -3,7 +3,7 @@
     "prefix": "frame",
     "body": [
       "\\begin{frame}",
-      "\t\\frametitle{${1:Title}}",
+      "\t\\frametitle$2{${1:Title}}",
       "\t$0",
       "\\end{frame}"
     ],
@@ -249,7 +249,7 @@
   "\\begin{}…\\end{}": {
     "prefix": "begin",
     "body": [
-      "\\\\begin{${1:env}}",
+      "\\\\begin{${1:env}}$2",
       "\t$0",
       "\\\\end{${1:env}}"
     ],
