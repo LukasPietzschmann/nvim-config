@@ -16,5 +16,6 @@ return {
 				dismiss = '<Esc>',
 			},
 		},
+		filetypes = { ['*'] = true },
 	},
 }
