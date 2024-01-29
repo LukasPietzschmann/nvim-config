@@ -1,9 +1,3 @@
-local has_words_before = function()
-	unpack = unpack or table.unpack
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match '%s' == nil
-end
-
 return {
 	'hrsh7th/nvim-cmp',
 	keys = { '<C-Space>', mode = 'i' },
@@ -45,26 +39,28 @@ return {
 				['<C-Space>'] = cmp.mapping.complete(),
 				['<esc>'] = cmp.mapping.abort(),
 				['<CR>'] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
-				-- ['<Tab>'] = cmp.mapping(function(fallback)
-				-- 	if cmp.visible() then
-				-- 		cmp.select_next_item()
-				-- 	elseif luasnip.expand_or_locally_jumpable() then
-				-- 		luasnip.expand_or_jump()
-				-- 	elseif has_words_before() then
-				-- 		cmp.complete()
-				-- 	else
-				-- 		fallback()
-				-- 	end
-				-- end, { 'i', 's' }),
-				-- ['<S-Tab>'] = cmp.mapping(function(fallback)
-				-- 	if cmp.visible() then
-				-- 		cmp.select_prev_item()
-				-- 	elseif luasnip.jumpable(-1) then
-				-- 		luasnip.jump(-1)
-				-- 	else
-				-- 		fallback()
-				-- 	end
-				-- end, { 'i', 's' }),
+				['<Tab>'] = cmp.mapping(function(fallback)
+					local suggestions = require 'copilot.suggestion'
+					if cmp.visible() then
+						cmp.select_next_item()
+					elseif luasnip.expand_or_locally_jumpable() then
+						luasnip.expand_or_jump()
+					elseif suggestions.is_visible() then
+						suggestions.accept()
+						assert(not suggestions.is_visible())
+					else
+						fallback()
+					end
+				end, { 'i', 's' }),
+				['<S-Tab>'] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_prev_item()
+					elseif luasnip.jumpable(-1) then
+						luasnip.jump(-1)
+					else
+						fallback()
+					end
+				end, { 'i', 's' }),
 			},
 			sources = cmp.config.sources({
 				{ name = 'luasnip', option = { use_show_condition = false } },
@@ -115,6 +111,13 @@ return {
 		cmp.setup(opts)
 
 		cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+		cmp.event:on('menu_opened', function()
+			vim.b.copilot_suggestion_hidden = true
+		end)
+
+		cmp.event:on('menu_closed', function()
+			vim.b.copilot_suggestion_hidden = false
+		end)
 	end,
 	dependencies = {
 		'hrsh7th/cmp-path',
@@ -126,5 +129,6 @@ return {
 		'L3MON4D3/LuaSnip',
 		'windwp/nvim-autopairs',
 		'lukas-reineke/cmp-under-comparator',
+		'zbirenbaum/copilot.lua',
 	},
 }
