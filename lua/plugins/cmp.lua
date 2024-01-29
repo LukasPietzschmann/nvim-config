@@ -76,7 +76,6 @@ return {
 					cmp.config.compare.offset,
 					cmp.config.compare.exact,
 					cmp.config.compare.score,
-					require('cmp-under-comparator').under,
 					cmp.config.compare.kind,
 					cmp.config.compare.sort_text,
 					cmp.config.compare.length,
@@ -128,7 +127,6 @@ return {
 		'onsails/lspkind.nvim',
 		'L3MON4D3/LuaSnip',
 		'windwp/nvim-autopairs',
-		'lukas-reineke/cmp-under-comparator',
 		'zbirenbaum/copilot.lua',
 	},
 }
