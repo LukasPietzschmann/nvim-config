@@ -12,7 +12,7 @@ return {
 			enabled = true,
 			auto_trigger = true,
 			keymap = {
-				accept = '<Tab>',
+				accept = '<Tab>', -- Also mapped in cmp.lua
 				dismiss = '<Esc>',
 			},
 		},
