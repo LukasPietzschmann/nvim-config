@@ -9,7 +9,6 @@ M.lsps = {
 	'marksman',
 	'cmake',
 	'vimls',
-	'jdtls',
 }
 
 M.formatter = {

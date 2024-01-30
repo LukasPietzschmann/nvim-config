@@ -79,39 +79,6 @@ return {
 			lspconfig.marksman.setup { capabilities = capabilities, on_attach = on_attach }
 			lspconfig.cmake.setup { capabilities = capabilities, on_attach = on_attach }
 			lspconfig.vimls.setup { capabilities = capabilities, on_attach = on_attach }
-
-			vim.api.nvim_create_autocmd('FileType', {
-				pattern = 'java',
-				callback = function()
-					require('jdtls').start_or_attach {
-						capabilities = capabilities,
-						on_attach = on_attach,
-						cmd = {
-							'java',
-							'-javaagent:/home/luke/.local/share/nvim/mason/packages/jdtls/lombok.jar',
-							'-Declipse.application=org.eclipse.jdt.ls.core.id1',
-							'-Dosgi.bundles.defaultStartLevel=4',
-							'-Declipse.product=org.eclipse.jdt.ls.core.product',
-							'-Dlog.protocol=true',
-							'-Dlog.level=ALL',
-							'-Xmx10G',
-							'-Xms5G',
-							'--add-modules=ALL-SYSTEM',
-							'--add-opens',
-							'java.base/java.util=ALL-UNNAMED',
-							'--add-opens',
-							'java.base/java.lang=ALL-UNNAMED',
-							'-jar',
-							'/home/luke/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar',
-							'-configuration',
-							'/home/luke/.local/share/nvim/mason/packages/jdtls/config_linux',
-							'-data',
-							'/home/luke/.cache/jdtls/workspace',
-						},
-						root_dir = require('jdtls.setup').find_root { '.git', 'settings.gradle', 'build.gradle' },
-					}
-				end,
-			})
 		end,
 		dependencies = {
 			'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
@@ -119,7 +86,6 @@ return {
 			'hrsh7th/cmp-nvim-lsp',
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
-			'mfussenegger/nvim-jdtls',
 			'SmiteshP/nvim-navic',
 		},
 	},
