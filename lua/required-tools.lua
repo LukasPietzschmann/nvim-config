@@ -2,12 +2,13 @@ local M = {}
 
 M.lsps = {
 	'clangd',
-	'texlab',
-	'lua_ls',
-	'tsserver',
-	'pyright',
-	'marksman',
 	'cmake',
+	'hls',
+	'lua_ls',
+	'marksman',
+	'pyright',
+	'texlab',
+	'tsserver',
 	'vimls',
 }
 
@@ -20,6 +21,7 @@ M.formatter = {
 }
 
 M.linter = {
+	'cmakelint',
 	'eslint_d',
 }
 
