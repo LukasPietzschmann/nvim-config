@@ -9,6 +9,15 @@ return {
 			{ '<C-S-k>', function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end },
 		},
 		opts = function()
+			local config = require 'telescope.config'
+			local vimgrep_arguments = { unpack(config.values.vimgrep_arguments) }
+			table.insert(vimgrep_arguments, '--hidden')
+			table.insert(vimgrep_arguments, '--follow')
+			table.insert(vimgrep_arguments, '--smart-case')
+			table.insert(vimgrep_arguments, '--glob')
+			table.insert(vimgrep_arguments, '!**/.git/*')
+			table.insert(vimgrep_arguments, '--glob')
+			table.insert(vimgrep_arguments, '!**/node_modules/*')
 			return {
 				defaults = {
 					theme = 'dropdown',
@@ -18,25 +27,7 @@ return {
 							['<esc>'] = require('telescope.actions').close,
 						},
 					},
-					vimgrep_arguments = {
-						'rg',
-						'--color=never',
-						'--no-heading',
-						'--with-filename',
-						'--line-number',
-						'--column',
-						'--smart-case',
-						'--trim',
-						'--follow',
-						'--hidden',
-					},
-					pickers = {
-						find_files = {
-							hidden = true,
-							no_ignore = true,
-							follow = true,
-						},
-					},
+					vimgrep_arguments = vimgrep_arguments,
 					results_title = false,
 					sorting_strategy = 'ascending',
 					layout_strategy = 'center',
@@ -56,9 +47,23 @@ return {
 						preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
 					},
 				},
+				pickers = {
+					find_files = {
+						hidden = true,
+						follow = true,
+					},
+				},
 			}
 		end,
 		dependencies = { 'nvim-lua/plenary.nvim' },
+	},
+	{
+		'nvim-telescope/telescope-fzf-native.nvim',
+		build = 'make',
+		dependencies = { 'nvim-telescope/telescope.nvim' },
+		config = function()
+			require('telescope').load_extension 'fzf'
+		end,
 	},
 	{
 		'LukasPietzschmann/telescope-tabs',
