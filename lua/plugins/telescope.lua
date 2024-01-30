@@ -27,6 +27,8 @@ return {
 						'--column',
 						'--smart-case',
 						'--trim',
+						'--follow',
+						'--hidden',
 					},
 					pickers = {
 						find_files = {
