@@ -47,7 +47,6 @@ return {
 						luasnip.expand_or_jump()
 					elseif suggestions.is_visible() then
 						suggestions.accept()
-						assert(not suggestions.is_visible())
 					else
 						fallback()
 					end
