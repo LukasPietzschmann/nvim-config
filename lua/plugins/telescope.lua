@@ -56,6 +56,16 @@ return {
 							i = { ['<CR>'] = actions.select_tab_drop }
 						},
 					},
+					live_grep = {
+						mappings = {
+							i = { ['<CR>'] = actions.select_tab_drop }
+						},
+					},
+					lsp_dynamic_workspace_symbols = {
+						mappings = {
+							i = { ['<CR>'] = actions.select_tab_drop }
+						},
+					},
 				},
 			}
 		end,
