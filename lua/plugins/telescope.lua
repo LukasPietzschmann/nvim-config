@@ -53,17 +53,17 @@ return {
 						hidden = true,
 						follow = true,
 						mappings = {
-							i = { ['<CR>'] = actions.select_tab_drop }
+							i = { ['<CR>'] = actions.select_drop }
 						},
 					},
 					live_grep = {
 						mappings = {
-							i = { ['<CR>'] = actions.select_tab_drop }
+							i = { ['<CR>'] = actions.select_drop }
 						},
 					},
 					lsp_dynamic_workspace_symbols = {
 						mappings = {
-							i = { ['<CR>'] = actions.select_tab_drop }
+							i = { ['<CR>'] = actions.select_drop }
 						},
 					},
 				},
