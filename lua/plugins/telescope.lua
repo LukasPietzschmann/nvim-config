@@ -9,6 +9,7 @@ return {
 			{ '<C-S-k>', function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end },
 		},
 		opts = function()
+			local actions = require 'telescope.actions'
 			local config = require 'telescope.config'
 			local vimgrep_arguments = { unpack(config.values.vimgrep_arguments) }
 			table.insert(vimgrep_arguments, '--hidden')
@@ -51,6 +52,9 @@ return {
 					find_files = {
 						hidden = true,
 						follow = true,
+						mappings = {
+							i = { ['<CR>'] = actions.select_tab_drop }
+						},
 					},
 				},
 			}
