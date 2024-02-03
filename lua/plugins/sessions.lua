@@ -8,8 +8,7 @@ function Close_all_floating_wins()
 end
 
 return {
-	'LukasPietzschmann/auto-session',
-	dev = true,
+	'rmagatti/auto-session',
 	lazy = false,
 	cmd = { 'SessionSave', 'SessionRestore', 'SessionRestoreFromFile', 'SessionDelete', 'Autosession' },
 	keys = { {
