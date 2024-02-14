@@ -28,6 +28,7 @@ M.linter = {
 M.parsers = {
 	'c',
 	'cpp',
+	'css',
 	'cmake',
 	'make',
 	'comment',
@@ -50,6 +51,7 @@ M.parsers = {
 	'gitignore',
 	'regex',
 	'r',
+	'svelte',
 }
 
 return M
