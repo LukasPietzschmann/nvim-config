@@ -62,3 +62,15 @@ vim.api.nvim_create_autocmd('FileType', {
 		end
 	end,
 })
+
+local unlinkgrp = vim.api.nvim_create_augroup('UnlinkSnippetOnModeChange', { clear = true })
+vim.api.nvim_create_autocmd('ModeChanged', {
+	group = unlinkgrp,
+	pattern = { 's:n', 'i:*' },
+	callback = function(evt)
+		local luasnip = require 'luasnip'
+		if luasnip.session and luasnip.session.current_nodes[evt.buf] and not luasnip.session.jump_active then
+			luasnip.unlink_current()
+		end
+	end,
+})
