@@ -2,14 +2,27 @@ return {
 	{
 		'nvim-telescope/telescope.nvim',
 		cmd = 'Telescope',
-		keys = {
-			{ '<C-p>', function() require('telescope.builtin').find_files() end },
-			{ '<C-f>', function() require('telescope.builtin').live_grep() end },
-			{ '<C-k>', function() require('telescope.builtin').lsp_document_symbols() end },
-			{ '<C-S-k>', function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end },
-		},
+		keys = function()
+			return {
+				{ '<C-p>', function() require('telescope.builtin').find_files() end },
+				{ '<C-S-p>', function() require('telescope.builtin').find_files({
+					attach_mappings = function(_, map)
+						map('i', '<CR>', 'select_tab_drop')
+						return true
+					end,
+				}) end },
+				{ '<C-f>', function() require('telescope.builtin').live_grep() end },
+				{ '<C-S-f>', function() require('telescope.builtin').live_grep({
+					attach_mappings = function(_, map)
+						map('i', '<CR>', 'select_tab_drop')
+						return true
+					end,
+				}) end },
+				{ '<C-k>', function() require('telescope.builtin').lsp_document_symbols() end },
+				{ '<C-S-k>', function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end },
+			}
+		end,
 		opts = function()
-			local actions = require 'telescope.actions'
 			local config = require 'telescope.config'
 			local vimgrep_arguments = { unpack(config.values.vimgrep_arguments) }
 			table.insert(vimgrep_arguments, '--hidden')
@@ -53,17 +66,17 @@ return {
 						hidden = true,
 						follow = true,
 						mappings = {
-							i = { ['<CR>'] = actions.select_drop }
+							i = { ['<CR>'] = 'select_drop' }
 						},
 					},
 					live_grep = {
 						mappings = {
-							i = { ['<CR>'] = actions.select_drop }
+							i = { ['<CR>'] = 'select_drop' }
 						},
 					},
 					lsp_dynamic_workspace_symbols = {
 						mappings = {
-							i = { ['<CR>'] = actions.select_drop }
+							i = { ['<CR>'] = 'select_drop' }
 						},
 					},
 				},
