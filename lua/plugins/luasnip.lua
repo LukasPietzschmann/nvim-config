@@ -1,10 +1,10 @@
 return {
 	'L3MON4D3/LuaSnip',
+	build = 'make install_jsregexp',
 	opts = function()
 		local types = require 'luasnip.util.types'
 
 		return {
-			history = true,
 			updateevents = 'TextChanged,TextChangedI',
 			region_check_events = 'CursorMoved,CursorHold,InsertEnter',
 			delete_check_events = 'TextChanged,InsertLeave',
