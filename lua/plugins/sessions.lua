@@ -28,8 +28,10 @@ return {
 		},
 		pre_save_cmds = { Close_all_floating_wins },
 	},
-	config = function(_, opts)
+	init = function()
 		vim.o.sessionoptions = 'blank,buffers,curdir,folds,tabpages,localoptions,winsize'
+	end,
+	config = function(_, opts)
 		require('auto-session').setup(opts)
 		require('telescope').load_extension 'session-lens'
 	end,
