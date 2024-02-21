@@ -23,6 +23,19 @@ return {
 			}
 		end,
 		opts = function()
+			local function is_git_repo()
+				vim.fn.system 'git rev-parse --is-inside-work-tree'
+				return vim.v.shell_error == 0
+			end
+
+			local function get_git_root_of_cwd()
+				if(not is_git_repo()) then
+					return vim.fn.getcwd()
+				end
+				local dot_git_path = vim.fn.finddir('.git', '.;')
+				return vim.fn.fnamemodify(dot_git_path, ':h')
+			end
+
 			local config = require 'telescope.config'
 			local vimgrep_arguments = { table.unpack(config.values.vimgrep_arguments) }
 			table.insert(vimgrep_arguments, '--hidden')
@@ -63,6 +76,7 @@ return {
 				},
 				pickers = {
 					find_files = {
+						cwd = get_git_root_of_cwd(),
 						hidden = true,
 						follow = true,
 						mappings = {
@@ -70,6 +84,7 @@ return {
 						},
 					},
 					live_grep = {
+						cwd = get_git_root_of_cwd(),
 						mappings = {
 							i = { ['<CR>'] = 'select_drop' }
 						},
