@@ -41,10 +41,6 @@ return {
 			table.insert(vimgrep_arguments, '--hidden')
 			table.insert(vimgrep_arguments, '--follow')
 			table.insert(vimgrep_arguments, '--smart-case')
-			table.insert(vimgrep_arguments, '--glob')
-			table.insert(vimgrep_arguments, '!**/.git/*')
-			table.insert(vimgrep_arguments, '--glob')
-			table.insert(vimgrep_arguments, '!**/node_modules/*')
 			return {
 				defaults = {
 					theme = 'dropdown',
@@ -55,6 +51,7 @@ return {
 						},
 					},
 					vimgrep_arguments = vimgrep_arguments,
+					file_ignore_patterns = {'node_modules', '.git'},
 					results_title = false,
 					sorting_strategy = 'ascending',
 					layout_strategy = 'center',
@@ -79,6 +76,8 @@ return {
 						cwd = get_git_root_of_cwd(),
 						hidden = true,
 						follow = true,
+						no_ignore = true,
+						no_ignore_parent = true,
 						mappings = {
 							i = { ['<CR>'] = 'select_drop' }
 						},
