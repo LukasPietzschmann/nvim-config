@@ -109,9 +109,9 @@ return {
 		cmd = { 'MasonToolsInstall', 'MasonToolsUpdate' },
 		opts = {
 			ensure_installed = {
-				unpack(required_tools.lsps),
-				unpack(required_tools.formatter),
-				unpack(required_tools.linter),
+				table.unpack(required_tools.lsps),
+				table.unpack(required_tools.formatter),
+				table.unpack(required_tools.linter),
 			},
 			run_on_start = false,
 		},
