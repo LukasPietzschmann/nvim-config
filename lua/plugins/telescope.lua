@@ -133,11 +133,4 @@ return {
 		end,
 		dependencies = { 'nvim-telescope/telescope.nvim' },
 	},
-	{
-		'nvim-telescope/telescope-ui-select.nvim',
-		init = function()
-			require('telescope').load_extension 'ui-select'
-		end,
-		dependencies = { 'nvim-telescope/telescope.nvim' },
-	},
 }
