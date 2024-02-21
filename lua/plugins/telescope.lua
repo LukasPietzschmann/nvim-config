@@ -3,16 +3,35 @@ return {
 		'nvim-telescope/telescope.nvim',
 		cmd = 'Telescope',
 		keys = function()
+			local function is_git_repo()
+				vim.fn.system 'git rev-parse --is-inside-work-tree'
+				return vim.v.shell_error == 0
+			end
+
+			local function get_git_root_of_cwd()
+				if not is_git_repo() then
+					return vim.fn.getcwd()
+				end
+				local dot_git_path = vim.fn.finddir('.git', '.;')
+				return vim.fn.fnamemodify(dot_git_path, ':h')
+			end
+
+			local function cwd_opts()
+				return { cwd = get_git_root_of_cwd() }
+			end
+
 			return {
-				{ '<C-p>', function() require('telescope.builtin').find_files() end },
+				{ '<C-p>', function() require('telescope.builtin').find_files(cwd_opts()) end },
 				{ '<C-S-p>', function() require('telescope.builtin').find_files({
+					table.unpack(cwd_opts()),
 					attach_mappings = function(_, map)
 						map('i', '<CR>', 'select_tab_drop')
 						return true
 					end,
 				}) end },
-				{ '<C-f>', function() require('telescope.builtin').live_grep() end },
+				{ '<C-f>', function() require('telescope.builtin').live_grep(cwd_opts()) end },
 				{ '<C-S-f>', function() require('telescope.builtin').live_grep({
+					table.unpack(cwd_opts()),
 					attach_mappings = function(_, map)
 						map('i', '<CR>', 'select_tab_drop')
 						return true
@@ -23,19 +42,6 @@ return {
 			}
 		end,
 		opts = function()
-			local function is_git_repo()
-				vim.fn.system 'git rev-parse --is-inside-work-tree'
-				return vim.v.shell_error == 0
-			end
-
-			local function get_git_root_of_cwd()
-				if(not is_git_repo()) then
-					return vim.fn.getcwd()
-				end
-				local dot_git_path = vim.fn.finddir('.git', '.;')
-				return vim.fn.fnamemodify(dot_git_path, ':h')
-			end
-
 			local config = require 'telescope.config'
 			local vimgrep_arguments = { table.unpack(config.values.vimgrep_arguments) }
 			table.insert(vimgrep_arguments, '--hidden')
@@ -73,7 +79,6 @@ return {
 				},
 				pickers = {
 					find_files = {
-						cwd = get_git_root_of_cwd(),
 						hidden = true,
 						follow = true,
 						no_ignore = true,
@@ -83,7 +88,6 @@ return {
 						},
 					},
 					live_grep = {
-						cwd = get_git_root_of_cwd(),
 						mappings = {
 							i = { ['<CR>'] = 'select_drop' }
 						},
