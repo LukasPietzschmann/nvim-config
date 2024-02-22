@@ -820,6 +820,27 @@ M.setup = function()
 		IlluminatedWordText = { link = 'LspReferenceText' },
 		IlluminatedWordRead = { link = 'LspReferenceRead' },
 		IlluminatedWordWrite = { link = 'LspReferenceWrite' },
+		-- Notify
+		NotifyERRORBorder = { link = 'GruvlukeRed' },
+		NofityWARNBorder = { link = 'GruvlukeYellow' },
+		NotifyINFOBorder = { link = 'GruvlukeGreen' },
+		NofityDEBUGBorder = { link = 'GruvlukeFg4' },
+		NofityTRACEBorder = { link = 'GruvlukePurple' },
+		NofityERRORIcon = { link = 'NotifyERRORBorder' },
+		NotifyWARNIcon = { link = 'NofityWARNBorder' },
+		NotifyINFOIcon = { link = 'NotifyINFOBorder' },
+		NofityDEBUGIcon = { link = 'NofityDEBUGBorder' },
+		NofityTRACEIcon = { link = 'NofityTRACEBorder' },
+		NotifyERRORTitle = { link = 'NotifyERRORBorder' },
+		NotifyWARNTitle = { link = 'NofityWARNBorder' },
+		NotifyINFOTitle = { link = 'NotifyINFOBorder' },
+		NofityDEBUGTitle = { link = 'NofityDEBUGBorder' },
+		NofityTRACETitle = { link = 'NofityTRACEBorder' },
+		NotifyERRORBody = { link = 'Normal' },
+		NotifyWARNBody = { link = 'Normal' },
+		NotifyINFOBody = { link = 'Normal' },
+		NofityDEBUGBody = { link = 'Normal' },
+		NofityTRACEBody = { link = 'Normal' },
 	}
 
 	return groups
