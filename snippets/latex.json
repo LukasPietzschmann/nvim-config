@@ -204,7 +204,7 @@
   },
   "Section": {
     "prefix": "sec",
-    "body": ["\\section{$1}"],
+    "body": ["\\section$2{$1}"],
     "description": "Section"
   },
   "Sub Paragraph": {
@@ -219,7 +219,7 @@
   },
   "Sub Section": {
     "prefix": "sub",
-    "body": ["\\subsection{$1}"],
+    "body": ["\\subsection$2{$1}"],
     "description": "Sub Section"
   },
   "Sub Sub Section": {
