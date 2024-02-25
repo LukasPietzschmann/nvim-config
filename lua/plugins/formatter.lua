@@ -25,6 +25,7 @@ return {
 				html = { require('formatter.filetypes.html').prettier },
 				json = { require('formatter.filetypes.json').prettier },
 				yaml = { require('formatter.filetypes.yaml').prettier },
+				svelte = { require('formatter.filetypes.svelte').prettier },
 				['*'] = { any_ft.remove_trailing_whitespace },
 			},
 		}
