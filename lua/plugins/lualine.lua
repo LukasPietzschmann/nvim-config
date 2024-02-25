@@ -55,6 +55,16 @@ local function attached_parsers()
 	return '󰹩 [' .. table.concat(names, ', ') .. ']'
 end
 
+local function hide(hide_width, condition)
+	return function(str)
+		local win_width = vim.fn.winwidth(0)
+		if condition() and win_width < hide_width then
+			return ''
+		end
+		return str
+	end
+end
+
 -- TODO: reload theme on background change
 local get_theme = function(colors)
 	return {
@@ -93,7 +103,7 @@ end
 
 return {
 	'nvim-lualine/lualine.nvim',
-	event = 'VeryLazy',
+	lazy = false,
 	opts = function()
 		local navic = require 'nvim-navic'
 		local theme = get_theme(require('gruvluke.palette').get_base_colors(vim.o.background))
@@ -102,12 +112,14 @@ return {
 				theme = theme,
 				component_separators = '|',
 				section_separators = { left = '', right = '' },
+				disabled_filetypes = { statusline = { 'alpha' } },
 				refresh = {
 					statusline = 5000,
 					tabline = 5000,
 					winbar = 5000,
 				},
 			},
+			extensions = { 'lazy', 'man', 'mason', 'neo-tree', 'trouble' },
 			sections = {
 				lualine_a = { { 'mode', lowercase = false } },
 				lualine_b = {
@@ -126,18 +138,27 @@ return {
 				},
 				lualine_x = {
 					{
+						'diagnostics',
+						colored = false,
+						symbols = { error = 'E: ', warn = 'W: ', info = 'I: ', hint = 'H: ' },
+					},
+					{
 						'copilot',
 						show_colors = false,
 						show_loading = true,
 					},
 					{
-						'diagnostics',
-						colored = false,
-						symbols = { error = 'E: ', warn = 'W: ', info = 'I: ', hint = 'H: ' },
+						attached_parsers,
+						fmt = hide(140, navic.is_available),
 					},
-					attached_parsers,
-					attached_linters,
-					attached_servers,
+					{
+						attached_linters,
+						fmt = hide(140, navic.is_available),
+					},
+					{
+						attached_servers,
+						fmt = hide(140, navic.is_available),
+					},
 				},
 				lualine_y = { get_search_count },
 				lualine_z = { 'selectioncount', 'location', 'progress' },
