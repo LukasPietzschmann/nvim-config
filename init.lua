@@ -40,6 +40,9 @@ require('lazy').setup('plugins', {
 	ui = {
 		border = 'rounded',
 	},
+	checker = {
+		enabled = false,
+	},
 })
 
 function Is_plugin_loaded(name)
