@@ -61,7 +61,7 @@ return {
 			position = 'left',
 			width = 40,
 			mappings = {
-				['<cr>'] = 'open',
+				['<cr>'] = 'open_drop',
 				['<space>'] = { 'toggle_preview', config = { use_float = true } },
 				['<esc>'] = 'revert_preview',
 				['<tab>'] = function(state)
@@ -75,7 +75,7 @@ return {
 				end,
 				['S'] = 'open_split',
 				['s'] = 'open_vsplit',
-				['t'] = 'open_tabnew',
+				['t'] = 'open_tab_drop',
 				['d'] = 'delete',
 				['r'] = 'rename',
 				['m'] = 'move',
@@ -106,6 +106,14 @@ return {
 					['<down>'] = 'move_cursor_down',
 					['<up>'] = 'move_cursor_up',
 				},
+			},
+		},
+		event_handlers = {
+			{
+				event = 'neo_tree_window_after_close',
+				handler = function(_)
+					require('lualine').refresh()
+				end,
 			},
 		},
 	},
