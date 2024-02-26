@@ -55,14 +55,26 @@ local function attached_parsers()
 	return '󰹩 [' .. table.concat(names, ', ') .. ']'
 end
 
-local function hide(hide_width, condition)
+local function hide_or_trunc(trunc_width, trunc_len, no_ellipsis, hide)
 	return function(str)
 		local win_width = vim.fn.winwidth(0)
-		if condition() and win_width < hide_width then
+		if hide and hide(win_width) then
 			return ''
+		elseif trunc_width and trunc_len and win_width < trunc_width and #str > trunc_len then
+			return str:sub(1, trunc_len) .. (no_ellipsis and '' or '...')
 		end
 		return str
 	end
+end
+
+local function trunc(trunc_width, trunc_len, no_ellipsis)
+	return hide_or_trunc(trunc_width, trunc_len, no_ellipsis, nil)
+end
+
+local function hide(hide_width, condition)
+	return hide_or_trunc(nil, nil, nil, function(width)
+		return condition() and width < hide_width
+	end)
 end
 
 -- TODO: reload theme on background change
@@ -124,7 +136,14 @@ return {
 				lualine_a = { { 'mode', lowercase = false } },
 				lualine_b = {
 					{ require('auto-session.lib').current_session_name },
-					{ 'branch', { 'diff', colored = false } },
+					{
+						'branch',
+						{
+							'diff',
+							colored = false,
+						},
+						fmt = trunc(10000, 10, false),
+					},
 				},
 				lualine_c = {
 					{
