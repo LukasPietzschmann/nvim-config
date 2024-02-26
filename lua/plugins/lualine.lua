@@ -106,7 +106,7 @@ return {
 	lazy = false,
 	opts = function()
 		local navic = require 'nvim-navic'
-		local theme = get_theme(require('gruvluke.palette').get_base_colors(vim.o.background))
+		local theme = get_theme(require('gruvluke.palette').get_base_colors())
 		return {
 			options = {
 				theme = theme,

@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
-	local colors = require('gruvluke.palette').get_base_colors(vim.o.background)
+	local colors = require('gruvluke.palette').get_base_colors()
 
 	vim.g.terminal_color_0 = colors.bg0
 	vim.g.terminal_color_8 = colors.gray
@@ -841,6 +841,8 @@ M.setup = function()
 		NotifyINFOBody = { link = 'Normal' },
 		NofityDEBUGBody = { link = 'Normal' },
 		NofityTRACEBody = { link = 'Normal' },
+		-- Leap
+		LeapBackdrop = { link = 'Comment' },
 	}
 
 	return groups
