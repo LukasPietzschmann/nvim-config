@@ -23,20 +23,15 @@ vim.keymap.set('n', 'U', '<cmd>:redo<CR>')
 vim.keymap.set('n', '<', '<<')
 vim.keymap.set('n', '>', '>>')
 
-vim.api.nvim_cmd({
-	cmd = 'cnoreabbrev',
-	args = { 'W', 'w' },
-	bang = false,
-}, {})
-
-vim.api.nvim_cmd({
-	cmd = 'cnoreabbrev',
-	args = { 'Wa', 'wa' },
-	bang = false,
-}, {})
-
-vim.api.nvim_cmd({
-	cmd = 'cnoreabbrev',
-	args = { 'Wqa', 'wqa' },
-	bang = false,
-}, {})
+vim.cmd [[
+fun! SetupCommandAlias(from, to)
+	exec 'cnoreabbrev <expr> '.a:from
+		\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+		\ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfun
+call SetupCommandAlias("w","update")
+call SetupCommandAlias("W","w")
+call SetupCommandAlias("Wa","wa")
+call SetupCommandAlias("Wqa","wqa")
+call SetupCommandAlias("Qa","qa")
+]]
