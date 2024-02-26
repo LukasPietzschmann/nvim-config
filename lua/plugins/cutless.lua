@@ -1,5 +1,5 @@
 return {
 	'LukasPietzschmann/vim-cutlass',
-	event = 'VeryLazy',
+	event = 'VimEnter',
 	dev = true,
 }

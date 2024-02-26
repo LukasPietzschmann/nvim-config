@@ -115,7 +115,10 @@ end
 
 return {
 	'nvim-lualine/lualine.nvim',
-	lazy = false,
+	event = 'VeryLazy',
+	init = function()
+		vim.api.nvim_set_option_value('laststatus', 0, {})
+	end,
 	opts = function()
 		local navic = require 'nvim-navic'
 		local theme = get_theme(require('gruvluke.palette').get_base_colors())
@@ -125,6 +128,7 @@ return {
 				component_separators = '|',
 				section_separators = { left = '', right = '' },
 				disabled_filetypes = { statusline = { 'alpha' } },
+				globalstatus = true,
 				refresh = {
 					statusline = 5000,
 					tabline = 5000,
