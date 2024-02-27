@@ -7,44 +7,82 @@ local theme = {
 	tail = 'TabLine',
 }
 
-local tab_name = function(tab)
+local function get_tab_modifiers(tab)
 	local api = require 'tabby.module.api'
-	local cur_win = api.get_tab_current_win(tab.id)
-	if api.is_float_win(cur_win) then
-		return '[Floating]'
-	end
-	local current_bufnr = vim.fn.getwininfo(cur_win)[1].bufnr
-	local current_bufinfo = vim.fn.getbufinfo(current_bufnr)[1]
-	local current_buf_name = vim.fn.fnamemodify(current_bufinfo.name, ':t')
-	if current_buf_name == '' then
-		return '[Empty]'
-	else
-		return current_buf_name
-	end
-end
-
-local change_mark = function(tab)
-	local already_marked = false
-	return tab.wins().foreach(function(win)
-		local bufnr = vim.fn.getwininfo(win.id)[1].bufnr
-		local bufinfo = vim.fn.getbufinfo(bufnr)[1]
-		if not already_marked and bufinfo.changed == 1 then
-			already_marked = true
-			return '[+]'
-		else
-			return ''
+	local wins = api.get_tab_wins(tab.id)
+	local one_has_changed = false
+	for _, win in pairs(wins) do
+		local buf = api.get_win_buf(win)
+		if api.get_buf_is_changed(buf) then
+			one_has_changed = true
+			break
 		end
-	end)
-end
-
-local window_count = function(tab)
-	local api = require 'tabby.module.api'
-	local win_count = #api.get_tab_wins(tab.id)
-	if win_count == 1 then
+	end
+	local results = {}
+	if one_has_changed then
+		table.insert(results, '+')
+	end
+	if #wins > 1 then
+		table.insert(results, #wins)
+	end
+	if #results == 0 then
 		return ''
 	else
-		return '[' .. win_count .. ']'
+		return '[' .. table.concat(results, ',') .. '] '
 	end
+end
+
+local function get_win_modifiers(win)
+	local expanded_modifiers = vim.api.nvim_eval_statusline('[%M%R%H%W] ', { winid = win.id })
+	if expanded_modifiers.width > 3 then
+		return expanded_modifiers.str
+	else
+		return ''
+	end
+end
+
+local function should_show_windows(tab)
+	local api = require 'tabby.module.api'
+	local wins = api.get_tab_wins(tab.id)
+	return tab.is_current() and #wins > 1
+end
+
+local function render_tab(line, content, is_current, are_windows_shown)
+	if are_windows_shown then
+		return ''
+	end
+	local hl = is_current and theme.current_tab or theme.tab
+	return {
+		line.sep('', hl, theme.fill),
+		content,
+		line.sep(' ', hl, theme.fill),
+		hl = hl,
+		margin = ' ',
+	}
+end
+
+local function render_window(line, content, is_current, is_first, is_last)
+	local hl = is_current and theme.current_tab or theme.tab
+	return {
+		is_first and line.sep('', hl, theme.fill) or line.sep('', hl, theme.fill),
+		content,
+		is_last and line.sep(' ', hl, theme.fill) or line.sep('', hl, theme.fill),
+		hl = hl,
+		margin = ' ',
+		click = {
+			'custom',
+			1
+		}
+	}
+end
+
+local function foreach(t, fn)
+	local results = {}
+	for _, v in ipairs(t) do
+		local results_size = #results
+		results[results_size + 1] = fn(results_size == 0, results_size + 1 == #t, v)
+	end
+	return results
 end
 
 return {
@@ -58,15 +96,21 @@ return {
 					line.sep(' ', theme.head, theme.fill),
 				},
 				line.tabs().foreach(function(tab)
-					local hl = tab.is_current() and theme.current_tab or theme.tab
+					local are_windows_shown = should_show_windows(tab)
 					return {
-						line.sep('', hl, theme.fill),
-						change_mark(tab),
-						tab_name(tab),
-						window_count(tab),
-						line.sep(' ', hl, theme.fill),
-						hl = hl,
-						margin = ' ',
+						render_tab(line, {
+							get_tab_modifiers(tab),
+							tab.name(),
+						}, tab.is_current(), are_windows_shown),
+						are_windows_shown and foreach(
+							line.wins_in_tab(line.api.get_current_tab()).wins,
+							function(is_first, is_last, win)
+								return render_window(line, {
+									get_win_modifiers(win),
+									win.buf_name(),
+								}, win.is_current(), is_first, is_last)
+							end
+						) or '',
 					}
 				end),
 				hl = theme.fill,
@@ -74,6 +118,17 @@ return {
 		end, {
 			buf_name = {
 				mode = 'unique',
+			},
+			tab_name = {
+				name_fallback = function(tabid)
+					local api = require 'tabby.module.api'
+					local cur_win = api.get_tab_current_win(tabid)
+					if api.is_float_win(cur_win) then
+						return '[Floating]'
+					else
+						return require('tabby.feature.buf_name').get(cur_win)
+					end
+				end,
 			},
 		})
 	end,
