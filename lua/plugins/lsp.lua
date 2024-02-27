@@ -98,7 +98,10 @@ return {
 		'williamboman/mason.nvim',
 		cmd = { 'Mason', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog' },
 		opts = {
-			ui = { border = 'rounded' },
+			ui = {
+				border = 'rounded',
+				height = 0.8,
+			},
 		},
 		build = function(_)
 			require('mason-tool-installer').check_install(true)
