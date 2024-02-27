@@ -69,10 +69,6 @@ local function render_window(line, content, is_current, is_first, is_last)
 		is_last and line.sep(' ', hl, theme.fill) or line.sep('', hl, theme.fill),
 		hl = hl,
 		margin = ' ',
-		click = {
-			'custom',
-			1
-		}
 	}
 end
 
