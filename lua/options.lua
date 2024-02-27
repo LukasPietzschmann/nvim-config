@@ -4,6 +4,18 @@ vim.filetype.add {
 	},
 }
 
+function WinbarContent()
+	local alignment = '%='
+	local filename = '%f'
+	local modifiers = '[%M%R%H%W] '
+	local expanded_filename = vim.api.nvim_eval_statusline(filename, { use_winbar = true })
+	local expanded_modifiers = vim.api.nvim_eval_statusline(modifiers, { use_winbar = true })
+	if expanded_modifiers.width <= 3 then
+		return alignment .. expanded_filename.str
+	end
+	return alignment .. expanded_modifiers.str .. expanded_filename.str
+end
+
 vim.api.nvim_set_option_value('termguicolors', true, {})
 vim.api.nvim_set_option_value('syntax', 'on', {})
 vim.api.nvim_set_option_value('tabstop', 4, {})
@@ -34,7 +46,7 @@ vim.api.nvim_set_option_value('foldcolumn', 'auto', {})
 vim.api.nvim_set_option_value('foldmethod', 'expr', {})
 vim.api.nvim_set_option_value('foldexpr', 'nvim_treesitter#foldexpr()', {})
 vim.api.nvim_set_option_value('foldenable', false, {})
-vim.api.nvim_set_option_value('winbar', '%=%r%m %f', {})
+vim.api.nvim_set_option_value('winbar', '%{%v:lua.WinbarContent()%}', {})
 vim.api.nvim_set_option_value('fixendofline', false, {})
 vim.api.nvim_set_option_value('hlsearch', false, {})
 vim.api.nvim_set_option_value('guicursor', 'a:block', {})
