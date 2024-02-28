@@ -9,7 +9,6 @@ end
 
 return {
 	'rmagatti/auto-session',
-	lazy = false,
 	cmd = { 'SessionSave', 'SessionRestore', 'SessionRestoreFromFile', 'SessionDelete', 'Autosession' },
 	keys = { {
 		'<A-o>',

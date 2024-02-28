@@ -135,11 +135,10 @@ return {
 					winbar = 5000,
 				},
 			},
-			extensions = { 'lazy', 'man', 'mason', 'neo-tree', 'trouble' },
+			extensions = { 'lazy', 'man', 'neo-tree', 'trouble' },
 			sections = {
 				lualine_a = { { 'mode', lowercase = false } },
 				lualine_b = {
-					{ require('auto-session.lib').current_session_name },
 					{
 						'branch',
 						{
