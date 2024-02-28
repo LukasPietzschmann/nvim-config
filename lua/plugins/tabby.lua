@@ -3,7 +3,8 @@ local theme = {
 	head = 'TabLine',
 	current_tab = 'TabLineSel',
 	tab = 'TabLine',
-	win = 'TabLine',
+	current_win = 'TabWinSel',
+	win = 'TabWin',
 	tail = 'TabLine',
 }
 
@@ -62,7 +63,7 @@ local function render_tab(line, content, is_current, are_windows_shown)
 end
 
 local function render_window(line, content, is_current, is_first, is_last)
-	local hl = is_current and theme.current_tab or theme.tab
+	local hl = is_current and theme.current_win or theme.win
 	return {
 		is_first and line.sep('', hl, theme.fill) or line.sep('', hl, theme.fill),
 		content,

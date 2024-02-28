@@ -70,6 +70,8 @@ M.setup = function()
 		TabLineFill = { fg = colors.fg4, bg = colors.bg0 },
 		TabLineSel = { fg = colors.bg0, bg = colors.fg4 },
 		TabLine = { fg = colors.fg4, bg = colors.bg1 },
+		TabWinSel = { link = 'TabLineSel' },
+		TabWin = { link = 'TabLineSel' },
 		MatchParen = { bg = colors.bg3, bold = true },
 		ColorColumn = { bg = colors.bg1 },
 		Conceal = { fg = colors.blue },
