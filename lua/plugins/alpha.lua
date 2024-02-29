@@ -29,6 +29,7 @@ end
 return {
 	'goolord/alpha-nvim',
 	event = 'VimEnter',
+	enabled = false,
 	opts = function()
 		local fn = vim.fn
 		local marginTopPercent = 0.3
