@@ -2,7 +2,8 @@ return {
 	'rebelot/heirline.nvim',
 	event = 'VeryLazy',
 	init = function()
-		vim.api.nvim_set_option_value('laststatus', 3, {})
+		-- disable initially, so we don't get any flicker
+		vim.api.nvim_set_option_value('laststatus', 0, {})
 	end,
 	opts = function()
 		local conditions = require 'heirline.conditions'
@@ -89,5 +90,9 @@ return {
 			statusline = MainLine,
 			opts = { colors = require('gruvluke.palette').get_base_colors() },
 		}
+	end,
+	config = function(_, opts)
+		require('heirline').setup(opts)
+		vim.api.nvim_set_option_value('laststatus', 3, {})
 	end,
 }
