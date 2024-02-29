@@ -82,10 +82,37 @@ local function foreach(t, fn)
 	return results
 end
 
+local function startswith(str)
+	return function(start)
+		return str:sub(1, #start) == start
+	end
+end
+
+local function filter(tab, p)
+	local result = {}
+	for _, v in ipairs(tab) do
+		if p(v) then
+			table.insert(result, v)
+		end
+	end
+	return result
+end
+
+local function any(p, tab)
+	for _, v in ipairs(tab) do
+		if p(v) then
+			return true
+		end
+	end
+	return false
+end
+
 return {
 	'nanozuki/tabby.nvim',
 	event = 'VeryLazy',
 	config = function()
+		local ignore_win_prefixes = { 'neo-tree', 'Trouble' }
+
 		require('tabby.tabline').set(function(line)
 			return {
 				{
@@ -94,20 +121,21 @@ return {
 				},
 				line.tabs().foreach(function(tab)
 					local are_windows_shown = should_show_windows(tab)
+					local wins = filter(line.wins_in_tab(line.api.get_current_tab()).wins, function(win)
+						local win_name = win.buf_name()
+						return not any(startswith(win_name), ignore_win_prefixes)
+					end)
 					return {
 						render_tab(line, {
 							get_tab_modifiers(tab),
 							tab.name(),
 						}, tab.is_current(), are_windows_shown),
-						are_windows_shown and foreach(
-							line.wins_in_tab(line.api.get_current_tab()).wins,
-							function(is_first, is_last, win)
-								return render_window(line, {
-									get_win_modifiers(win),
-									win.buf_name(),
-								}, win.is_current(), is_first, is_last)
-							end
-						) or '',
+						are_windows_shown and foreach(wins, function(is_first, is_last, win)
+							return render_window(line, {
+								get_win_modifiers(win),
+								win.buf_name(),
+							}, win.is_current(), is_first, is_last)
+						end) or '',
 					}
 				end),
 				hl = theme.fill,
