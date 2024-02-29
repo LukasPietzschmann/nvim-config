@@ -42,9 +42,7 @@ local function get_win_modifiers(win)
 	end
 end
 
-local function should_show_windows(tab)
-	local api = require 'tabby.module.api'
-	local wins = api.get_tab_wins(tab.id)
+local function should_show_windows(tab, wins)
 	return tab.is_current() and #wins > 1
 end
 
@@ -120,11 +118,11 @@ return {
 					line.sep(' ', theme.head, theme.fill),
 				},
 				line.tabs().foreach(function(tab)
-					local are_windows_shown = should_show_windows(tab)
 					local wins = filter(line.wins_in_tab(line.api.get_current_tab()).wins, function(win)
 						local win_name = win.buf_name()
 						return not any(startswith(win_name), ignore_win_prefixes)
 					end)
+					local are_windows_shown = should_show_windows(tab, wins)
 					return {
 						render_tab(line, {
 							get_tab_modifiers(tab),
