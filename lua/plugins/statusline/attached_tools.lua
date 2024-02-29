@@ -1,0 +1,109 @@
+local conditions = require 'heirline.conditions'
+local helpers = require 'plugins.statusline.helpers'
+local icons = helpers.icons
+local insert_set = helpers.insert_set
+local Space = helpers.Space
+local Empty = helpers.Empty
+
+M = {}
+
+M.LanguageServers = {
+	condition = conditions.lsp_attached,
+	update = { 'LspAttach', 'LspDetach', 'VimResized' },
+	flexible = 10,
+	{
+		provider = function()
+			local names = {}
+			for _, server in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
+				insert_set(names, server.name)
+			end
+			return string.format('%s[%s]', icons.tools.language_servers, table.concat(names, ', '))
+		end,
+		Space(2),
+	},
+	{
+		provider = icons.tools.language_servers,
+		Space(2),
+	},
+}
+
+M.Linters = {
+	condition = function(self)
+		local loaded = Is_plugin_loaded 'nvim-lint'
+		if not loaded then
+			return false
+		end
+		local linters = require('lint').linters_by_ft[vim.bo.filetype]
+		if linters == nil or #linters <= 0 then
+			return false
+		end
+		self.linters = linters
+		return true
+	end,
+	flexible = 10,
+	{
+		provider = function(self)
+			return string.format('%s [%s]', icons.tools.linters, table.concat(self.linters, ', '))
+		end,
+		Space(2),
+	},
+	{
+		provider = icons.tools.linters,
+		Space(2),
+	},
+}
+
+M.Parsers = {
+	condition = function(self)
+		if not Is_plugin_loaded 'nvim-treesitter' then
+			return false
+		end
+		local parser = require('nvim-treesitter.parsers').get_parser()
+		if parser == nil then
+			return false
+		end
+		self.parser = parser
+		return true
+	end,
+	flexible = 10,
+	{
+		provider = function(self)
+			local names = {}
+			self.parser:for_each_tree(function(_, tree)
+				local lang = tree:lang()
+				insert_set(names, lang)
+			end)
+			return string.format('%s [%s]', icons.tools.parsers, table.concat(names, ', '))
+		end,
+		Space(2),
+	},
+	{
+		provider = icons.tools.parsers,
+		Space(2),
+	},
+}
+
+M.Formatter = {
+	condition = function()
+		local formatter_loaded = Is_plugin_loaded 'formatter.nvim'
+		if not formatter_loaded then
+			return false
+		end
+		return require('formatter.config').values.filetype[vim.bo.ft] ~= nil
+	end,
+	provider = icons.tools.formatter,
+	Space(2),
+}
+
+M.AttachedTools = {
+	flexible = 20,
+	{
+		M.Formatter,
+		M.LanguageServers,
+		M.Linters,
+		M.Parsers,
+	},
+	Empty,
+}
+
+return M

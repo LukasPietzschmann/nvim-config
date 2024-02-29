@@ -108,14 +108,6 @@ return {
 				},
 			},
 		},
-		event_handlers = {
-			{
-				event = 'neo_tree_window_after_close',
-				handler = function(_)
-					require('lualine').refresh()
-				end,
-			},
-		},
 	},
 	config = function(_, opts)
 		vim.cmd 'let g:neo_tree_remove_legacy_commands = 1'

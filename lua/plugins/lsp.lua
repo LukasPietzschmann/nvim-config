@@ -11,7 +11,6 @@ local on_attach = function(client, bufnr)
 	end
 	vim.keymap.set('n', '<C-r>', vim.lsp.buf.rename, bufopts)
 	vim.keymap.set('n', '<M-CR>', vim.lsp.buf.code_action, bufopts)
-	require('lualine').refresh()
 end
 
 local required_tools = require 'required-tools'
