@@ -39,6 +39,19 @@ require('lazy').setup('plugins', {
 	checker = {
 		enabled = false,
 	},
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				'netrwPlugin',
+				'rplugin',
+				'gzip',
+				'tarPlugin',
+				'tohtml',
+				'tutor',
+				'zipPlugin',
+			},
+		},
+	},
 })
 
 function IsPluginLoaded(name)
