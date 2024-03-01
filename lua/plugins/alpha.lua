@@ -1,6 +1,4 @@
 local function alpha_button(sc, txt, keybind)
-	local sc_ = sc:gsub('%s', ''):gsub('SPC', '<leader>')
-
 	local opts = {
 		position = 'center',
 		text = txt,
@@ -12,14 +10,14 @@ local function alpha_button(sc, txt, keybind)
 	}
 
 	if keybind then
-		opts.keymap = { 'n', sc_, keybind, { noremap = true, silent = true } }
+		opts.keymap = { 'n', sc, keybind, { noremap = true, silent = true } }
 	end
 
 	return {
 		type = 'button',
 		val = txt,
 		on_press = function()
-			local key = vim.api.nvim_replace_termcodes(sc_, true, false, true)
+			local key = vim.api.nvim_replace_termcodes(sc, true, false, true)
 			vim.api.nvim_feedkeys(key, 'normal', false)
 		end,
 		opts = opts,
@@ -29,11 +27,9 @@ end
 return {
 	'goolord/alpha-nvim',
 	event = 'VimEnter',
-	enabled = false,
 	opts = function()
 		local fn = vim.fn
-		local marginTopPercent = 0.3
-		local headerPadding = fn.max { 2, fn.floor(fn.winheight(0) * marginTopPercent) }
+		local headerPadding = fn.max { 2, fn.floor(fn.winheight(0) * 0.3) }
 
 		local ascii = {
 			'  ,-.       _,---._ __  / \\',
@@ -72,13 +68,9 @@ return {
 						alpha_button('m', '  Mason', ':Mason<CR>'),
 						alpha_button('q', '  Quit', ':q<CR>'),
 					},
-					opts = {
-						spacing = 1,
-					},
+					opts = { spacing = 1 },
 				},
 			},
-			opts = {},
 		}
 	end,
-	dependencies = { 'nvim-tree/nvim-web-devicons' },
 }
