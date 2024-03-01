@@ -27,7 +27,7 @@ return {
 			local lspconfig = require 'lspconfig'
 
 			lspconfig.clangd.setup {
-				capabilities = capabilities,
+				capabilities = { table.unpack(capabilities), offsetEncoding = 'utf-8' },
 				on_attach = on_attach,
 				cmd = {
 					'clangd',
