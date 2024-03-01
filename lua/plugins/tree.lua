@@ -3,19 +3,15 @@ return {
 	cmd = 'Neotree',
 	keys = { { '<C-S-o>', '<cmd>Neotree toggle<CR>' } },
 	opts = {
-		auto_clean_after_session_restore = true,
 		close_if_last_window = true,
-		enable_git_status = true,
+		enable_git_status = false,
 		enable_diagnostics = true,
 		enable_modified_markers = true,
 		enable_opened_markers = true,
 		enable_refresh_on_write = true,
 		use_default_mappings = false,
 		popup_border_style = 'rounded',
-		sources = {
-			'filesystem',
-			'document_symbols',
-		},
+		sources = { 'filesystem' },
 		source_selector = {
 			winbar = true,
 			sources = {
@@ -42,19 +38,6 @@ return {
 				trailing_slash = false,
 				use_git_status_colors = false,
 				highlight = 'NeoTreeFileName',
-			},
-			git_status = {
-				symbols = {
-					added = '✚',
-					modified = '',
-					deleted = '✖',
-					renamed = '',
-					untracked = '',
-					ignored = '',
-					unstaged = '',
-					staged = '',
-					conflict = '',
-				},
 			},
 		},
 		window = {

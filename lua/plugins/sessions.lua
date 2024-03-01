@@ -1,10 +1,17 @@
-function Close_all_floating_wins()
+local function close_all_floating_wins()
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
 		local config = vim.api.nvim_win_get_config(win)
 		if config.relative ~= '' then
 			vim.api.nvim_win_close(win, false)
 		end
 	end
+end
+
+local function close_file_tree()
+	if not IsPluginLoaded 'neo-tree.vim' then
+		return
+	end
+	vim.cmd 'tabdo Neotree close'
 end
 
 return {
@@ -25,7 +32,7 @@ return {
 			theme_conf = { border = true, winblend = 0 },
 			previewer = false,
 		},
-		pre_save_cmds = { Close_all_floating_wins },
+		pre_save_cmds = { close_file_tree, close_all_floating_wins },
 	},
 	init = function()
 		vim.o.sessionoptions = 'blank,buffers,curdir,folds,tabpages,localoptions,winsize'
