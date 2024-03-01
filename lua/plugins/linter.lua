@@ -10,6 +10,14 @@ return {
 		cpp = { 'clangtidy' },
 	},
 	config = function(_, opts)
-		require('lint').linters_by_ft = opts
+		local linter = require 'lint'
+		linter.linters_by_ft = opts
+		vim.api.nvim_create_autocmd('BufWritePost', {
+			desc = 'Runs the linter on save',
+			group = vim.api.nvim_create_augroup('RunLinter', { clear = true }),
+			callback = function()
+				linter.try_lint()
+			end,
+		})
 	end,
 }

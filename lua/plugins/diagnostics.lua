@@ -46,4 +46,17 @@ return {
 		include_declaration = { 'lsp_references', 'lsp_implementations', 'lsp_definitions' }, -- for the given modes, include the declaration of the current symbol in the results
 		use_diagnostic_signs = true,
 	},
+	config = function(_, opts)
+		require('trouble').setup(opts)
+		vim.api.nvim_create_autocmd('VimLeavePre' , {
+			desc = 'Closes trouble before NeoVim exits',
+			group = CloseStuffBeforeExitGroup,
+			callback = function()
+				if not IsPluginLoaded 'trouble.nvim' then
+					return
+				end
+				require('trouble').close()
+			end,
+		})
+	end,
 }

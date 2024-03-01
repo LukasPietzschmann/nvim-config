@@ -118,6 +118,30 @@ return {
 			},
 			run_on_start = false,
 		},
+		config = function(_, opts)
+			require('mason-tool-installer').setup(opts)
+			local group = vim.api.nvim_create_augroup('MasonNotifications', { clear = true })
+			vim.api.nvim_create_autocmd('User', {
+				pattern = 'MasonToolsStartingInstall',
+				desc = 'Notifies the user when a tool is being installed',
+				group = group,
+				callback = function()
+					vim.schedule(function()
+						vim.notify('Installing tools', vim.log.levels.INFO, { title = 'Mason' })
+					end)
+				end,
+			})
+			vim.api.nvim_create_autocmd('User', {
+				pattern = 'MasonToolsUpdateCompleted',
+				desc = 'Notifies the user when a tool has been installed',
+				group = group,
+				callback = function(e)
+					vim.schedule(function()
+						vim.notify('Installed ' .. vim.inspect(e.data), vim.log.levels.INFO, { title = 'Mason' })
+					end)
+				end,
+			})
+		end,
 	},
 	{
 		'SmiteshP/nvim-navic',

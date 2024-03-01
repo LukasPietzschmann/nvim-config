@@ -86,7 +86,7 @@ end
 
 local attached = false
 vim.api.nvim_create_autocmd('LspAttach', {
-	group = vim.api.nvim_create_augroup('copilot-status', {}),
+	group = vim.api.nvim_create_augroup('copilot-status', { clear = true }),
 	desc = 'Update copilot attached status',
 	callback = function(args)
 		local new_client = vim.lsp.get_client_by_id(args.data.client_id)

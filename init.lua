@@ -45,6 +45,8 @@ function IsPluginLoaded(name)
 	return require('lazy.core.config').plugins[name]._.loaded ~= nil
 end
 
+CloseStuffBeforeExitGroup = vim.api.nvim_create_augroup('CloseStuffBeforeExit', { clear = true })
+
 require 'options'
 require 'keymap'
 -- require 'tmux'

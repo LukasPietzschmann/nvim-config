@@ -102,6 +102,14 @@ return {
 		vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
 
 		require('neo-tree').setup(opts)
+
+		vim.api.nvim_create_autocmd('VimLeavePre', {
+			desc = 'Closes the file tree before NeoVim exits',
+			group = CloseStuffBeforeExitGroup,
+			callback = function()
+				vim.cmd 'tabdo Neotree close'
+			end,
+		})
 	end,
 	dependencies = {
 		'nvim-lua/plenary.nvim',
