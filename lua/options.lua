@@ -54,13 +54,10 @@ api.nvim_set_option_value('linebreak', true, {})
 api.nvim_set_option_value('scrolloff', 0, {})
 api.nvim_set_option_value('formatoptions', 'croqlj', {})
 api.nvim_set_option_value('history', '10000', {})
-
-vim.cmd 'set title titlestring=%t'
+api.nvim_set_option_value('title', true, {})
+api.nvim_set_option_value('titlestring', '%t', {})
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
-
-
-vim.fn.sign_define('LightBulbSign', { texthl = '' })
