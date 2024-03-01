@@ -41,21 +41,35 @@ return {
 		},
 		select = {
 			enabled = true,
-			backend = { 'telescope' },
+			backend = 'nui',
 			trim_prompt = true,
-			telescope = {
-				theme = 'cursor',
-				layout_strategy = 'cursor',
-				layout_config = {
-					width = function(_, max_columns, _)
-						return math.min(max_columns, 40)
-					end,
-					height = function(_, _, max_lines)
-						return math.min(max_lines, 6)
-					end,
+			nui = {
+				position = {
+					row = 2,
+					col = 0,
 				},
+				size = false,
+				relative = 'cursor',
+				border = { style = 'rounded' },
+				buf_options = {
+					swapfile = false,
+					filetype = 'DressingSelect',
+				},
+				win_options = { winblend = 0 },
+				max_width = 80,
+				max_height = 20,
+				min_width = 1,
+				min_height = 1,
 			},
+			get_config = function(opts)
+				vim.notify(opts.kind or 'nope')
+				if opts.kind == 'mason.ui.language-filter' then
+					return {
+						backend = 'telescope',
+					}
+				end
+			end,
 		},
 	},
-	dependencies = { 'nvim-telescope/telescope.nvim' },
+	dependencies = { 'nvim-telescope/telescope.nvim', 'MunifTanjim/nui.nvim' },
 }
