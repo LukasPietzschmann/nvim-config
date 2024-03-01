@@ -45,7 +45,7 @@ require('lazy').setup('plugins', {
 	},
 })
 
-function Is_plugin_loaded(name)
+function IsPluginLoaded(name)
 	return require('lazy.core.config').plugins[name]._.loaded ~= nil
 end
 

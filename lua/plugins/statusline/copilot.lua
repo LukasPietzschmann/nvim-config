@@ -111,7 +111,7 @@ M.Copilot = {
 		end,
 	},
 	provider = function()
-		if not attached or not Is_plugin_loaded 'copilot.lua' then
+		if not attached or not IsPluginLoaded 'copilot.lua' then
 			return icons.copilot.unknown
 		elseif is_loading() then
 			return '…'

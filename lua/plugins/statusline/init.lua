@@ -25,7 +25,7 @@ return {
 
 		local Navic = {
 			condition = function()
-				return Is_plugin_loaded 'nvim-navic' and require('nvim-navic').is_available()
+				return IsPluginLoaded 'nvim-navic' and require('nvim-navic').is_available()
 			end,
 			update = 'CursorMoved',
 			Space(2),

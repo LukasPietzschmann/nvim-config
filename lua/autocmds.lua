@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 vim.api.nvim_create_autocmd('BufWritePost', {
 	callback = function()
-		if Is_plugin_loaded 'nvim-lint' then
+		if IsPluginLoaded 'nvim-lint' then
 			require('lint').try_lint()
 		end
 	end,

@@ -29,7 +29,7 @@ M.LanguageServers = {
 
 M.Linters = {
 	condition = function(self)
-		local loaded = Is_plugin_loaded 'nvim-lint'
+		local loaded = IsPluginLoaded 'nvim-lint'
 		if not loaded then
 			return false
 		end
@@ -55,7 +55,7 @@ M.Linters = {
 
 M.Parsers = {
 	condition = function(self)
-		if not Is_plugin_loaded 'nvim-treesitter' then
+		if not IsPluginLoaded 'nvim-treesitter' then
 			return false
 		end
 		local parser = require('nvim-treesitter.parsers').get_parser()
@@ -85,7 +85,7 @@ M.Parsers = {
 
 M.Formatter = {
 	condition = function()
-		local formatter_loaded = Is_plugin_loaded 'formatter.nvim'
+		local formatter_loaded = IsPluginLoaded 'formatter.nvim'
 		if not formatter_loaded then
 			return false
 		end
