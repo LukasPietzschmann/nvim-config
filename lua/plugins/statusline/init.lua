@@ -23,6 +23,32 @@ return {
 
 		local Ruler = surround({ '', icons.powerline.right_rounded }, 'bg1', nil, 'bg0', { provider = '%l:%c %P' })
 
+		local SelectionCount = {
+			condition = function(self)
+				local mode = vim.api.nvim_get_mode().mode:sub(1, 1)
+				self.mode = mode
+				return mode == 'v' or mode == '\22' or mode == 'V'
+			end,
+			{
+				provider = function(self)
+					local line_start, col_start = vim.fn.line 'v', vim.fn.col 'v'
+					local line_end, col_end = vim.fn.line '.', vim.fn.col '.'
+					if self.mode == '\22' then
+						return string.format(
+							'%dx%d',
+							math.abs(line_start - line_end) + 1,
+							math.abs(col_start - col_end) + 1
+						)
+					elseif self.mode == 'V' or line_start ~= line_end then
+						return math.abs(line_start - line_end) + 1
+					elseif self.mode == 'v' then
+						return math.abs(col_start - col_end) + 1
+					end
+				end,
+			},
+			Space(2),
+		}
+
 		local Navic = {
 			condition = function()
 				return IsPluginLoaded 'nvim-navic' and require('nvim-navic').is_available()
@@ -81,6 +107,7 @@ return {
 				Diagnostics,
 				AttachedTools,
 				SearchCount,
+				SelectionCount,
 				Ruler,
 			},
 			Space,
