@@ -35,6 +35,45 @@ return {
 			end,
 		})
 	end,
+	cond = function()
+		-- Don't start when opening a file
+		if vim.fn.argc() > 0 then
+			return false
+		end
+
+		-- Don't start if the current buffer has any lines
+		local lines = vim.api.nvim_buf_get_lines(0, 0, 2, true)
+		if #lines > 1 or (#lines == 1 and lines[1]:len() > 0) then
+			return false
+		end
+
+		-- Don't start if there are several listed buffers
+		for _, buf_id in pairs(vim.api.nvim_list_bufs()) do
+			local bufinfo = vim.fn.getbufinfo(buf_id)
+			if bufinfo.listed == 1 and #bufinfo.windows > 0 then
+				return false
+			end
+		end
+
+		-- Don't start if the current buffer is explicitly modifiable
+		if not vim.o.modifiable then
+			return false
+		end
+
+		for _, arg in pairs(vim.v.argv) do
+			-- Alpha should be present when measuring startup time
+			if arg == '--startuptime' then
+				return true
+			end
+
+			-- Don't start when classic script arguments are present
+			if arg == '-b' or arg == '-c' or vim.startswith(arg, '+') or arg == '-S' then
+				return false
+			end
+		end
+
+		return true
+	end,
 	opts = function()
 		local fn = vim.fn
 		local headerPadding = fn.max { 2, fn.floor(fn.winheight(0) * 0.3) }
