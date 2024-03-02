@@ -1,4 +1,4 @@
-local parsers = require('required-tools').parsers
+local required_tools = LazyRequire 'required-tools'
 
 return {
 	{
@@ -34,7 +34,7 @@ return {
 					},
 				}, ]]
 			},
-			ensure_installed = parsers,
+			ensure_installed = required_tools.parsers,
 			sync_install = false,
 			highlight = { enable = true },
 		},

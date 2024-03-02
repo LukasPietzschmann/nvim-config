@@ -4,14 +4,14 @@ return {
 	event = 'InsertEnter',
 	opts = function()
 		local cmp = require 'cmp'
-		local luasnip = require 'luasnip'
+		local luasnip = LazyRequire 'luasnip'
 		local lspkind = require 'lspkind'
 		return {
 			enabled = function()
-				local context = require 'cmp.config.context'
 				if vim.api.nvim_get_mode().mode == 'c' then
 					return true
 				else
+					local context = require 'cmp.config.context'
 					return not context.in_treesitter_capture 'comment' and not context.in_syntax_group 'Comment'
 				end
 			end,
@@ -40,7 +40,7 @@ return {
 				['<esc>'] = cmp.mapping.abort(),
 				['<CR>'] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
 				['<Tab>'] = cmp.mapping(function(fallback)
-					local suggestions = require 'copilot.suggestion'
+					local suggestions = LazyRequire 'copilot.suggestion'
 					if cmp.visible() then
 						cmp.select_next_item()
 					elseif luasnip.expand_or_locally_jumpable() then
@@ -104,7 +104,7 @@ return {
 	end,
 	config = function(_, opts)
 		local cmp = require 'cmp'
-		local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+		local cmp_autopairs = LazyRequire 'nvim-autopairs.completion.cmp'
 
 		cmp.setup(opts)
 

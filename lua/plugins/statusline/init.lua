@@ -6,7 +6,7 @@ return {
 		vim.api.nvim_set_option_value('laststatus', 0, {})
 	end,
 	opts = function()
-		local conditions = require 'heirline.conditions'
+		local conditions = LazyRequire 'heirline.conditions'
 		local helpers = require 'plugins.statusline.helpers'
 
 		local Mode = require('plugins.statusline.mode').Mode

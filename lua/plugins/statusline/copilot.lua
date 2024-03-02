@@ -1,21 +1,9 @@
-local helpers = require 'plugins.statusline.helpers'
+local helpers = LazyRequire 'plugins.statusline.helpers'
 local Space = helpers.Space
 local icons = helpers.icons
 
-local function lazy_require(require_path)
-	return setmetatable({}, {
-		__index = function(_, key)
-			return require(require_path)[key]
-		end,
-
-		__newindex = function(_, key, value)
-			require(require_path)[key] = value
-		end,
-	})
-end
-
-local client = lazy_require 'copilot.client'
-local api = lazy_require 'copilot.api'
+local client = LazyRequire 'copilot.client'
+local api = LazyRequire 'copilot.api'
 
 M = {}
 

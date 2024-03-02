@@ -43,6 +43,7 @@ return {
 		end,
 		opts = function()
 			local config = require 'telescope.config'
+			local actions = LazyRequire 'telescope.actions'
 			local vimgrep_arguments = { table.unpack(config.values.vimgrep_arguments) }
 			table.insert(vimgrep_arguments, '--hidden')
 			table.insert(vimgrep_arguments, '--follow')
@@ -53,7 +54,9 @@ return {
 					initial_mode = 'insert',
 					mappings = {
 						i = {
-							['<esc>'] = require('telescope.actions').close,
+							['<esc>'] = function(...)
+								actions.close(...)
+							end,
 						},
 					},
 					vimgrep_arguments = vimgrep_arguments,

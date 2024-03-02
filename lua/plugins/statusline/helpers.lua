@@ -1,4 +1,4 @@
-local utils = require 'heirline.utils'
+local utils = LazyRequire 'heirline.utils'
 
 M = {}
 

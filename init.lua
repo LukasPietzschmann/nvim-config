@@ -1,5 +1,19 @@
 vim.loader.enable()
 
+function LazyRequire(require_path)
+	return setmetatable({}, {
+		__index = function(_, key)
+			return require(require_path)[key]
+		end,
+		__newindex = function(_, key, value)
+			require(require_path)[key] = value
+		end,
+		__call = function(_, ...)
+			return require(require_path)(...)
+		end,
+	})
+end
+
 vim.api.nvim_cmd({
 	cmd = 'colorscheme',
 	args = { 'gruvluke' },

@@ -1,10 +1,4 @@
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-capabilities.textDocument.foldingRange = {
-	dynamicRegistration = false,
-	lineFoldingOnly = true,
-}
-
-local on_attach = function(client, bufnr)
+local function on_attach(client, bufnr)
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 	if client.server_capabilities.documentSymbolProvider then
 		require('nvim-navic').attach(client, bufnr)
@@ -13,7 +7,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', '<M-CR>', vim.lsp.buf.code_action, bufopts)
 end
 
-local required_tools = require 'required-tools'
+local required_tools = LazyRequire 'required-tools'
 
 return {
 	-- Order should be:
@@ -24,8 +18,13 @@ return {
 		'neovim/nvim-lspconfig',
 		event = { 'BufReadPre', 'BufAdd' },
 		config = function()
-			local lspconfig = require 'lspconfig'
+			local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			capabilities.textDocument.foldingRange = {
+				dynamicRegistration = false,
+				lineFoldingOnly = true,
+			}
 
+			local lspconfig = require 'lspconfig'
 			lspconfig.clangd.setup {
 				capabilities = { table.unpack(capabilities), offsetEncoding = 'utf-8' },
 				on_attach = on_attach,

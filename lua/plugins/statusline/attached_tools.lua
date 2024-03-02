@@ -1,4 +1,4 @@
-local conditions = require 'heirline.conditions'
+local conditions = LazyRequire 'heirline.conditions'
 local helpers = require 'plugins.statusline.helpers'
 local icons = helpers.icons
 local insert_set = helpers.insert_set

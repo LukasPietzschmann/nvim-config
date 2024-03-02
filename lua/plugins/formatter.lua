@@ -3,7 +3,7 @@ return {
 	cmd = { 'Format', 'FormatWrite' },
 	keys = { { '<A-f>', '<cmd>Format<CR>' } },
 	opts = function()
-		local any_ft = require 'formatter.filetypes.any'
+		local any_ft = LazyRequire 'formatter.filetypes.any'
 		return {
 			filetype = {
 				cpp = { require('formatter.filetypes.cpp').clangformat },
@@ -26,7 +26,11 @@ return {
 				json = { require('formatter.filetypes.json').prettier },
 				yaml = { require('formatter.filetypes.yaml').prettier },
 				svelte = { require('formatter.filetypes.svelte').prettier },
-				['*'] = { any_ft.remove_trailing_whitespace },
+				['*'] = {
+					function(...)
+						any_ft.remove_trailing_whitespace(...)
+					end,
+				},
 			},
 		}
 	end,
