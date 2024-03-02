@@ -20,3 +20,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 		}
 	end,
 })
+
+vim.api.nvim_create_autocmd('User', {
+	pattern = 'VeryLazy',
+	desc = 'Set "spell" later, as it takes a while',
+	group = vim.api.nvim_create_augroup('SetSpell', { clear = true }),
+	callback = function()
+		vim.api.nvim_set_option_value('spell', true, {})
+		vim.api.nvim_set_option_value('spelllang', 'en,de', {})
+		return true
+	end,
+})
