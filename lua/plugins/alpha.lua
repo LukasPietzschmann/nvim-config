@@ -25,6 +25,16 @@ end
 return {
 	'goolord/alpha-nvim',
 	event = 'VimEnter',
+	init = function()
+		vim.api.nvim_create_autocmd('User', {
+			pattern = 'AlphaReady',
+			desc = 'Disable spell checking for alphas buffer',
+			group = vim.api.nvim_create_augroup('NospellInAlpha', { clear = true }),
+			callback = function()
+				vim.api.nvim_set_option_value('spell', false, { scope = 'local' })
+			end,
+		})
+	end,
 	opts = function()
 		local fn = vim.fn
 		local headerPadding = fn.max { 2, fn.floor(fn.winheight(0) * 0.3) }
