@@ -123,16 +123,7 @@ return {
 	{
 		'WhoIsSethDaniel/mason-tool-installer.nvim',
 		cmd = { 'MasonToolsInstall', 'MasonToolsUpdate' },
-		opts = {
-			ensure_installed = {
-				table.unpack(required_tools.lsps),
-				table.unpack(required_tools.formatter),
-				table.unpack(required_tools.linter),
-			},
-			run_on_start = false,
-		},
-		config = function(_, opts)
-			require('mason-tool-installer').setup(opts)
+		init = function()
 			local group = vim.api.nvim_create_augroup('MasonNotifications', { clear = true })
 			vim.api.nvim_create_autocmd('User', {
 				pattern = 'MasonToolsStartingInstall',
@@ -155,6 +146,14 @@ return {
 				end,
 			})
 		end,
+		opts = {
+			ensure_installed = {
+				table.unpack(required_tools.lsps),
+				table.unpack(required_tools.formatter),
+				table.unpack(required_tools.linter),
+			},
+			run_on_start = false,
+		},
 	},
 	{
 		'SmiteshP/nvim-navic',
