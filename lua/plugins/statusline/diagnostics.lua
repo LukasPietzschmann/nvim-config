@@ -5,12 +5,6 @@ M = {}
 M.Diagnostics = {
 	condition = conditions.has_diagnostics,
 	update = { 'DiagnosticChanged', 'BufEnter', 'VimResized' },
-	static = {
-		error_icon = 'E:',
-		warn_icon = 'W:',
-		info_icon = 'I:',
-		hint_icon = 'H:',
-	},
 	init = function(self)
 		self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 		self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
@@ -20,26 +14,41 @@ M.Diagnostics = {
 	flexible = 30,
 	{
 		{
-			provider = function(self)
-				return self.errors > 0 and (self.error_icon .. self.errors .. ' ')
+			condition = function(self)
+				return self.errors > 0
 			end,
+			provider = function(self)
+				return string.format('%s%s', icons.diagnostics.error, self.errors)
+			end,
+			Space(2),
 		},
 		{
-			provider = function(self)
-				return self.warnings > 0 and (self.warn_icon .. self.warnings .. ' ')
+			condition = function(self)
+				return self.warnings > 0
 			end,
+			provider = function(self)
+				return string.format('%s%s', icons.diagnostics.warning, self.warnings)
+			end,
+			Space(2),
 		},
 		{
-			provider = function(self)
-				return self.info > 0 and (self.info_icon .. self.info .. ' ')
+			condition = function(self)
+				return self.info > 0
 			end,
+			provider = function(self)
+				return string.format('%s%s', icons.diagnostics.info, self.info)
+			end,
+			Space(2),
 		},
 		{
-			provider = function(self)
-				return self.hints > 0 and (self.hint_icon .. self.hints)
+			condition = function(self)
+				return self.hints > 0
 			end,
+			provider = function(self)
+				return string.format('%s %s', icons.diagnostics.hint, self.hints)
+			end,
+			Space(2),
 		},
-		Space(2),
 	},
 	Empty,
 }

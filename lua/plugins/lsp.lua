@@ -270,8 +270,8 @@ return {
 					end,
 				},
 				folds = {
-					fold_closed = '',
-					fold_open = '',
+					fold_closed = icons.arrow.right,
+					fold_open = icons.arrow.down,
 					folded = true,
 				},
 				indent_lines = {
