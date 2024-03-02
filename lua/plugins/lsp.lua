@@ -118,7 +118,6 @@ return {
 		build = function(_)
 			require('mason-tool-installer').check_install(true)
 		end,
-		dependencies = { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
 	},
 	{
 		'WhoIsSethDaniel/mason-tool-installer.nvim',
