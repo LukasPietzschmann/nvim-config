@@ -26,9 +26,9 @@ return {
 				with_markers = false,
 			},
 			icon = {
-				folder_closed = '',
-				folder_open = '',
-				folder_empty = 'ﰊ',
+				folder_closed = icons.folder.closed,
+				folder_open = icons.folder.open,
+				folder_empty = icons.folder.empty,
 			},
 			modified = {
 				symbol = '[+]',

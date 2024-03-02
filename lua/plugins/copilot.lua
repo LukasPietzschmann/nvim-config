@@ -5,7 +5,7 @@ return {
 	build = ':Copilot auth',
 	config = function(_, opts)
 		require('copilot').setup(opts)
-		local suggestion = LazyRequire 'copilot.suggestion'
+		local suggestion = lazy_require 'copilot.suggestion'
 		vim.keymap.set('i', '<Esc>', function()
 			if suggestion.is_visible() then
 				suggestion.dismiss()

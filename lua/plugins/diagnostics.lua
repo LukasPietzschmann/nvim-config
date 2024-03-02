@@ -52,7 +52,7 @@ return {
 			desc = 'Closes trouble before NeoVim exits',
 			group = CloseStuffBeforeExitGroup,
 			callback = function()
-				if not IsPluginLoaded 'trouble.nvim' then
+				if not is_plugin_loaded 'trouble.nvim' then
 					return
 				end
 				require('trouble').close()

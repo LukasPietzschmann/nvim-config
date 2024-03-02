@@ -1,18 +1,6 @@
 vim.loader.enable()
 
-function LazyRequire(require_path)
-	return setmetatable({}, {
-		__index = function(_, key)
-			return require(require_path)[key]
-		end,
-		__newindex = function(_, key, value)
-			require(require_path)[key] = value
-		end,
-		__call = function(_, ...)
-			return require(require_path)(...)
-		end,
-	})
-end
+require 'utils'
 
 vim.api.nvim_cmd({
 	cmd = 'colorscheme',
@@ -67,12 +55,6 @@ require('lazy').setup('plugins', {
 		},
 	},
 })
-
-function IsPluginLoaded(name)
-	return require('lazy.core.config').plugins[name]._.loaded ~= nil
-end
-
-CloseStuffBeforeExitGroup = vim.api.nvim_create_augroup('CloseStuffBeforeExit', { clear = true })
 
 require 'options'
 require 'keymap'

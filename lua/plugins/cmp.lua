@@ -4,7 +4,7 @@ return {
 	event = 'InsertEnter',
 	opts = function()
 		local cmp = require 'cmp'
-		local luasnip = LazyRequire 'luasnip'
+		local luasnip = lazy_require 'luasnip'
 		local lspkind = require 'lspkind'
 		return {
 			enabled = function()
@@ -40,7 +40,7 @@ return {
 				['<esc>'] = cmp.mapping.abort(),
 				['<CR>'] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
 				['<Tab>'] = cmp.mapping(function(fallback)
-					local suggestions = LazyRequire 'copilot.suggestion'
+					local suggestions = lazy_require 'copilot.suggestion'
 					if cmp.visible() then
 						cmp.select_next_item()
 					elseif luasnip.expand_or_locally_jumpable() then
@@ -104,7 +104,7 @@ return {
 	end,
 	config = function(_, opts)
 		local cmp = require 'cmp'
-		local cmp_autopairs = LazyRequire 'nvim-autopairs.completion.cmp'
+		local cmp_autopairs = lazy_require 'nvim-autopairs.completion.cmp'
 
 		cmp.setup(opts)
 

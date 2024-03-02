@@ -1,9 +1,3 @@
-local helpers = require 'plugins.statusline.helpers'
-local icons = helpers.icons
-local surround = helpers.surround
-
-local Space = helpers.Space
-
 local mode_names = {
 	n = 'Normal',
 	no = 'Normal?',

@@ -1,4 +1,5 @@
-local function alpha_button(sc, txt, keybind)
+local function alpha_button(sc, icon, text, keybind)
+	local txt = string.format('%s %s', icon, text)
 	local opts = {
 		position = 'center',
 		text = txt,
@@ -7,11 +8,8 @@ local function alpha_button(sc, txt, keybind)
 		width = 36,
 		align_shortcut = 'right',
 		hl = 'AlphaButtons',
+		keymap = { 'n', sc, keybind, { noremap = true, silent = true } },
 	}
-
-	if keybind then
-		opts.keymap = { 'n', sc, keybind, { noremap = true, silent = true } }
-	end
 
 	return {
 		type = 'button',
@@ -60,13 +58,13 @@ return {
 				{
 					type = 'group',
 					val = {
-						alpha_button('s', '  Show Sessions', ':Telescope session-lens search_session <CR>'),
-						alpha_button('e', '  New File', ':enew<CR>'),
-						alpha_button('f', '  Find File  ', ':Telescope find_files<CR>'),
-						alpha_button('r', '  Recent File  ', ':Telescope oldfiles<CR>'),
-						alpha_button('l', '  Lazy', ':Lazy<CR>'),
-						alpha_button('m', '  Mason', ':Mason<CR>'),
-						alpha_button('q', '  Quit', ':q<CR>'),
+						alpha_button('s', icons.save, 'Show Sessions', ':Telescope session-lens search_session <CR>'),
+						alpha_button('e', icons.new_file, 'New File', ':enew<CR>'),
+						alpha_button('f', icons.find, 'Find File  ', ':Telescope find_files<CR>'),
+						alpha_button('r', icons.clock, 'Recent File  ', ':Telescope oldfiles<CR>'),
+						alpha_button('l', icons.package, 'Lazy', ':Lazy<CR>'),
+						alpha_button('m', icons.grid, 'Mason', ':Mason<CR>'),
+						alpha_button('q', icons.bye, 'Quit', ':q<CR>'),
 					},
 					opts = { spacing = 1 },
 				},

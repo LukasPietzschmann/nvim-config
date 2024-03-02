@@ -7,7 +7,7 @@ local function on_attach(client, bufnr)
 	vim.keymap.set('n', '<M-CR>', vim.lsp.buf.code_action, bufopts)
 end
 
-local required_tools = LazyRequire 'required-tools'
+local required_tools = lazy_require 'required-tools'
 
 return {
 	-- Order should be:
@@ -18,7 +18,8 @@ return {
 		'neovim/nvim-lspconfig',
 		event = { 'BufReadPre', 'BufAdd' },
 		config = function()
-			local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			local capabilities =
+				require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 			capabilities.textDocument.foldingRange = {
 				dynamicRegistration = false,
 				lineFoldingOnly = true,

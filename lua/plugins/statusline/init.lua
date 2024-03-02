@@ -1,3 +1,5 @@
+require 'plugins.statusline.helpers'
+
 return {
 	'rebelot/heirline.nvim',
 	event = 'VeryLazy',
@@ -6,20 +8,12 @@ return {
 		vim.api.nvim_set_option_value('laststatus', 0, {})
 	end,
 	opts = function()
-		local conditions = LazyRequire 'heirline.conditions'
-		local helpers = require 'plugins.statusline.helpers'
+		local conditions = lazy_require 'heirline.conditions'
 
 		local Mode = require('plugins.statusline.mode').Mode
 		local AttachedTools = require('plugins.statusline.attached_tools').AttachedTools
 		local Copilot = require('plugins.statusline.copilot').Copilot
 		local Diagnostics = require('plugins.statusline.diagnostics').Diagnostics
-		local Space = helpers.Space
-		local Fill = helpers.Fill
-		local Empty = helpers.Empty
-
-		local icons = helpers.icons
-		local surround = helpers.surround
-		local trunc = helpers.truncate
 
 		local Ruler = surround({ '', icons.powerline.right_rounded }, 'bg1', nil, 'bg0', { provider = '%l:%c %P' })
 
@@ -51,7 +45,7 @@ return {
 
 		local Navic = {
 			condition = function()
-				return IsPluginLoaded 'nvim-navic' and require('nvim-navic').is_available()
+				return is_plugin_loaded 'nvim-navic' and require('nvim-navic').is_available()
 			end,
 			update = 'CursorMoved',
 			Space(2),
@@ -72,7 +66,7 @@ return {
 				Space(2),
 				{
 					provider = function(self)
-						return ' ' .. trunc(self.status_dict.head, 10)
+						return ' ' .. truncate(self.status_dict.head, 10)
 					end,
 				},
 			},

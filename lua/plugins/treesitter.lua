@@ -1,4 +1,4 @@
-local required_tools = LazyRequire 'required-tools'
+local required_tools = lazy_require 'required-tools'
 
 return {
 	{

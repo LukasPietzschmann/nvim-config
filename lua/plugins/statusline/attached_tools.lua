@@ -1,9 +1,4 @@
-local conditions = LazyRequire 'heirline.conditions'
-local helpers = require 'plugins.statusline.helpers'
-local icons = helpers.icons
-local insert_set = helpers.insert_set
-local Space = helpers.Space
-local Empty = helpers.Empty
+local conditions = lazy_require 'heirline.conditions'
 
 M = {}
 
@@ -29,7 +24,7 @@ M.LanguageServers = {
 
 M.Linters = {
 	condition = function(self)
-		local loaded = IsPluginLoaded 'nvim-lint'
+		local loaded = is_plugin_loaded 'nvim-lint'
 		if not loaded then
 			return false
 		end
@@ -55,7 +50,7 @@ M.Linters = {
 
 M.Parsers = {
 	condition = function(self)
-		if not IsPluginLoaded 'nvim-treesitter' then
+		if not is_plugin_loaded 'nvim-treesitter' then
 			return false
 		end
 		local parser = require('nvim-treesitter.parsers').get_parser()
@@ -85,7 +80,7 @@ M.Parsers = {
 
 M.Formatter = {
 	condition = function()
-		local formatter_loaded = IsPluginLoaded 'formatter.nvim'
+		local formatter_loaded = is_plugin_loaded 'formatter.nvim'
 		if not formatter_loaded then
 			return false
 		end

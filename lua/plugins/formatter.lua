@@ -3,7 +3,7 @@ return {
 	cmd = { 'Format', 'FormatWrite' },
 	keys = { { '<A-f>', '<cmd>Format<CR>' } },
 	opts = function()
-		local any_ft = LazyRequire 'formatter.filetypes.any'
+		local any_ft = lazy_require 'formatter.filetypes.any'
 		return {
 			filetype = {
 				cpp = { require('formatter.filetypes.cpp').clangformat },

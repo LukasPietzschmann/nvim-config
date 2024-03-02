@@ -1,7 +1,4 @@
 local conditions = require 'heirline.conditions'
-local helpers = require 'plugins.statusline.helpers'
-local Empty = helpers.Empty
-local Space = helpers.Space
 
 M = {}
 

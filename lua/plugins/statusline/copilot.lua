@@ -1,9 +1,5 @@
-local helpers = LazyRequire 'plugins.statusline.helpers'
-local Space = helpers.Space
-local icons = helpers.icons
-
-local client = LazyRequire 'copilot.client'
-local api = LazyRequire 'copilot.api'
+local client = lazy_require 'copilot.client'
+local api = lazy_require 'copilot.api'
 
 M = {}
 
@@ -99,7 +95,7 @@ M.Copilot = {
 		end,
 	},
 	provider = function()
-		if not attached or not IsPluginLoaded 'copilot.lua' then
+		if not attached or not is_plugin_loaded 'copilot.lua' then
 			return icons.copilot.unknown
 		elseif is_loading() then
 			return '…'
