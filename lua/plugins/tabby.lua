@@ -46,10 +46,7 @@ local function should_show_windows(tab, wins)
 	return tab.is_current() and #wins > 1
 end
 
-local function render_tab(line, content, is_current, are_windows_shown)
-	if are_windows_shown then
-		return ''
-	end
+local function render_tab(line, content, is_current)
 	local hl = is_current and theme.current_tab or theme.tab
 	return {
 		line.sep('', hl, theme.fill),
@@ -93,17 +90,17 @@ return {
 					line.sep(' ', theme.head, theme.fill),
 				},
 				line.tabs().foreach(function(tab)
-					local wins = filter(line.wins_in_tab(line.api.get_current_tab()).wins, function(win)
+					local wins = line.wins_in_tab(line.api.get_current_tab()).wins
+					local filtered_wins = filter(wins, function(win)
 						local win_name = win.buf_name()
 						return not any(startswith(win_name), ignore_win_prefixes)
 					end)
 					local are_windows_shown = should_show_windows(tab, wins)
 					return {
-						render_tab(line, {
+						not are_windows_shown and render_tab(line, {
 							get_tab_modifiers(tab),
 							tab.name(),
-						}, tab.is_current(), are_windows_shown),
-						are_windows_shown and foreach(wins, function(is_first, is_last, win)
+						}, tab.is_current()) or foreach(filtered_wins, function(is_first, is_last, win)
 							return render_window(line, {
 								get_win_modifiers(win),
 								win.buf_name(),
