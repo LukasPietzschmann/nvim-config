@@ -80,31 +80,6 @@ local function foreach(t, fn)
 	return results
 end
 
-local function startswith(str)
-	return function(start)
-		return str:sub(1, #start) == start
-	end
-end
-
-local function filter(tab, p)
-	local result = {}
-	for _, v in ipairs(tab) do
-		if p(v) then
-			table.insert(result, v)
-		end
-	end
-	return result
-end
-
-local function any(p, tab)
-	for _, v in ipairs(tab) do
-		if p(v) then
-			return true
-		end
-	end
-	return false
-end
-
 return {
 	'nanozuki/tabby.nvim',
 	event = 'VeryLazy',

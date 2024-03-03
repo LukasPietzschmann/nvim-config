@@ -31,6 +31,31 @@ function insert_set(tab, elem)
 	table.insert(tab, elem)
 end
 
+function startswith(str)
+	return function(start)
+		return str:sub(1, #start) == start
+	end
+end
+
+function filter(tab, p)
+	local result = {}
+	for _, v in ipairs(tab) do
+		if p(v) then
+			table.insert(result, v)
+		end
+	end
+	return result
+end
+
+function any(p, tab)
+	for _, v in ipairs(tab) do
+		if p(v) then
+			return true
+		end
+	end
+	return false
+end
+
 CloseStuffBeforeExitGroup = vim.api.nvim_create_augroup('CloseStuffBeforeExit', { clear = true })
 
 icons = {
