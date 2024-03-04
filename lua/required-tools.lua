@@ -15,6 +15,7 @@ M.lsps = {
 M.formatter = {
 	'black',
 	'clang-format',
+	'fourmolu',
 	'latexindent',
 	'prettier',
 	'stylua',

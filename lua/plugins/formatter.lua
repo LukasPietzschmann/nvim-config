@@ -1,3 +1,5 @@
+local util = lazy_require 'formatter.util'
+
 return {
 	'mhartington/formatter.nvim',
 	cmd = { 'Format', 'FormatWrite' },
@@ -26,6 +28,16 @@ return {
 				json = { require('formatter.filetypes.json').prettier },
 				yaml = { require('formatter.filetypes.yaml').prettier },
 				svelte = { require('formatter.filetypes.svelte').prettier },
+				haskell = {
+					{
+						exe = 'fourmolu',
+						args = {
+							'--stdin-input-file',
+							util.escape_path(util.get_current_buffer_file_name()),
+						},
+						stdin = true,
+					},
+				},
 				['*'] = {
 					function(...)
 						any_ft.remove_trailing_whitespace(...)
