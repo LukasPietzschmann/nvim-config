@@ -60,7 +60,7 @@ return {
 						},
 					},
 					vimgrep_arguments = vimgrep_arguments,
-					file_ignore_patterns = {'node_modules', '.git'},
+					file_ignore_patterns = { '%.git/', 'node_modules/' },
 					results_title = false,
 					sorting_strategy = 'ascending',
 					layout_strategy = 'center',

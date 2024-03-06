@@ -17,6 +17,8 @@ return {
 						['ip'] = '@parameter.inner',
 						['ap'] = '@parameter.outer',
 						['as'] = '@statement.outer',
+						['ia'] = '@attribute.outer',
+						['aa'] = '@attribute.outer',
 					},
 				},
 				--[[ swap = {

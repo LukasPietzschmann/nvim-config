@@ -18,13 +18,11 @@ return {
 		numhl = true,
 		linehl = false,
 		word_diff = false,
-		watch_gitdir = {
-			interval = 5000,
-			follow_files = true,
-		},
+		watch_gitdir = { follow_files = true },
 		attach_to_untracked = false,
 		current_line_blame = false,
 		sign_priority = 6,
+		preview_config = { border = 'rounded' },
 	},
 	dependencies = { 'nvim-lua/plenary.nvim' },
 }

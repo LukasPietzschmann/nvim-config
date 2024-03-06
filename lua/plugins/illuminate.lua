@@ -5,9 +5,6 @@ return {
 		require('illuminate').configure(opts)
 	end,
 	opts = {
-		providers = {
-			'lsp',
-		},
-		under_cursor = true,
+		providers = { 'lsp', 'treesitter' },
 	},
 }
