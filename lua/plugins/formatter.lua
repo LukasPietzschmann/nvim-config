@@ -38,6 +38,7 @@ return {
 						stdin = true,
 					},
 				},
+				markdown = { require('formatter.filetypes.markdown').prettier },
 				['*'] = {
 					function(...)
 						any_ft.remove_trailing_whitespace(...)
