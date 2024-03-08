@@ -1,8 +1,8 @@
 return {
 	'LukasPietzschmann/boo.nvim',
-	keys = {
+	--[[ keys = {
 		{ '<C-l>', function() require('boo').boo() end },
-	},
+	}, ]]
 	opts = {
 		win_opts = {
 			title = '',
