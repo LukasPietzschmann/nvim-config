@@ -1,10 +1,7 @@
 local function on_attach(client, bufnr)
-	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 	if client.server_capabilities.documentSymbolProvider then
 		require('nvim-navic').attach(client, bufnr)
 	end
-	vim.keymap.set('n', '<C-r>', vim.lsp.buf.rename, bufopts)
-	vim.keymap.set('n', '<M-CR>', vim.lsp.buf.code_action, bufopts)
 end
 
 local required_tools = lazy_require 'required-tools'
@@ -17,6 +14,16 @@ return {
 	{
 		'neovim/nvim-lspconfig',
 		event = { 'BufReadPre', 'BufAdd' },
+		init = function()
+			local bufopts = { noremap = true, silent = true }
+			vim.keymap.set('n', '<C-r>', vim.lsp.buf.rename, bufopts)
+			vim.keymap.set('n', '<M-CR>', vim.lsp.buf.code_action, bufopts)
+			vim.keymap.set('n', '<C-a>', vim.lsp.buf.hover, bufopts)
+			vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+				border = 'rounded',
+				focusable = false,
+			})
+		end,
 		config = function()
 			local capabilities =
 				require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
