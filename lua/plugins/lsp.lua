@@ -18,7 +18,7 @@ return {
 			local bufopts = { noremap = true, silent = true }
 			vim.keymap.set('n', '<C-r>', vim.lsp.buf.rename, bufopts)
 			vim.keymap.set('n', '<M-CR>', vim.lsp.buf.code_action, bufopts)
-			vim.keymap.set('n', '<C-a>', vim.lsp.buf.hover, bufopts)
+			-- vim.keymap.set('n', '<C-a>', vim.lsp.buf.hover, bufopts) use boo.nvim for that
 			vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
 				border = 'rounded',
 				focusable = false,
