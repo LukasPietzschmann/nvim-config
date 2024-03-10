@@ -111,7 +111,6 @@ return {
 			{ '<A-k>', function() require('telescope-tabs').list_tabs() end },
 			{ '<C-s>b', function() require('telescope-tabs').go_to_previous() end },
 		},
-		dev = true,
 		config = function()
 			require('telescope').load_extension 'telescope-tabs'
 			require('telescope-tabs').setup {
