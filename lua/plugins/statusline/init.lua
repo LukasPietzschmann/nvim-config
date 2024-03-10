@@ -5,7 +5,7 @@ return {
 	event = 'VeryLazy',
 	init = function()
 		-- disable initially, so we don't get any flicker
-		vim.api.nvim_set_option_value('laststatus', 0, {})
+		vim.opt.laststatus = 0
 	end,
 	opts = function()
 		local conditions = lazy_require 'heirline.conditions'
@@ -114,6 +114,6 @@ return {
 	end,
 	config = function(_, opts)
 		require('heirline').setup(opts)
-		vim.api.nvim_set_option_value('laststatus', 3, {})
+		vim.opt.laststatus = 3
 	end,
 }

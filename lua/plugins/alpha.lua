@@ -31,7 +31,7 @@ return {
 			desc = 'Disable spell checking for alphas buffer',
 			group = vim.api.nvim_create_augroup('NospellInAlpha', { clear = true }),
 			callback = function()
-				vim.api.nvim_set_option_value('spell', false, { scope = 'local' })
+				vim.opt_local.spell = false
 			end,
 		})
 	end,

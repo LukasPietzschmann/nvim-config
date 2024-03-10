@@ -1,1 +1,1 @@
-vim.api.nvim_set_option_value('expandtab', true, {})
+vim.opt.expandtab = true

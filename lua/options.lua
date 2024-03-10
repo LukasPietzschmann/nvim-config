@@ -12,48 +12,48 @@ function WinbarContent()
 	return alignment .. expanded_modifiers.str .. expanded_filename.str
 end
 
-api.nvim_set_option_value('termguicolors', true, {})
-api.nvim_set_option_value('syntax', 'on', {})
-api.nvim_set_option_value('tabstop', 4, {})
-api.nvim_set_option_value('shiftwidth', 0, {}) -- use tabstop
-api.nvim_set_option_value('autoindent', true, {})
-api.nvim_set_option_value('smartindent', true, {})
-api.nvim_set_option_value('autoread', true, {})
-api.nvim_set_option_value('backspace', 'indent,eol,start', {})
-api.nvim_set_option_value('belloff', 'cursor,esc', {})
-api.nvim_set_option_value('breakindent', true, {})
-api.nvim_set_option_value('confirm', true, {})
-api.nvim_set_option_value('cmdheight', 0, {})
-api.nvim_set_option_value('ignorecase', true, {})
-api.nvim_set_option_value('wildmode', 'longest,list,lastused', {})
-api.nvim_set_option_value('wrap', false, {})
-api.nvim_set_option_value('title', true, {})
-api.nvim_set_option_value('cursorline', true, {})
-api.nvim_set_option_value('cursorlineopt', 'number', {})
-api.nvim_set_option_value('number', true, {})
-api.nvim_set_option_value('mouse', 'a', {})
-api.nvim_set_option_value('mousemodel', 'extend', {})
-api.nvim_set_option_value('list', true, {})
-api.nvim_set_option_value('listchars', 'tab:> ,trail:-,nbsp:+,lead:·', {})
-api.nvim_set_option_value('signcolumn', 'auto', {})
-api.nvim_set_option_value('foldcolumn', 'auto', {})
-api.nvim_set_option_value('foldmethod', 'expr', {})
-api.nvim_set_option_value('foldexpr', 'nvim_treesitter#foldexpr()', {})
-api.nvim_set_option_value('foldenable', false, {})
-api.nvim_set_option_value('winbar', '%{%v:lua.WinbarContent()%}', {})
-api.nvim_set_option_value('fixendofline', false, {})
-api.nvim_set_option_value('hlsearch', false, {})
-api.nvim_set_option_value('guicursor', 'a:block', {})
-api.nvim_set_option_value('undofile', true, {})
-api.nvim_set_option_value('textwidth', 88, {})
-api.nvim_set_option_value('splitkeep', 'screen', {})
-api.nvim_set_option_value('lazyredraw', true, {})
-api.nvim_set_option_value('linebreak', true, {})
-api.nvim_set_option_value('scrolloff', 0, {})
-api.nvim_set_option_value('formatoptions', 'croqlj', {})
-api.nvim_set_option_value('history', '10000', {})
-api.nvim_set_option_value('title', true, {})
-api.nvim_set_option_value('titlestring', '%t', {})
+vim.opt.termguicolors = true
+vim.opt.syntax = 'on'
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 0 -- use tabstop
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.autoread = true
+vim.opt.backspace = { 'indent', 'eol', 'start' }
+vim.opt.belloff = { 'cursor', 'esc' }
+vim.opt.breakindent = true
+vim.opt.confirm = true
+vim.opt.cmdheight = 0
+vim.opt.ignorecase = true
+vim.opt.wildmode = { 'longest', 'list', 'lastused' }
+vim.opt.wrap = false
+vim.opt.title = true
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = 'number'
+vim.opt.number = true
+vim.opt.mouse = 'a'
+vim.opt.mousemodel = 'extend'
+vim.opt.list = true
+vim.opt.listchars = { tab = '> ', trail = '-', nbsp = '+', lead = '·' }
+vim.opt.signcolumn = 'auto'
+vim.opt.foldcolumn = 'auto'
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldenable = false
+vim.opt.winbar = '%{%v:lua.WinbarContent()%}'
+vim.opt.fixendofline = false
+vim.opt.hlsearch = false
+vim.opt.guicursor = 'a:block'
+vim.opt.undofile = true
+vim.opt.textwidth = 88
+vim.opt.splitkeep = 'screen'
+vim.opt.lazyredraw = true
+vim.opt.linebreak = true
+vim.opt.scrolloff = 0
+vim.opt.formatoptions = 'croqlj'
+vim.opt.history = 10000
+vim.opt.title = true
+vim.opt.titlestring = '%t'
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0

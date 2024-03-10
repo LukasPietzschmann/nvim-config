@@ -26,8 +26,8 @@ vim.api.nvim_create_autocmd('User', {
 	desc = 'Set "spell" later, as it takes a while',
 	group = vim.api.nvim_create_augroup('SetSpell', { clear = true }),
 	callback = function()
-		vim.api.nvim_set_option_value('spell', true, { scope = 'global' })
-		vim.api.nvim_set_option_value('spelllang', 'en,de', {})
+		vim.opt_global.spell = true
+		vim.opt.spelllang = { 'en', 'de' }
 		return true
 	end,
 })
