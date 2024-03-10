@@ -2,11 +2,7 @@ vim.loader.enable()
 
 require 'utils'
 
-vim.api.nvim_cmd({
-	cmd = 'colorscheme',
-	args = { 'gruvluke' },
-	bang = false,
-}, {})
+vim.cmd 'colorscheme gruvluke'
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
