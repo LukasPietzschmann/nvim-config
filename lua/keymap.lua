@@ -23,6 +23,8 @@ vim.keymap.set('n', 'U', '<cmd>:redo<CR>')
 vim.keymap.set('n', '<', '<<')
 vim.keymap.set('n', '>', '>>')
 
+vim.keymap.set('x', 'p', '"_dP')
+
 vim.cmd [[
 fun! SetupCommandAlias(from, to)
 	exec 'cnoreabbrev <expr> '.a:from
