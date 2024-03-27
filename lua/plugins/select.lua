@@ -62,7 +62,6 @@ return {
 				min_height = 1,
 			},
 			get_config = function(opts)
-				vim.notify(opts.kind or 'nope')
 				if opts.kind == 'mason.ui.language-filter' then
 					return {
 						backend = 'telescope',
