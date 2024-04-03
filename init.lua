@@ -53,6 +53,7 @@ require('lazy').setup('plugins', {
 	},
 })
 
+require 'filetype'
 require 'options'
 require 'keymap'
 -- require 'tmux'
