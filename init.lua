@@ -1,3 +1,7 @@
+if not unpack then
+    unpack = table.unpack
+end
+
 vim.loader.enable()
 
 require 'utils'
