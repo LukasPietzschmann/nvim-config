@@ -1,5 +1,5 @@
-if not unpack then
-    unpack = table.unpack
+if not table.unpack then
+    table.unpack = unpack
 end
 
 vim.loader.enable()
