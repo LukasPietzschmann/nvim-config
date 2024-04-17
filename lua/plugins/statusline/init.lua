@@ -51,7 +51,13 @@ return {
 			Space(2),
 			{
 				provider = function()
-					return require('nvim-navic').get_location()
+					local ratio = 0.5
+					local navic_text = require('nvim-navic').get_location()
+					if conditions.width_percent_below(#navic_text, ratio) then
+						return navic_text
+					else
+						return truncate(navic_text, vim.api.nvim_win_get_width(0) * ratio)
+					end
 				end,
 			},
 		}
