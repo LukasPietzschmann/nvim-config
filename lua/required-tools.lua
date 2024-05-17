@@ -10,6 +10,7 @@ M.lsps = {
 	'texlab',
 	'tsserver',
 	'vimls',
+	'r_language_server',
 }
 
 M.formatter = {

@@ -149,6 +149,7 @@ return {
 			lspconfig.marksman.setup { capabilities = capabilities, on_attach = on_attach }
 			lspconfig.cmake.setup { capabilities = capabilities, on_attach = on_attach }
 			lspconfig.vimls.setup { capabilities = capabilities, on_attach = on_attach }
+			lspconfig.r_language_server.setup { capabilities = capabilities, on_attach = on_attach }
 		end,
 		dependencies = {
 			'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
