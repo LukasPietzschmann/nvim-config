@@ -56,7 +56,8 @@ return {
 					if conditions.width_percent_below(#navic_text, ratio) then
 						return navic_text
 					else
-						return truncate(navic_text, vim.api.nvim_win_get_width(0) * ratio)
+						return navic_text
+						-- return truncate(navic_text, vim.api.nvim_win_get_width(0) * ratio)
 					end
 				end,
 			},

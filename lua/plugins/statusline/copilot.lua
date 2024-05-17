@@ -77,8 +77,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		if new_client and new_client.name == 'copilot' then
 			attached = true
 			vim.api.nvim_exec_autocmds('User', { pattern = 'CopilotStatus' })
-			api.register_status_notification_handler(function()
-				vim.api.nvim_exec_autocmds('User', { pattern = 'CopilotStatus' })
+			api.register_status_notification_handler(function(data)
+				vim.api.nvim_exec_autocmds('User', { pattern = 'CopilotStatus', data = data })
 			end)
 			return true
 		end
