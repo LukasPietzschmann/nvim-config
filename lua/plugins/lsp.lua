@@ -19,9 +19,15 @@ return {
 			vim.keymap.set('n', '<C-r>', vim.lsp.buf.rename, bufopts)
 			vim.keymap.set('n', '<M-CR>', vim.lsp.buf.code_action, bufopts)
 			-- vim.keymap.set('n', '<C-a>', vim.lsp.buf.hover, bufopts) use boo.nvim for that
+			vim.keymap.set('n', '<A-i>', function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = nil })
+			end)
 			vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
 				border = 'rounded',
 				focusable = false,
+			})
+			vim.lsp.inlay_hint.enable(true, {
+				bufnr = nil,
 			})
 		end,
 		config = function()
@@ -46,6 +52,16 @@ return {
 					'--limit-references=100',
 					'--limit-results=20',
 					'-j=16',
+				},
+				settings = {
+					clangd = {
+						InlayHints = {
+							Designators = true,
+							Enabled = true,
+							ParameterNames = true,
+							DeducedTypes = true,
+						},
+					},
 				},
 			}
 			lspconfig.hls.setup {
@@ -94,10 +110,40 @@ return {
 						diagnostics = {
 							disable = { 'lowercase-global' },
 						},
+						hint = { enable = true },
 					},
 				},
 			}
-			lspconfig.tsserver.setup { capabilities = capabilities, on_attach = on_attach }
+			lspconfig.tsserver.setup {
+				capabilities = capabilities,
+				on_attach = on_attach,
+				settings = {
+					typescript = {
+						inlayHints = {
+							includeInlayParameterNameHints = 'all',
+							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayVariableTypeHints = true,
+							includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayEnumMemberValueHints = true,
+						},
+					},
+					javascript = {
+						inlayHints = {
+							includeInlayParameterNameHints = 'all',
+							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayVariableTypeHints = true,
+							includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayEnumMemberValueHints = true,
+						},
+					},
+				},
+			}
 			lspconfig.pyright.setup { capabilities = capabilities, on_attach = on_attach }
 			lspconfig.marksman.setup { capabilities = capabilities, on_attach = on_attach }
 			lspconfig.cmake.setup { capabilities = capabilities, on_attach = on_attach }

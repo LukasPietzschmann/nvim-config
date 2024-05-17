@@ -27,6 +27,7 @@ vim.opt.cmdheight = 0
 vim.opt.ignorecase = true
 vim.opt.wildmode = { 'longest', 'list', 'lastused' }
 vim.opt.wrap = false
+vim.opt.smoothscroll = true
 vim.opt.title = true
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = 'number'
@@ -54,6 +55,7 @@ vim.opt.formatoptions = 'croqlj'
 vim.opt.history = 10000
 vim.opt.title = true
 vim.opt.titlestring = '%t'
+vim.opt.shortmess = 'mrwaoOsTF'
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
