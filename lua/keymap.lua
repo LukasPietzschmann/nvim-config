@@ -1,5 +1,3 @@
-vim.keymap.set('n', 'ht', '<cmd>ClangdSwitchSourceHeader<CR>')
-
 vim.keymap.set('n', '<C-w>w', '<cmd>:vsp<CR><C-w><Right>')
 vim.keymap.set('n', '<C-w>c', '<cmd>:q<CR>')
 vim.keymap.set('n', '<C-w>e', '<C-w>=')
