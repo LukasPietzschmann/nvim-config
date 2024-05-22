@@ -79,7 +79,7 @@ return {
 				enabled = true,
 			},
 			group_empty_dirs = true,
-			hijack_netrw_behavior = 'open_default',
+			hijack_netrw_behavior = 'disabled',
 			use_libuv_file_watcher = true,
 			window = {
 				mappings = {
