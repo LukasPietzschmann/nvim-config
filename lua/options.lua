@@ -56,6 +56,10 @@ vim.opt.history = 10000
 vim.opt.title = true
 vim.opt.titlestring = '%t'
 vim.opt.shortmess = 'mrwaoOsTF'
+vim.opt.inccommand = 'split'
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.updatetime = 2000
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
