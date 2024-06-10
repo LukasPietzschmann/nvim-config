@@ -19,23 +19,37 @@ return {
 			local function cwd_opts()
 				return { cwd = get_git_root_of_cwd() }
 			end
+			local no_ignore = { no_ignore = true, no_ignore_parent = true }
+			local tab_drop_mapping = {
+					attach_mappings = function(_, map)
+						map('i', '<CR>', 'select_tab_drop')
+						return true
+					end,
+			}
 
 			return {
 				{ '<C-p>', function() require('telescope.builtin').find_files(cwd_opts()) end },
 				{ '<C-S-p>', function() require('telescope.builtin').find_files({
+					prompt_title = 'Find Files (new tab)',
 					table.unpack(cwd_opts()),
-					attach_mappings = function(_, map)
-						map('i', '<CR>', 'select_tab_drop')
-						return true
-					end,
+					table.unpack(tab_drop_mapping),
+				}) end },
+				{ '<C-g>', function() require('telescope.builtin').find_files({
+					prompt_title = 'Find Files (ignored)',
+					table.unpack(cwd_opts()),
+					table.unpack(no_ignore),
+				}) end },
+				{ '<C-S-g>', function() require('telescope.builtin').find_files({
+					prompt_title = 'Find Files (ignored, new tab)',
+					table.unpack(cwd_opts()),
+					table.unpack(no_ignore),
+					table.unpack(tab_drop_mapping),
 				}) end },
 				{ '<C-f>', function() require('telescope.builtin').live_grep(cwd_opts()) end },
 				{ '<C-S-f>', function() require('telescope.builtin').live_grep({
+					prompt_title = 'Live Grep (new tab)',
 					table.unpack(cwd_opts()),
-					attach_mappings = function(_, map)
-						map('i', '<CR>', 'select_tab_drop')
-						return true
-					end,
+					table.unpack(tab_drop_mapping),
 				}) end },
 				{ '<C-k>', function() require('telescope.builtin').lsp_document_symbols() end },
 				{ '<C-S-k>', function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end },
@@ -84,8 +98,8 @@ return {
 					find_files = {
 						hidden = true,
 						follow = true,
-						no_ignore = true,
-						no_ignore_parent = true,
+						no_ignore = false,
+						no_ignore_parent = false,
 						mappings = {
 							i = { ['<CR>'] = 'select_drop' }
 						},
