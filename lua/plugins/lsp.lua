@@ -119,6 +119,9 @@ return {
 				capabilities = capabilities,
 				on_attach = on_attach,
 				settings = {
+					completions = {
+						completeFunctionCalls = true,
+					},
 					typescript = {
 						inlayHints = {
 							includeInlayParameterNameHints = 'all',
