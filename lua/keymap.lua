@@ -22,6 +22,8 @@ vim.keymap.set('n', 'U', '<cmd>:redo<CR>')
 vim.keymap.set('n', '<', '<<')
 vim.keymap.set('n', '>', '>>')
 
+-- Should ideally be part of vim-cutlass
+vim.keymap.set('n', 'x', '"_x')
 vim.keymap.set('x', 'p', '"_dP')
 
 vim.cmd [[
