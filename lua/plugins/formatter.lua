@@ -28,7 +28,9 @@ return {
 				json = { require('formatter.filetypes.json').prettier },
 				yaml = { require('formatter.filetypes.yaml').prettier },
 				svelte = { require('formatter.filetypes.svelte').prettier },
-				haskell = {
+				-- TODO: change formatter in hls settings
+				haskell = { require('formatter.filetypes.haskell').stylish_haskell },
+				--[[ haskell = {
 					{
 						exe = 'fourmolu',
 						args = {
@@ -37,7 +39,7 @@ return {
 						},
 						stdin = true,
 					},
-				},
+				}, ]]
 				markdown = { require('formatter.filetypes.markdown').prettier },
 				['*'] = {
 					function(...)
