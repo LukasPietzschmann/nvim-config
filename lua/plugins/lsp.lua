@@ -65,29 +65,16 @@ return {
 					},
 				},
 			}
-			lspconfig.hls.setup {
-				capabilities = capabilities,
-				on_attach = on_attach,
-				single_file_support = true,
-			}
 			lspconfig.texlab.setup {
 				capabilities = capabilities,
 				on_attach = on_attach,
 				settings = {
 					texlab = {
 						auxDirectory = './aux',
-						build = {
-							args = {},
-							executable = 'make',
-							forwardSearchAfter = false,
-							onSave = false,
-						},
 						chktex = {
 							onEdit = false,
-							onOpenAndSave = false,
+							onOpenAndSave = true,
 						},
-						diagnosticsDelay = 300,
-						formatterLineLength = 120,
 					},
 				},
 			}
@@ -115,7 +102,7 @@ return {
 					},
 				},
 			}
-			lspconfig.tsserver.setup {
+			lspconfig.ts_ls.setup {
 				capabilities = capabilities,
 				on_attach = on_attach,
 				settings = {

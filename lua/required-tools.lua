@@ -50,6 +50,7 @@ M.parsers = {
 	'bibtex',
 	'python',
 	'markdown',
+	'markdown_inline',
 	'gitcommit',
 	'gitignore',
 	'regex',
