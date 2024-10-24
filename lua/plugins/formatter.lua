@@ -28,6 +28,8 @@ return {
 				json = { require('formatter.filetypes.json').prettier },
 				yaml = { require('formatter.filetypes.yaml').prettier },
 				svelte = { require('formatter.filetypes.svelte').prettier },
+				r = { require('formatter.filetypes.r').styler },
+				zig = { require('formatter.filetypes.zig').zigfmt },
 				-- TODO: change formatter in hls settings
 				haskell = { require('formatter.filetypes.haskell').stylish_haskell },
 				--[[ haskell = {

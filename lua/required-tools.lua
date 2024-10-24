@@ -8,9 +8,10 @@ M.lsps = {
 	'marksman',
 	'pyright',
 	'texlab',
-	'tsserver',
+	'ts_ls',
 	'vimls',
 	'r_language_server',
+	'zls',
 }
 
 M.formatter = {
@@ -54,6 +55,7 @@ M.parsers = {
 	'regex',
 	'r',
 	'svelte',
+	'zig',
 }
 
 return M
