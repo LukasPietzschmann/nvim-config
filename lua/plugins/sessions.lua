@@ -9,8 +9,8 @@ return {
 	} },
 	opts = {
 		log_level = 'error',
-		auto_session_enable_last_session = false,
-		auto_session_create_enabled = false,
+		auto_restore_last_session = false,
+		auto_create = false,
 		session_lens = {
 			load_on_setup = true,
 			theme_conf = { border = true, winblend = 0 },
