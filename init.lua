@@ -54,10 +54,14 @@ require('lazy').setup('plugins', {
 			},
 		},
 	},
+	profiling = {
+		loader = false,
+		require = false,
+	},
 })
 
 require 'filetype'
 require 'options'
 require 'keymap'
--- require 'tmux'
+require 'tmux'
 require 'autocmds'
