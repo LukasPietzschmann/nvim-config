@@ -22,12 +22,16 @@ return {
 			vim.keymap.set('n', '<A-i>', function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = nil })
 			end)
-			-- vim.keymap.set('n', '<C-a>', vim.lsp.buf.hover, bufopts) -- use boo.nvim for that
+			-- vim.keymap.set('n', '<C-a>', vim.lsp.buf.hover, bufopts) -- See fold.lua
 			vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
 				border = 'rounded',
 				focusable = false,
 			})
-			vim.lsp.inlay_hint.enable(true, {
+			vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+				border = 'rounded',
+				focusable = false,
+			})
+			vim.lsp.inlay_hint.enable(false, {
 				bufnr = nil,
 			})
 		end,
