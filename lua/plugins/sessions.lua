@@ -4,7 +4,7 @@ return {
 	keys = { {
 		'<A-o>',
 		function()
-			require('auto-session.session-lens').search_session()
+			require('auto-session.session-lens').search_session {}
 		end,
 	} },
 	opts = {

@@ -9,7 +9,7 @@ M.LanguageServers = {
 	{
 		provider = function()
 			local names = {}
-			for _, server in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
+			for _, server in pairs(vim.lsp.get_clients { bufnr = 0 }) do
 				insert_set(names, server.name)
 			end
 			return string.format('%s[%s]', icons.tools.language_servers, table.concat(names, ', '))
