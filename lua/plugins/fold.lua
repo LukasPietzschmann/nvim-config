@@ -37,7 +37,7 @@ return {
 		preview = { win_config = { winblend = 0 } },
 	},
 	init = function()
-		vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+		vim.opt.fillchars = { fold = ' ', foldopen = '', foldsep = ' ', foldclose = '' }
 		vim.opt.foldcolumn = 'auto'
 		vim.opt.foldenable = true
 		vim.opt.foldlevel = 99
