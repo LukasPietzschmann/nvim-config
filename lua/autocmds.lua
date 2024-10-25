@@ -31,3 +31,15 @@ vim.api.nvim_create_autocmd('User', {
 		return true
 	end,
 })
+
+local make_on_set = { 'n', 'N', '*', '#', '?', '/' }
+local keep_on_set = vim.list_extend({ '<C-E>', '<C-Y>', '<ScrollWheelUp>', '<ScrollWheelDown>' }, make_on_set)
+vim.on_key(function(char)
+	if vim.fn.mode() == 'n' then
+		local key = vim.fn.keytrans(char)
+		local make_on = vim.tbl_contains(make_on_set, key)
+		local keep_on = vim.tbl_contains(keep_on_set, key)
+		local new_value = make_on or (vim.opt.hlsearch:get() and keep_on)
+		vim.opt.hlsearch = new_value
+	end
+end, vim.api.nvim_create_namespace 'auto_hlsearch')
