@@ -48,6 +48,7 @@ vim.opt.shiftwidth = 0
 vim.opt.shortmess = 'mrwaoOsTFS'
 vim.opt.showbreak = '↪'
 vim.opt.showcmd = false
+vim.opt.showmode = false
 vim.opt.signcolumn = 'auto'
 vim.opt.smartindent = true
 vim.opt.smoothscroll = true
