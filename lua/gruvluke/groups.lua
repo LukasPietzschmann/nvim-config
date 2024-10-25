@@ -73,7 +73,7 @@ M.setup = function()
 		TabWinSel = { link = 'TabLineSel' },
 		TabWin = { link = 'TabLineSel' },
 		MatchParen = { bg = colors.bg3, bold = true },
-		ColorColumn = { bg = colors.bg1 },
+		ColorColumn = { bg = colors.color_column },
 		Conceal = { fg = colors.blue },
 		CursorLineNr = { fg = colors.fg3 },
 		NonText = { link = 'GruvlukeBg2' },
