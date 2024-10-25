@@ -100,7 +100,7 @@ M.setup = function()
 		WarningMsg = { link = 'GruvlukeRedBold' },
 		LineNr = { fg = colors.bg2 },
 		SignColumn = { link = 'Normal' },
-		Folded = { fg = colors.gray, italic = true },
+		Folded = { italic = true, bg = colors.blue_blend },
 		FoldColumn = { link = 'LineNr' },
 		Cursor = { reverse = false },
 		vCursor = { link = 'Cursor' },
@@ -202,7 +202,7 @@ M.setup = function()
 		-- @punctuation.delimiter ; delimiters (e.g. `;` / `.` / `,`)
 		['@punctuation.delimiter'] = { link = 'Comment' },
 		-- @punctuation.bracket   ; brackets (e.g. `()` / `{}` / `[]`)
-		['@punctuation.bracket'] = { link = 'Normal' },
+		['@punctuation.bracket'] = { fg = colors.fg1 },
 		-- @punctuation.special   ; special symbols (e.g. `{}` in string interpolation)
 		['@punctuation.special'] = { link = 'Delimiter' },
 

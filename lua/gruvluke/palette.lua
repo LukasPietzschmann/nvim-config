@@ -67,7 +67,9 @@ M.get_base_colors = function(bg)
 			neutral_purple = p.neutral_purple,
 			neutral_aqua = p.neutral_aqua,
 			gray = p.dark4,
-			visual = '#442e2d'
+			visual = '#442e2d',
+			blue_blend = '#262D2C',
+			color_column = '#1f1f1f'
 		},
 		light = {
 			bg0 = "#ffffff",
@@ -94,7 +96,9 @@ M.get_base_colors = function(bg)
 			neutral_purple = p.neutral_purple,
 			neutral_aqua = p.neutral_aqua,
 			gray = p.light4,
-			visual = '#f0ddc3'
+			visual = '#f0ddc3',
+			blue_blend = '#E8F1F3',
+			color_column = '#fafafa'
 		},
 	}
 
