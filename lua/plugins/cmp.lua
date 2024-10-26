@@ -6,19 +6,18 @@ return {
 		local cmp = require 'cmp'
 		local luasnip = lazy_require 'luasnip'
 		local lspkind = require 'lspkind'
+
 		return {
 			enabled = function()
-				if vim.api.nvim_get_mode().mode == 'c' then
+				if vim.api.nvim_get_mode().mode == 'c' then --command-line editing
 					return true
-				else
-					local context = require 'cmp.config.context'
-					return not context.in_treesitter_capture 'comment' and not context.in_syntax_group 'Comment'
 				end
+
+				local context = require 'cmp.config.context'
+				return not context.in_treesitter_capture 'comment' and not context.in_syntax_group 'Comment'
 			end,
 			preselect = cmp.PreselectMode.Item,
-			completion = {
-				autocomplete = false,
-			},
+			completion = { autocomplete = false },
 			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
@@ -29,9 +28,9 @@ return {
 				documentation = cmp.config.window.bordered(),
 			},
 			matching = {
-				disallow_fuzzy_matching = true,
-				disallow_fullfuzzy_matching = true,
-				disallow_partial_fuzzy_matching = true,
+				disallow_fuzzy_matching = false,
+				disallow_fullfuzzy_matching = false,
+				disallow_partial_fuzzy_matching = false,
 				disallow_partial_matching = true,
 				disallow_prefix_unmatching = false,
 			},
@@ -75,6 +74,17 @@ return {
 					cmp.config.compare.offset,
 					cmp.config.compare.exact,
 					cmp.config.compare.score,
+					function(entry1, entry2)
+						local _, entry1_under = entry1.completion_item.label:find '^_+'
+						local _, entry2_under = entry2.completion_item.label:find '^_+'
+						entry1_under = entry1_under or 0
+						entry2_under = entry2_under or 0
+						if entry1_under > entry2_under then
+							return false
+						elseif entry1_under < entry2_under then
+							return true
+						end
+					end,
 					cmp.config.compare.kind,
 					cmp.config.compare.sort_text,
 					cmp.config.compare.length,
@@ -97,9 +107,6 @@ return {
 					},
 				},
 			},
-			experimental = {
-				ghost_text = true,
-			},
 		}
 	end,
 	config = function(_, opts)
@@ -107,19 +114,53 @@ return {
 		local cmp_autopairs = lazy_require 'nvim-autopairs.completion.cmp'
 
 		cmp.setup(opts)
+		cmp.setup.cmdline({ '/', '?' }, {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = cmp.config.sources {
+				{ name = 'buffer' },
+			},
+			completion = { autocomplete = { 'TextChanged' } },
+			formatting = {
+				expandable_indicator = true,
+				fields = { 'abbr', 'kind', 'menu' },
+				format = function(_, vim_item)
+					vim_item.kind = nil
+					return vim_item
+				end,
+			},
+			window = { completion = cmp.config.window.bordered { border = 'none', scrollbar = false } },
+		})
+		cmp.setup.cmdline(':', {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = cmp.config.sources {
+				{ name = 'path' },
+				{ name = 'cmdline' },
+			},
+			completion = { autocomplete = { 'TextChanged' } },
+			matching = { disallow_symbol_nonprefix_matching = false },
+			formatting = {
+				format = function(_, vim_item)
+					vim_item.kind = nil
+					return vim_item
+				end,
+			},
+			window = { completion = cmp.config.window.bordered { border = 'none', scrollbar = false } },
+		})
 
 		cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
-		cmp.event:on('menu_opened', function()
+		-- Disabled because of https://github.com/hrsh7th/nvim-cmp/issues/1187
+		--[[ cmp.event:on('menu_opened', function()
 			vim.b.copilot_suggestion_hidden = true
 		end)
 
 		cmp.event:on('menu_closed', function()
 			vim.b.copilot_suggestion_hidden = false
-		end)
+		end) ]]
 	end,
 	dependencies = {
 		'hrsh7th/cmp-path',
 		'hrsh7th/cmp-buffer',
+		'hrsh7th/cmp-cmdline',
 		'saadparwaiz1/cmp_luasnip',
 		'hrsh7th/cmp-nvim-lsp',
 		'ray-x/cmp-treesitter',
