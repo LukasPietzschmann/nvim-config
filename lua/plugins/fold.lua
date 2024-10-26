@@ -1,6 +1,6 @@
 local virt_text = function(virtText, lnum, endLnum, width, truncate)
 	local newVirtText = {}
-	local suffix = (' 󰁂 %d '):format(endLnum - lnum)
+	local suffix = ('󰁂 %d '):format(endLnum - lnum)
 	local sufWidth = vim.fn.strdisplaywidth(suffix)
 	local targetWidth = width - sufWidth
 	local curWidth = 0
@@ -9,7 +9,7 @@ local virt_text = function(virtText, lnum, endLnum, width, truncate)
 		local hlGroup = chunk[2]
 		local chunkWidth = vim.fn.strdisplaywidth(chunkText)
 		if targetWidth > curWidth + chunkWidth then
-			table.insert(newVirtText, { chunkText, hlGroup })
+			table.insert(newVirtText, { chunkText, 'Folded' })
 		else
 			chunkText = truncate(chunkText, targetWidth - curWidth)
 			table.insert(newVirtText, { chunkText, hlGroup })
@@ -21,7 +21,10 @@ local virt_text = function(virtText, lnum, endLnum, width, truncate)
 		end
 		curWidth = curWidth + chunkWidth
 	end
-	table.insert(newVirtText, { suffix, 'MoreMsg' })
+	local ralign = math.max(math.min(vim.opt.textwidth:get(), width - 1) - curWidth - sufWidth, 0)
+	local padding = ' ' .. ('·'):rep(ralign - 2) .. ' '
+	table.insert(newVirtText, { padding, 'Folded' })
+	table.insert(newVirtText, { suffix, 'Folded' })
 	return newVirtText
 end
 
