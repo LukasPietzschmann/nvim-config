@@ -154,7 +154,6 @@ return {
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
 			'SmiteshP/nvim-navic',
-			'mrded/nvim-lsp-notify',
 		},
 	},
 	{
@@ -332,9 +331,5 @@ return {
 				winbar = { enable = true },
 			}
 		end,
-	},
-	{
-		'mrded/nvim-lsp-notify',
-		dependencies = { 'rcarriga/nvim-notify' },
 	},
 }
