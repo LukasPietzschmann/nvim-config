@@ -42,6 +42,7 @@ vim.opt.mouse = 'a'
 vim.opt.mousefocus = true
 vim.opt.mousemodel = 'extend'
 vim.opt.number = true
+vim.opt.pumheight = 17
 vim.opt.report = 0
 vim.opt.scrolloff = 4
 vim.opt.shiftwidth = 0

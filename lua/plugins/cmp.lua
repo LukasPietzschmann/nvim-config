@@ -16,6 +16,7 @@ return {
 				local context = require 'cmp.config.context'
 				return not context.in_treesitter_capture 'comment' and not context.in_syntax_group 'Comment'
 			end,
+			performance = { fetching_timeout = 5000 },
 			preselect = cmp.PreselectMode.Item,
 			completion = { autocomplete = false },
 			snippet = {
@@ -119,16 +120,12 @@ return {
 			sources = cmp.config.sources {
 				{ name = 'buffer' },
 			},
-			completion = { autocomplete = { 'TextChanged' } },
 			formatting = {
-				expandable_indicator = true,
-				fields = { 'abbr', 'kind', 'menu' },
 				format = function(_, vim_item)
 					vim_item.kind = nil
 					return vim_item
 				end,
 			},
-			window = { completion = cmp.config.window.bordered { border = 'none', scrollbar = false } },
 		})
 		cmp.setup.cmdline(':', {
 			mapping = cmp.mapping.preset.cmdline(),
@@ -136,15 +133,12 @@ return {
 				{ name = 'path' },
 				{ name = 'cmdline' },
 			},
-			completion = { autocomplete = { 'TextChanged' } },
-			matching = { disallow_symbol_nonprefix_matching = false },
 			formatting = {
 				format = function(_, vim_item)
 					vim_item.kind = nil
 					return vim_item
 				end,
 			},
-			window = { completion = cmp.config.window.bordered { border = 'none', scrollbar = false } },
 		})
 
 		cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
