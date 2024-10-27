@@ -61,6 +61,17 @@ return {
 			table.insert(vimgrep_arguments, '--hidden')
 			table.insert(vimgrep_arguments, '--follow')
 			table.insert(vimgrep_arguments, '--smart-case')
+
+			local default_open_mappings = {
+				i = {
+					['<CR>'] = 'select_drop',
+					['t<CR>'] = 'select_tab_drop',
+					['v<CR>'] = 'select_vertical',
+					['s<CR>'] = 'select_vertical',
+					['h<CR>'] = 'select_horizontal',
+				},
+			}
+
 			return {
 				defaults = {
 					theme = 'dropdown',
@@ -99,19 +110,13 @@ return {
 						follow = true,
 						no_ignore = false,
 						no_ignore_parent = false,
-						mappings = {
-							i = { ['<CR>'] = 'select_drop' }
-						},
+						mappings = default_open_mappings,
 					},
 					live_grep = {
-						mappings = {
-							i = { ['<CR>'] = 'select_drop' }
-						},
+						mappings = default_open_mappings,
 					},
 					lsp_dynamic_workspace_symbols = {
-						mappings = {
-							i = { ['<CR>'] = 'select_drop' }
-						},
+						mappings = default_open_mappings,
 					},
 				},
 			}
