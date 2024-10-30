@@ -1,6 +1,9 @@
 return {
 	'hrsh7th/nvim-cmp',
-	keys = { '<C-Space>', mode = 'i' },
+	keys = {
+		{ '<C-Space>', mode = 'i' },
+		{ '<Tab>', mode = 'c' },
+	},
 	event = 'InsertEnter',
 	opts = function()
 		local cmp = require 'cmp'
