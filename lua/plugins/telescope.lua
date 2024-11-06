@@ -65,10 +65,8 @@ return {
 			local default_open_mappings = {
 				i = {
 					['<CR>'] = 'select_drop',
-					['t<CR>'] = 'select_tab_drop',
-					['v<CR>'] = 'select_vertical',
-					['s<CR>'] = 'select_vertical',
-					['h<CR>'] = 'select_horizontal',
+					['<C-s>'] = 'select_vertical',
+					['<C-h>'] = 'select_horizontal',
 				},
 			}
 
