@@ -43,26 +43,6 @@ return {
 			Space(2),
 		}
 
-		local Navic = {
-			condition = function()
-				return is_plugin_loaded 'nvim-navic' and require('nvim-navic').is_available()
-			end,
-			update = 'CursorMoved',
-			Space(2),
-			{
-				provider = function()
-					local ratio = 0.5
-					local navic_text = require('nvim-navic').get_location()
-					if conditions.width_percent_below(#navic_text, ratio) then
-						return navic_text
-					else
-						return navic_text
-						-- return truncate(navic_text, vim.api.nvim_win_get_width(0) * ratio)
-					end
-				end,
-			},
-		}
-
 		local Git = {
 			condition = conditions.is_git_repo,
 			init = function(self)
@@ -102,7 +82,6 @@ return {
 				hl = { fg = 'fg4', bg = 'bg1' },
 				Mode,
 				Git,
-				Navic,
 				Fill,
 				Copilot,
 				Diagnostics,

@@ -1,8 +1,4 @@
-local function on_attach(client, bufnr)
-	if client.server_capabilities.documentSymbolProvider then
-		require('nvim-navic').attach(client, bufnr)
-	end
-end
+local function on_attach(client, bufnr) end
 
 local required_tools = lazy_require 'required-tools'
 
@@ -149,11 +145,9 @@ return {
 		end,
 		dependencies = {
 			'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-			'SmiteshP/nvim-navic',
 			'hrsh7th/cmp-nvim-lsp',
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
-			'SmiteshP/nvim-navic',
 		},
 	},
 	{
@@ -202,42 +196,6 @@ return {
 				table.unpack(required_tools.linter),
 			},
 			run_on_start = false,
-		},
-	},
-	{
-		'SmiteshP/nvim-navic',
-		opts = {
-			depth_limit = 4,
-			depth_limit_indicator = '..',
-			click = true,
-			icons = {
-				File = '',
-				Module = '',
-				Namespace = '',
-				Package = '',
-				Class = '',
-				Method = '',
-				Property = '',
-				Field = '',
-				Constructor = '',
-				Enum = '',
-				Interface = '',
-				Function = '',
-				Variable = '',
-				Constant = '',
-				String = '',
-				Number = '',
-				Boolean = '',
-				Array = '',
-				Object = '',
-				Key = '',
-				Null = '',
-				EnumMember = '',
-				Struct = '',
-				Event = '',
-				Operator = '',
-				TypeParameter = '',
-			},
 		},
 	},
 	{
