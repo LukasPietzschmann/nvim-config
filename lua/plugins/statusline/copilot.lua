@@ -8,64 +8,36 @@ local function is_current_buffer_attached()
 end
 
 local function is_enabled()
-	if client.is_disabled() then
-		return false
-	end
-
-	if not is_current_buffer_attached() then
-		return false
-	end
-
-	return true
+	return not client.is_disabled() and is_current_buffer_attached()
 end
 
 local function is_error()
-	if client.is_disabled() then
+	if not is_enabled() then
 		return false
 	end
 
-	if not is_current_buffer_attached() then
-		return false
-	end
-
-	local data = api.status.data.status
-	if data == 'Warning' then
-		return true
-	end
-
-	return false
+	local status = api.status.data.status
+	return status == 'Warning'
 end
 
 local function is_loading()
-	if client.is_disabled() then
+	if not is_enabled() then
 		return false
 	end
 
-	if not is_current_buffer_attached() then
-		return false
-	end
-
-	local data = api.status.data.status
-	if data == 'InProgress' then
-		return true
-	end
-
-	return false
+	local status = api.status.data.status
+	return status == 'InProgress'
 end
 
 local function is_sleep()
-	if client.is_disabled() then
+	if not is_enabled() then
 		return false
 	end
 
-	if not is_current_buffer_attached() then
-		return false
+	if vim.b.copilot_suggestion_auto_trigger ~= nil then
+		return vim.b.copilot_suggestion_auto_trigger
 	end
-
-	if vim.b.copilot_suggestion_auto_trigger == nil then
-		return require('copilot.config').get('suggestion').auto_trigger
-	end
-	return vim.b.copilot_suggestion_auto_trigger
+	return require('copilot.config').get('suggestion').auto_trigger
 end
 
 local attached = false
@@ -95,18 +67,18 @@ M.Copilot = {
 		end,
 	},
 	provider = function()
-		if not attached or not is_plugin_loaded 'copilot.lua' then
-			return icons.copilot.unknown
+		if not attached or not is_plugin_loaded 'copilot.lua' or not is_enabled() then
+			return icons.copilot.disabled
 		elseif is_loading() then
 			return '…'
 		elseif is_error() then
 			return icons.copilot.warning
-		elseif not is_enabled() then
-			return icons.copilot.disabled
 		elseif is_sleep() then
 			return icons.copilot.sleep
-		else
+		elseif is_enabled() then
 			return icons.copilot.enabled
+		else
+			return icons.copilot.unknown
 		end
 	end,
 	Space(2),
