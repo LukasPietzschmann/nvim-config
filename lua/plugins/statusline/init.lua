@@ -63,7 +63,7 @@ return {
 		local SearchCount = {
 			condition = function(self)
 				local search = vim.fn.searchcount { maxcount = 99999 }
-				if search.total > 0 then
+				if search.total ~= nil and search.total > 0 then
 					self.search = search
 					return true
 				end
