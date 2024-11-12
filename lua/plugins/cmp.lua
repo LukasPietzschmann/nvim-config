@@ -116,6 +116,12 @@ return {
 	config = function(_, opts)
 		local cmp = require 'cmp'
 		local cmp_autopairs = lazy_require 'nvim-autopairs.completion.cmp'
+		local cmdline_format = {
+			format = function(_, vim_item)
+				vim_item.kind = nil
+				return vim_item
+			end,
+		}
 
 		cmp.setup(opts)
 		cmp.setup.cmdline({ '/', '?' }, {
@@ -123,25 +129,26 @@ return {
 			sources = cmp.config.sources {
 				{ name = 'buffer' },
 			},
-			formatting = {
-				format = function(_, vim_item)
-					vim_item.kind = nil
-					return vim_item
-				end,
-			},
+			formatting = cmdline_format,
 		})
 		cmp.setup.cmdline(':', {
-			mapping = cmp.mapping.preset.cmdline(),
+			mapping = cmp.mapping.preset.cmdline {
+				['<Tab>'] = {
+					c = function()
+						if cmp.visible() then
+							cmp.select_next_item()
+						else
+							cmp.complete()
+							cmp.select_next_item { count = 0 } -- select first item
+						end
+					end,
+				},
+			},
 			sources = cmp.config.sources {
 				{ name = 'path' },
 				{ name = 'cmdline' },
 			},
-			formatting = {
-				format = function(_, vim_item)
-					vim_item.kind = nil
-					return vim_item
-				end,
-			},
+			formatting = cmdline_format,
 		})
 
 		cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
