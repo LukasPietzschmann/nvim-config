@@ -8,9 +8,21 @@ local theme = {
 	tail = 'TabLine',
 }
 
+local ignore_win_prefixes = { 'neo-tree', 'Trouble' }
+
+local function filter_wins(wins)
+	local win_name = require 'tabby.feature.win_name'
+
+	return filter(wins, function(win)
+		local name = win_name.get(win)
+		return not any(startswith(name), ignore_win_prefixes)
+	end)
+end
+
 local function get_tab_modifiers(tab)
 	local api = require 'tabby.module.api'
-	local wins = api.get_tab_wins(tab.id)
+
+	local wins = filter_wins(api.get_tab_wins(tab.id))
 	local one_has_changed = false
 	for _, win in pairs(wins) do
 		local buf = api.get_win_buf(win)
@@ -30,6 +42,19 @@ local function get_tab_modifiers(tab)
 		return ''
 	else
 		return '[' .. table.concat(results, ',') .. '] '
+	end
+end
+
+local function get_tab_name(id)
+	local api = require 'tabby.module.api'
+	local win_name = require 'tabby.feature.win_name'
+
+	local wins = filter_wins(api.get_tab_wins(id))
+	local cur_win = wins[1] or api.get_tab_current_win(id)
+	if api.is_float_win(cur_win) then
+		return '[Floating]'
+	else
+		return win_name.get(cur_win)
 	end
 end
 
@@ -80,10 +105,8 @@ end
 return {
 	'nanozuki/tabby.nvim',
 	event = 'VeryLazy',
-	config = function()
-		local ignore_win_prefixes = { 'neo-tree', 'Trouble' }
-
-		require('tabby.tabline').set(function(line)
+	opts = {
+		line = function(line)
 			return {
 				{
 					{ ' 😻 ', hl = theme.head },
@@ -99,7 +122,7 @@ return {
 					return {
 						not are_windows_shown and render_tab(line, {
 							get_tab_modifiers(tab),
-							tab.name(),
+							get_tab_name(tab.id),
 						}, tab.is_current()) or foreach(filtered_wins, function(is_first, is_last, win)
 							return render_window(line, {
 								get_win_modifiers(win),
@@ -110,7 +133,8 @@ return {
 				end),
 				hl = theme.fill,
 			}
-		end, {
+		end,
+		{
 			buf_name = {
 				mode = 'unique',
 			},
@@ -125,6 +149,6 @@ return {
 					end
 				end,
 			},
-		})
-	end,
+		},
+	},
 }
