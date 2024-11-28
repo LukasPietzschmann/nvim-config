@@ -62,6 +62,10 @@ return {
 
 		local SearchCount = {
 			condition = function(self)
+				if vim.v.hlsearch ~= 1 then
+					return false
+				end
+
 				local search = vim.fn.searchcount { maxcount = 99999 }
 				if search.total ~= nil and search.total > 0 then
 					self.search = search
