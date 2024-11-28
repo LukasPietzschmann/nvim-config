@@ -32,6 +32,15 @@ vim.api.nvim_create_autocmd('User', {
 	end,
 })
 
+local marks = lazy_require 'marks'
+vim.api.nvim_create_autocmd('BufEnter', {
+	pattern = '*',
+	group = vim.api.nvim_create_augroup('Marks', { clear = true }),
+	callback = function(args)
+		marks.BufWinEnterHandler(args)
+	end,
+})
+
 local make_on_set = { 'n', 'N', '*', '#', '?', '/' }
 local keep_on_set = vim.list_extend({ '<C-E>', '<C-Y>', '<ScrollWheelUp>', '<ScrollWheelDown>' }, make_on_set)
 vim.on_key(function(char)

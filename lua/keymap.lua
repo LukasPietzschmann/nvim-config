@@ -11,7 +11,7 @@ vim.keymap.set('n', '<C-s><Left>', '<cmd>:tabp<CR>')
 vim.keymap.set('n', '<C-s>s', '<cmd>:tabe<CR>')
 vim.keymap.set('n', '<C-s>c', '<cmd>:tabc<CR>')
 
-vim.keymap.set('n', 'gm', 'm')
+-- vim.keymap.set('n', 'gm', 'm')
 vim.keymap.set('n', 'm', 'd')
 vim.keymap.set('x', 'm', 'd')
 vim.keymap.set('n', 'mm', 'dd')
