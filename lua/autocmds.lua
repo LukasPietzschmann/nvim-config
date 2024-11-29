@@ -52,3 +52,20 @@ vim.on_key(function(char)
 		vim.opt.hlsearch = new_value
 	end
 end, vim.api.nvim_create_namespace 'auto_hlsearch')
+
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = 'bigfile',
+	group = vim.api.nvim_create_augroup('bigfile', { clear = true }),
+	callback = function(ev)
+		local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(ev.buf), ':p:~:.')
+		vim.notify('Big file detected.', 'info', {
+			title = 'Big File',
+			details = ('Big file detected `%s`.'):format(path),
+		})
+		vim.api.nvim_buf_call(ev.buf, function()
+			vim.schedule(function()
+				vim.bo[ev.buf].syntax = vim.filetype.match { buf = ev.buf } or ''
+			end)
+		end)
+	end,
+})
