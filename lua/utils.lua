@@ -56,6 +56,7 @@ function any(p, tab)
 	return false
 end
 
+-- Created here, as utils.lua is loaded before everything else (especially before plugins)
 CloseStuffBeforeExitGroup = vim.api.nvim_create_augroup('CloseStuffBeforeExit', { clear = true })
 
 icons = {

@@ -1,3 +1,5 @@
+-- TODO: Dressing is archived!
+-- https://github.com/stevearc/dressing.nvim/issues/190
 return {
 	'stevearc/dressing.nvim',
 	init = function()

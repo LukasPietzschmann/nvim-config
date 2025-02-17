@@ -35,12 +35,14 @@ vim.api.nvim_create_autocmd('User', {
 local marks = lazy_require 'marks'
 vim.api.nvim_create_autocmd('BufEnter', {
 	pattern = '*',
+	desc = 'Refresh marks in buffer',
 	group = vim.api.nvim_create_augroup('Marks', { clear = true }),
 	callback = function(args)
 		marks.BufWinEnterHandler(args)
 	end,
 })
 
+-- Disable "hlsearch" after searching has finished
 local make_on_set = { 'n', 'N', '*', '#', '?', '/' }
 local keep_on_set = vim.list_extend({ '<C-E>', '<C-Y>', '<ScrollWheelUp>', '<ScrollWheelDown>' }, make_on_set)
 vim.on_key(function(char)
@@ -55,6 +57,7 @@ end, vim.api.nvim_create_namespace 'auto_hlsearch')
 
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = 'bigfile',
+	desc = 'Disanle syntax highlightin on large files',
 	group = vim.api.nvim_create_augroup('bigfile', { clear = true }),
 	callback = function(ev)
 		local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(ev.buf), ':p:~:.')
