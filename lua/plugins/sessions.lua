@@ -2,7 +2,7 @@ return {
 	'rmagatti/auto-session',
 	cmd = { 'SessionSave', 'SessionRestore', 'SessionRestoreFromFile', 'SessionDelete', 'Autosession' },
 	keys = { {
-		'<A-o>',
+		'<A-s>',
 		function()
 			require('auto-session.session-lens').search_session {}
 		end,

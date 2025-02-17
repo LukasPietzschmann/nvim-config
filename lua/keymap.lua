@@ -26,6 +26,29 @@ vim.keymap.set('n', '>', '>>')
 vim.keymap.set('n', 'x', '"_x')
 vim.keymap.set('x', 'p', '"_dP')
 
+-- Quickfix
+vim.keymap.set('n', '<A-n>', '<cmd>:cnext<CR>')
+vim.keymap.set('n', '<A-p>', '<cmd>:cprev<CR>')
+vim.keymap.set('n', '<A-o>', function()
+	if vim.tbl_isempty(vim.fn.getqflist()) then
+		vim.notify('Quickfix list is empty', 'warn')
+		return
+	end
+
+	local qf_exists = false
+	for _, win in pairs(vim.fn.getwininfo()) do
+		if win['quickfix'] == 1 then
+			qf_exists = true
+		end
+	end
+
+	if qf_exists then
+		vim.cmd 'cclose'
+	else
+		vim.cmd 'copen'
+	end
+end)
+
 vim.cmd [[
 fun! SetupCommandAlias(from, to)
 	exec 'cnoreabbrev <expr> '.a:from

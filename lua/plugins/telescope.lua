@@ -79,6 +79,9 @@ return {
 							['<esc>'] = function(...)
 								actions.close(...)
 							end,
+							['<C-l>'] = function(...)
+								actions.send_to_qflist(...)
+							end,
 						},
 					},
 					vimgrep_arguments = vimgrep_arguments,
