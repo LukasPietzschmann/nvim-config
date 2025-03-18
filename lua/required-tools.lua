@@ -3,14 +3,15 @@ local M = {}
 M.lsps = {
 	'clangd',
 	'cmake',
+	'gopls',
 	'hls',
 	'lua_ls',
 	'marksman',
 	'pyright',
+	'r_language_server',
 	'texlab',
 	'ts_ls',
 	'vimls',
-	'r_language_server',
 	'zls',
 }
 
@@ -55,6 +56,7 @@ M.parsers = {
 	'gitignore',
 	'regex',
 	'r',
+	'go',
 	'svelte',
 	'zig',
 }

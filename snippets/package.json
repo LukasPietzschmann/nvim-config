@@ -24,6 +24,10 @@
       {
         "language": "typescript",
         "path": "./typescript.json"
+      },
+      {
+        "language": "go",
+        "path": "./go.json"
       }
     ]
   }

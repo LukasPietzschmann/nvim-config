@@ -30,6 +30,7 @@ return {
 				svelte = { require('formatter.filetypes.svelte').prettier },
 				r = { require('formatter.filetypes.r').styler },
 				zig = { require('formatter.filetypes.zig').zigfmt },
+				go = { require('formatter.filetypes.go').gofmt },
 				-- TODO: change formatter in hls settings
 				haskell = { require('formatter.filetypes.haskell').stylish_haskell },
 				--[[ haskell = {
