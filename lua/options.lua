@@ -57,6 +57,7 @@ vim.opt.splitbelow = true
 vim.opt.splitkeep = 'screen'
 vim.opt.splitright = true
 vim.opt.syntax = 'on'
+vim.opt.tabclose = 'uselast'
 vim.opt.tabstop = 4
 vim.opt.termguicolors = true
 vim.opt.termsync = true
@@ -67,6 +68,7 @@ vim.opt.undofile = true
 vim.opt.updatetime = 2000
 vim.opt.wildmode = { 'longest', 'list', 'lastused' }
 vim.opt.winbar = '%{%v:lua.WinbarContent()%}'
+vim.opt.winborder = '' -- when set to 'rounded' windows like telescope look strange
 vim.opt.wrap = false
 
 vim.g.loaded_node_provider = 0

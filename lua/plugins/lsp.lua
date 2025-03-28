@@ -19,17 +19,24 @@ return {
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = nil })
 			end)
 			-- vim.keymap.set('n', '<C-a>', vim.lsp.buf.hover, bufopts) -- See fold.lua
-			vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-				border = 'rounded',
-				focusable = false,
-			})
-			vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-				border = 'rounded',
-				focusable = false,
-			})
 			vim.lsp.inlay_hint.enable(false, {
 				bufnr = nil,
 			})
+
+			vim.diagnostic.config {
+				underline = false,
+				severity_sort = true,
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = icons.diagnostics.error,
+						[vim.diagnostic.severity.WARN] = icons.diagnostics.warning,
+						[vim.diagnostic.severity.INFO] = icons.diagnostics.info,
+						[vim.diagnostic.severity.HINT] = icons.diagnostics.hint,
+					},
+				},
+				virtual_text = false,
+				virtual_lines = true,
+			}
 		end,
 		config = function()
 			local capabilities =
@@ -145,7 +152,6 @@ return {
 			lspconfig.zls.setup { capabilities = capabilities, on_attach = on_attach }
 		end,
 		dependencies = {
-			'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
 			'hrsh7th/cmp-nvim-lsp',
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
@@ -198,15 +204,6 @@ return {
 			},
 			run_on_start = false,
 		},
-	},
-	{
-		'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-		config = function()
-			require('lsp_lines').setup()
-			vim.diagnostic.config {
-				virtual_text = false,
-			}
-		end,
 	},
 	{
 		'dnlhc/glance.nvim',
