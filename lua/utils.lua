@@ -58,6 +58,7 @@ end
 
 -- Created here, as utils.lua is loaded before everything else (especially before plugins)
 CloseStuffBeforeExitGroup = vim.api.nvim_create_augroup('CloseStuffBeforeExit', { clear = true })
+HideCopilotOnCompletion = vim.api.nvim_create_augroup('HideCopilotOnComp', { clear = true })
 
 icons = {
 	tools = {
