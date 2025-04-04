@@ -1,12 +1,6 @@
 return {
 	'rmagatti/auto-session',
 	cmd = { 'SessionSave', 'SessionRestore', 'SessionRestoreFromFile', 'SessionDelete', 'Autosession' },
-	keys = { {
-		'<A-s>',
-		function()
-			require('auto-session.session-lens').search_session {}
-		end,
-	} },
 	opts = {
 		log_level = 'error',
 		auto_restore_last_session = false,
