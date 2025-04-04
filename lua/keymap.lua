@@ -49,15 +49,27 @@ vim.keymap.set('n', '<A-o>', function()
 	end
 end)
 
-vim.cmd [[
-fun! SetupCommandAlias(from, to)
-	exec 'cnoreabbrev <expr> '.a:from
-		\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
-		\ .'? ("'.a:to.'") : ("'.a:from.'"))'
-endfun
-call SetupCommandAlias("w","update")
-call SetupCommandAlias("W","w")
-call SetupCommandAlias("Wa","wa")
-call SetupCommandAlias("Wqa","wqa")
-call SetupCommandAlias("Qa","qa")
-]]
+local function alias(from, to)
+	vim.api.nvim_create_user_command(from, function(_)
+		vim.cmd(to)
+	end, {})
+end
+alias('W', 'w')
+alias('Wa', 'wa')
+alias('Wq', 'wq')
+alias('Wqa', 'wqa')
+alias('Qa', 'qa')
+
+
+-- vim.cmd [[
+-- fun! SetupCommandAlias(from, to)
+-- 	exec 'cnoreabbrev <expr> '.a:from
+-- 		\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+-- 		\ .'? ("'.a:to.'") : ("'.a:from.'"))'
+-- endfun
+-- call SetupCommandAlias("w","update")
+-- call SetupCommandAlias("W","w")
+-- call SetupCommandAlias("Wa","wa")
+-- call SetupCommandAlias("Wqa","wqa")
+-- call SetupCommandAlias("Qa","qa")
+-- ]]
