@@ -149,11 +149,47 @@ return {
 			lspconfig.r_language_server.setup { capabilities = capabilities, on_attach = on_attach }
 			lspconfig.gopls.setup { capabilities = capabilities, on_attach = on_attach }
 			lspconfig.zls.setup { capabilities = capabilities, on_attach = on_attach }
+			lspconfig.gradle_ls.setup { capabilities = capabilities, on_attach = on_attach }
+
+			vim.api.nvim_create_autocmd('FileType', {
+				pattern = 'java',
+				callback = function()
+					require('jdtls').start_or_attach {
+						capabilities = capabilities,
+						on_attach = on_attach,
+						cmd = {
+							'java',
+							'-javaagent:' .. vim.fn.stdpath 'data' .. '/mason/packages/jdtls/lombok.jar',
+							'-Declipse.application=org.eclipse.jdt.ls.core.id1',
+							'-Dosgi.bundles.defaultStartLevel=4',
+							'-Declipse.product=org.eclipse.jdt.ls.core.product',
+							'-Dlog.protocol=true',
+							'-Dlog.level=ALL',
+							'-Xmx10G',
+							'-Xms5G',
+							'--add-modules=ALL-SYSTEM',
+							'--add-opens',
+							'java.base/java.util=ALL-UNNAMED',
+							'--add-opens',
+							'java.base/java.lang=ALL-UNNAMED',
+							'-jar',
+							vim.fn.stdpath 'data'
+								.. '/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.1100.v20250306-0509.jar',
+							'-configuration',
+							vim.fn.stdpath 'data' .. '/mason/packages/jdtls/config_linux',
+							'-data',
+							'/home/luke/.cache/jdtls/workspace',
+						},
+						root_dir = require('jdtls.setup').find_root { '.git', 'settings.gradle', 'build.gradle' },
+					}
+				end,
+			})
 		end,
 		dependencies = {
 			'saghen/blink.cmp',
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
+			'mfussenegger/nvim-jdtls',
 		},
 	},
 	{

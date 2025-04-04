@@ -10,7 +10,17 @@ return {
 			filetype = {
 				cpp = { require('formatter.filetypes.cpp').clangformat },
 				c = { require('formatter.filetypes.c').clangformat },
-				java = { require('formatter.filetypes.java').clangformat },
+				java = {
+					{
+						exe = 'google-java-format',
+						args = {
+							'--skip-javadoc-formatting',
+							util.escape_path(util.get_current_buffer_file_path()),
+							'--replace',
+						},
+						stdin = true,
+					},
+				},
 				lua = { require('formatter.filetypes.lua').stylua },
 				python = { require('formatter.filetypes.python').black },
 				tex = { require('formatter.filetypes.latex').latexindent },
