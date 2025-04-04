@@ -37,7 +37,7 @@ local function is_sleep()
 	if vim.b.copilot_suggestion_auto_trigger ~= nil then
 		return vim.b.copilot_suggestion_auto_trigger
 	end
-	return require('copilot.config').get('suggestion').auto_trigger
+	return require('copilot.config').config.suggestion.auto_trigger
 end
 
 local attached = false
