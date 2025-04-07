@@ -1,5 +1,5 @@
 local client = lazy_require 'copilot.client'
-local api = lazy_require 'copilot.api'
+local status = lazy_require 'copilot.status'
 
 M = {}
 
@@ -16,7 +16,7 @@ local function is_error()
 		return false
 	end
 
-	local status = api.status.data.status
+	local status = status.data.status
 	return status == 'Warning'
 end
 
@@ -25,7 +25,7 @@ local function is_loading()
 		return false
 	end
 
-	local status = api.status.data.status
+	local status = status.data.status
 	return status == 'InProgress'
 end
 
@@ -37,7 +37,7 @@ local function is_sleep()
 	if vim.b.copilot_suggestion_auto_trigger ~= nil then
 		return vim.b.copilot_suggestion_auto_trigger
 	end
-	return require('copilot.config').config.suggestion.auto_trigger
+	return require('copilot.config').suggestion.auto_trigger
 end
 
 local attached = false
@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		if new_client and new_client.name == 'copilot' then
 			attached = true
 			vim.api.nvim_exec_autocmds('User', { pattern = 'CopilotStatus' })
-			api.register_status_notification_handler(function(data)
+			status.register_status_notification_handler(function(data)
 				vim.api.nvim_exec_autocmds('User', { pattern = 'CopilotStatus', data = data })
 			end)
 			return true
