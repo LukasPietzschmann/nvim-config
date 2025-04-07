@@ -3,6 +3,7 @@ local required_tools = lazy_require 'required-tools'
 return {
 	{
 		'nvim-treesitter/nvim-treesitter',
+		lazy = vim.fn.argc(-1) == 0,
 		event = { 'BufReadPre', 'BufAdd' },
 		cmd = 'TSUpdate',
 		build = ':TSUpdate',
