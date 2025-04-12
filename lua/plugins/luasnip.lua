@@ -1,5 +1,6 @@
 return {
 	'L3MON4D3/LuaSnip',
+	versuion = '*',
 	build = 'make install_jsregexp',
 	version = '*',
 	opts = function()

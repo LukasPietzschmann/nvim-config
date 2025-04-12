@@ -1,5 +1,6 @@
 return {
 	'saghen/blink.cmp',
+	version = '*',
 	event = { 'InsertEnter', 'CmdlineEnter' },
 	opts = function()
 		local suggestions = lazy_require 'copilot.suggestion'
@@ -151,9 +152,9 @@ return {
 	end,
 	opts_extend = { 'sources.default' },
 	dependencies = {
-		{ 'nvim-tree/nvim-web-devicons', version = false },
-		{ 'onsails/lspkind.nvim', version = false },
+		'nvim-tree/nvim-web-devicons',
+		'onsails/lspkind.nvim',
 		'windwp/nvim-autopairs',
-		'L3MON4D3/LuaSnip',
+		{ 'L3MON4D3/LuaSnip', version = '*' },
 	},
 }
