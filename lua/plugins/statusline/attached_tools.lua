@@ -80,11 +80,15 @@ M.Parsers = {
 
 M.Formatter = {
 	condition = function()
-		local formatter_loaded = is_plugin_loaded 'formatter.nvim'
+		local formatter_loaded = is_plugin_loaded 'conform.nvim'
 		if not formatter_loaded then
 			return false
 		end
-		return require('formatter.config').values.filetype[vim.bo.ft] ~= nil
+		local formatters = require('conform').list_formatters_to_run()
+		formatters = vim.tbl_filter(function(f)
+			return f.name ~= 'trim_whitespace'
+		end, formatters)
+		return #formatters > 0
 	end,
 	provider = icons.tools.formatter,
 	Space(2),
