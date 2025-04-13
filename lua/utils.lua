@@ -12,7 +12,8 @@ function lazy_require(require_path)
 	})
 end
 function is_plugin_loaded(name)
-	return require('lazy.core.config').plugins[name]._.loaded ~= nil
+	local plugin = require('lazy.core.config').plugins[name]
+	return plugin ~= nil and plugin._.loaded ~= nil
 end
 
 function is_contained_in(table, element)
