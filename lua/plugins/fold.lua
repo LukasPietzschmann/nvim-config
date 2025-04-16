@@ -31,6 +31,21 @@ end
 return {
 	'LukasPietzschmann/nvim-ufo',
 	event = 'VeryLazy',
+	keys = {
+		{ 'zR', function() require('ufo').openAllFolds() end },
+		{ 'zM', function() require('ufo').closeAllFolds() end },
+		{ 'zr', function() require('ufo').openFoldsExceptKinds() end },
+		{ 'zm', function() require('ufo').closeFoldsWith() end },
+		{ '<C-a>', function()
+			local winid = require('ufo').peekFoldedLinesUnderCursor()
+			if not winid then
+				vim.lsp.buf.hover({
+					border = 'rounded',
+					focusable = false,
+				})
+			end
+		end },
+	},
 	opts = {
 		close_fold_kinds_for_ft = { default = { 'imports', 'comment' } },
 		fold_virt_text_handler = virt_text,
@@ -45,20 +60,6 @@ return {
 		vim.opt.foldenable = true
 		vim.opt.foldlevel = 99
 		vim.opt.foldlevelstart = 99
-
-		vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-		vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-		vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
-		vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith)
-		vim.keymap.set('n', '<C-a>', function()
-			local winid = require('ufo').peekFoldedLinesUnderCursor()
-			if not winid then
-				vim.lsp.buf.hover({
-					border = 'rounded',
-					focusable = false,
-				})
-			end
-		end)
 	end,
 	dependencies = {
 		'kevinhwang91/promise-async',
