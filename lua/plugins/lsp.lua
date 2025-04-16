@@ -1,28 +1,70 @@
-local function on_attach(client, bufnr) end
-
 local required_tools = lazy_require 'required-tools'
 
 return {
-	-- Order should be:
-	-- 	1: mason
-	-- 	2: mason-lspconfig
-	-- 	3: lspconfig
+	-- Order:
+	-- mason
+	-- mason-lspcofig
+	-- lspconfig
 	{
 		'neovim/nvim-lspconfig',
-		event = { 'BufReadPre', 'BufAdd' },
+		keys = {
+			{ '<C-r>', vim.lsp.buf.rename },
+			{ '<M-CR>', vim.lsp.buf.code_action },
+			{ 'ht', '<cmd>ClangdSwitchSourceHeader<CR>' },
+			{
+				'<A-i>',
+				function()
+					vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = nil })
+				end,
+			},
+		},
+		cmd = { 'LspInfo', 'LspStart', 'LspStop', 'LspRestart' },
 		init = function()
-			local bufopts = { noremap = true, silent = true }
-			vim.keymap.set('n', '<C-r>', vim.lsp.buf.rename, bufopts)
-			vim.keymap.set('n', '<M-CR>', vim.lsp.buf.code_action, bufopts)
-			vim.keymap.set('n', 'ht', '<cmd>ClangdSwitchSourceHeader<CR>')
-			vim.keymap.set('n', '<A-i>', function()
-				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = nil })
-			end)
-			-- vim.keymap.set('n', '<C-a>', vim.lsp.buf.hover, bufopts) -- See fold.lua
-			vim.lsp.inlay_hint.enable(false, {
-				bufnr = nil,
-			})
+			local lspConfigPath = require('lazy.core.config').options.root .. '/nvim-lspconfig'
+			vim.opt.runtimepath:prepend(lspConfigPath) -- prepend to prioritize local configs under /lsp
 
+			-- Taken from https://github.com/Saghen/blink.cmp/blob/main/lua/blink/cmp/sources/lib/init.lua#L278
+			local capabilities = vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), {
+				textDocument = {
+					completion = {
+						completionItem = {
+							snippetSupport = true,
+							commitCharactersSupport = false,
+							documentationFormat = { 'markdown', 'plaintext' },
+							deprecatedSupport = true,
+							preselectSupport = false,
+							tagSupport = { valueSet = { 1 } },
+							insertReplaceSupport = true,
+							resolveSupport = {
+								properties = {
+									'documentation',
+									'detail',
+									'additionalTextEdits',
+									'command',
+									'data',
+								},
+							},
+							insertTextModeSupport = {
+								valueSet = { 1 },
+							},
+							labelDetailsSupport = true,
+						},
+						completionList = {
+							itemDefaults = {
+								'commitCharacters',
+								'editRange',
+								'insertTextFormat',
+								'insertTextMode',
+								'data',
+							},
+						},
+						contextSupport = true,
+						insertTextMode = 1,
+					},
+				},
+			})
+			vim.lsp.config('*', { capabilities = capabilities })
+			vim.lsp.inlay_hint.enable(false, { bufnr = nil })
 			vim.diagnostic.config {
 				underline = false,
 				severity_sort = true,
@@ -38,159 +80,6 @@ return {
 				virtual_lines = true,
 			}
 		end,
-		config = function()
-			local capabilities = require('blink.cmp').get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
-
-			local lspconfig = require 'lspconfig'
-			lspconfig.clangd.setup {
-				capabilities = { table.unpack(capabilities), offsetEncoding = 'utf-8' },
-				on_attach = on_attach,
-				cmd = {
-					'clangd',
-					'--background-index',
-					'--completion-style=detailed',
-					'--function-arg-placeholders',
-					'--header-insertion=never',
-					'--pch-storage=memory',
-					'--limit-references=100',
-					'--limit-results=20',
-					'-j=16',
-				},
-				settings = {
-					clangd = {
-						InlayHints = {
-							Designators = true,
-							Enabled = true,
-							ParameterNames = true,
-							DeducedTypes = true,
-						},
-					},
-				},
-			}
-			lspconfig.texlab.setup {
-				capabilities = capabilities,
-				on_attach = on_attach,
-				settings = {
-					texlab = {
-						auxDirectory = './aux',
-						chktex = {
-							onEdit = false,
-							onOpenAndSave = true,
-						},
-					},
-				},
-			}
-			lspconfig.lua_ls.setup {
-				capabilities = capabilities,
-				on_attach = on_attach,
-				settings = {
-					Lua = {
-						runtime = {
-							version = 'LuaJIT',
-						},
-						workspace = {
-							checkThirdParty = false,
-							library = {
-								vim.env.VIMRUNTIME,
-								vim.env.VIMRUNTIME .. '/lua',
-								table.unpack(vim.api.nvim_list_runtime_paths()),
-							},
-						},
-						telemetry = { enable = false },
-						diagnostics = {
-							disable = { 'lowercase-global' },
-						},
-						hint = { enable = true },
-					},
-				},
-			}
-			lspconfig.ts_ls.setup {
-				capabilities = capabilities,
-				on_attach = on_attach,
-				settings = {
-					completions = {
-						completeFunctionCalls = true,
-					},
-					typescript = {
-						inlayHints = {
-							includeInlayParameterNameHints = 'all',
-							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-							includeInlayFunctionParameterTypeHints = true,
-							includeInlayVariableTypeHints = true,
-							includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayFunctionLikeReturnTypeHints = true,
-							includeInlayEnumMemberValueHints = true,
-						},
-					},
-					javascript = {
-						inlayHints = {
-							includeInlayParameterNameHints = 'all',
-							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-							includeInlayFunctionParameterTypeHints = true,
-							includeInlayVariableTypeHints = true,
-							includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayFunctionLikeReturnTypeHints = true,
-							includeInlayEnumMemberValueHints = true,
-						},
-					},
-				},
-			}
-			lspconfig.hls.setup { capabilities = capabilities, on_attach = on_attach }
-			lspconfig.pyright.setup { capabilities = capabilities, on_attach = on_attach }
-			lspconfig.marksman.setup { capabilities = capabilities, on_attach = on_attach }
-			lspconfig.cmake.setup { capabilities = capabilities, on_attach = on_attach }
-			lspconfig.vimls.setup { capabilities = capabilities, on_attach = on_attach }
-			lspconfig.r_language_server.setup { capabilities = capabilities, on_attach = on_attach }
-			lspconfig.gopls.setup { capabilities = capabilities, on_attach = on_attach }
-			lspconfig.zls.setup { capabilities = capabilities, on_attach = on_attach }
-			lspconfig.gradle_ls.setup { capabilities = capabilities, on_attach = on_attach }
-
-			vim.api.nvim_create_autocmd('FileType', {
-				pattern = 'java',
-				callback = function()
-					require('jdtls').start_or_attach {
-						capabilities = capabilities,
-						on_attach = on_attach,
-						cmd = {
-							'java',
-							'-javaagent:' .. vim.fn.stdpath 'data' .. '/mason/packages/jdtls/lombok.jar',
-							'-Declipse.application=org.eclipse.jdt.ls.core.id1',
-							'-Dosgi.bundles.defaultStartLevel=4',
-							'-Declipse.product=org.eclipse.jdt.ls.core.product',
-							'-Dlog.protocol=true',
-							'-Dlog.level=ALL',
-							'-Xmx10G',
-							'-Xms5G',
-							'--add-modules=ALL-SYSTEM',
-							'--add-opens',
-							'java.base/java.util=ALL-UNNAMED',
-							'--add-opens',
-							'java.base/java.lang=ALL-UNNAMED',
-							'-jar',
-							vim.fn.stdpath 'data'
-								.. '/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.1100.v20250306-0509.jar',
-							'-configuration',
-							vim.fn.stdpath 'data' .. '/mason/packages/jdtls/config_linux',
-							'-data',
-							'/home/luke/.cache/jdtls/workspace',
-						},
-						root_dir = require('jdtls.setup').find_root { '.git', 'settings.gradle', 'build.gradle' },
-					}
-				end,
-			})
-		end,
-		dependencies = {
-			'saghen/blink.cmp',
-			'williamboman/mason.nvim',
-			'williamboman/mason-lspconfig.nvim',
-			'mfussenegger/nvim-jdtls',
-		},
 	},
 	{
 		'williamboman/mason.nvim',
@@ -204,6 +93,20 @@ return {
 		build = function(_)
 			require('mason-tool-installer').check_install(true)
 		end,
+	},
+	{
+		'williamboman/mason-lspconfig.nvim',
+		-- lazy = false,
+		event = 'VeryLazy',
+		config = function()
+			require('mason-lspconfig').setup()
+			require('mason-lspconfig').setup_handlers {
+				function(name)
+					vim.lsp.enable(name)
+				end,
+			}
+		end,
+		dependencies = { 'williamboman/mason.nvim' },
 	},
 	{
 		'WhoIsSethDaniel/mason-tool-installer.nvim',
