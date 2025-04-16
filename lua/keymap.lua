@@ -26,6 +26,14 @@ vim.keymap.set('n', '>', '>>')
 vim.keymap.set('n', 'x', '"_x')
 vim.keymap.set('x', 'p', '"_dP')
 
+-- In and decrement
+-- incrementing numbers
+vim.api.nvim_set_keymap('n', '<C-D>', '<C-A>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-D>', '<C-A>', { noremap = true, silent = true })
+-- decrementing numbers
+vim.api.nvim_set_keymap('n', '<C-S>', '<C-X>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-S>', '<C-X>', { noremap = true, silent = true })
+
 -- Quickfix
 vim.keymap.set('n', '<A-n>', '<cmd>:cnext<CR>')
 vim.keymap.set('n', '<A-p>', '<cmd>:cprev<CR>')
