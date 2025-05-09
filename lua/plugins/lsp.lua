@@ -82,7 +82,7 @@ return {
 		end,
 	},
 	{
-		'williamboman/mason.nvim',
+		'mason-org/mason.nvim',
 		cmd = { 'Mason', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog' },
 		opts = {
 			ui = {
@@ -96,16 +96,10 @@ return {
 	},
 	{
 		'williamboman/mason-lspconfig.nvim',
-		-- lazy = false,
 		event = 'VeryLazy',
-		config = function()
-			require('mason-lspconfig').setup()
-			require('mason-lspconfig').setup_handlers {
-				function(name)
-					vim.lsp.enable(name)
-				end,
-			}
-		end,
+		opts = {
+			automatic_enable = true,
+		},
 		dependencies = { 'williamboman/mason.nvim' },
 	},
 	{
