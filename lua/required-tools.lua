@@ -6,7 +6,6 @@ M.lsps = {
 	'gopls',
 	'gradle_ls',
 	'hls',
-	'jdtls',
 	'lua_ls',
 	'marksman',
 	'pyright',
