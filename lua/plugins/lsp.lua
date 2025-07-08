@@ -88,6 +88,7 @@ return {
 			ui = {
 				border = 'rounded',
 				height = 0.8,
+				backdrop = 100,
 			},
 		},
 		build = function(_)
