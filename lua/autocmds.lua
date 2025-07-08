@@ -72,3 +72,17 @@ vim.api.nvim_create_autocmd('FileType', {
 		end)
 	end,
 })
+
+vim.api.nvim_create_user_command('Wrap', function()
+	vim.opt.wrap = true
+	local keymap = vim.keymap.set
+	keymap('n', '<Up>', 'gk', { silent = true, desc = 'Move up in wrapped line' })
+	keymap('n', '<Down>', 'gj', { silent = true, desc = 'Move down in wrapped line' })
+end, { desc = 'Enable line wrapping' })
+
+vim.api.nvim_create_user_command('Unwrap', function()
+	vim.opt.wrap = false
+	local keymap = vim.keymap.set
+	keymap('n', '<Up>', '<C-Up>', { silent = true, desc = 'Move up in file' })
+	keymap('n', '<Down>', '<C-Down>', { silent = true, desc = 'Move down in file' })
+end, { desc = 'Disable line wrapping' })
