@@ -58,7 +58,10 @@ return {
 				end,
 				['S'] = 'open_split',
 				['s'] = 'open_vsplit',
-				['t'] = 'open_tab_drop',
+				['t'] = function(state)
+					require('neo-tree.sources.filesystem.commands').open_tab_drop(state)
+					require('neo-tree.sources.common.commands').close_window(state)
+				end,
 				['d'] = 'delete',
 				['r'] = 'rename',
 				['m'] = 'move',
