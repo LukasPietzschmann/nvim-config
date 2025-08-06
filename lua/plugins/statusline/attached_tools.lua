@@ -50,10 +50,10 @@ M.Linters = {
 
 M.Parsers = {
 	condition = function(self)
-		if not is_plugin_loaded 'nvim-treesitter' then
+		if not is_plugin_loaded 'nvim-treesitter' or not has_parser() then
 			return false
 		end
-		local parser = require('nvim-treesitter.parsers').get_parser()
+		local parser = vim.treesitter.get_parser()
 		if parser == nil then
 			return false
 		end

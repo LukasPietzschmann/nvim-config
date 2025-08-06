@@ -60,3 +60,19 @@ function truncate(str, len)
 	end
 	return str
 end
+
+function has_parser()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local bufft = vim.api.nvim_get_option_value('filetype', { buf = bufnr })
+	local lang = vim.treesitter.language.get_lang(bufft)
+
+	if not lang or #lang == 0 then
+		return false
+	end
+
+	if vim._ts_has_language(lang) then
+		return true
+	end
+	-- return #parser_files[lang] > 0
+	return false
+end
