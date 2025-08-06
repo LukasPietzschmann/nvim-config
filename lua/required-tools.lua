@@ -62,6 +62,7 @@ M.parsers = {
 	'go',
 	'svelte',
 	'zig',
+	'yaml',
 }
 
 return M
