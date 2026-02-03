@@ -11,6 +11,7 @@ M.lsps = {
 	'pyright',
 	'r_language_server',
 	'texlab',
+	'tinymist',
 	'ts_ls',
 	'vimls',
 	'zls',

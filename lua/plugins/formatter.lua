@@ -7,6 +7,7 @@ return {
 		function()
 			require('conform').format()
 		end,
+		mode = { 'n', 'v' },
 	} },
 	opts = {
 		formatters_by_ft = {
@@ -19,8 +20,8 @@ return {
 			plaintex = { 'latexindent' },
 			javascript = { 'eslint_d' },
 			javascriptreact = { 'eslint_d' },
-			typescript = { 'eslint_d' },
-			typescriptreact = { 'eslint_d' },
+			typescript = { 'prettier' },
+			typescriptreact = { 'prettier' },
 			css = { 'prettier' },
 			html = { 'prettier' },
 			json = { 'prettier' },
@@ -31,6 +32,7 @@ return {
 			go = { 'gofmt' },
 			haskell = { 'stylish-haskell' },
 			markdown = { 'mdformat' },
+			nix = { 'nixfmt' },
 			['_'] = { 'trim_whitespace' },
 		},
 		default_format_opts = {

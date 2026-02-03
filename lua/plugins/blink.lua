@@ -15,7 +15,7 @@ return {
 					auto_brackets = { enabled = true },
 				},
 				menu = {
-					auto_show = false,
+					auto_show = true,
 					border = 'rounded',
 					direction_priority = { 'n', 's' },
 					draw = {
@@ -85,7 +85,7 @@ return {
 				['<Down>'] = { 'select_next', 'fallback' },
 				['<Tab>'] = {
 					function(cmp)
-						return cmp.is_visible()
+						return cmp.is_visible() -- exits if `true`
 					end,
 					'snippet_forward',
 					function()
@@ -129,7 +129,7 @@ return {
 				},
 			},
 
-			snippets = { preset = 'luasnip' },
+			snippets = { preset = 'default' }, -- vim.snippets
 
 			signature = {
 				enabled = true,
@@ -155,6 +155,5 @@ return {
 		'nvim-tree/nvim-web-devicons',
 		'onsails/lspkind.nvim',
 		'windwp/nvim-autopairs',
-		{ 'L3MON4D3/LuaSnip', version = '*' },
 	},
 }

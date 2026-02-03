@@ -24,11 +24,10 @@ return {
 
 		require('copilot').setup(opts)
 		local suggestion = lazy_require 'copilot.suggestion'
-		vim.keymap.set('i', '<Esc>', function()
+		vim.keymap.set('i', '<C-D>', function()
 			if suggestion.is_visible() then
 				suggestion.dismiss()
 			end
-			return '<Esc>'
 		end, {
 			desc = '[copilot] dismiss suggestion',
 			expr = true,
